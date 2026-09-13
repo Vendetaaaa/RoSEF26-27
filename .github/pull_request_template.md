@@ -10,7 +10,7 @@
 - [ ] Dataset
 - [ ] Baseline
 - [ ] CNN
-- [ ] Lattice / recovery experiment
+- [ ] Lattice
 - [ ] ESP32
 - [ ] Experiments
 - [ ] Documentation
