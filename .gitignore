@@ -1,1 +1,417 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
 
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+.Trash-*
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio
+.vs/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+
+
+
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled Python
+*.pyo
+*.pyd
+
+# Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+develop-eggs/
+.eggs/
+
+# Wheels
+*.whl
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# Ruff
+.ruff_cache/
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Pip logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Local Python config
+.python-version
+
+
+
+
+
+.ipynb_checkpoints/
+
+# Jupyter temporary files
+*.ipynb_checkpoints
+
+
+
+
+
+# Model checkpoints
+checkpoints/
+*.ckpt
+*.pth
+*.pt
+*.onnx
+
+# TensorFlow
+*.h5
+*.keras
+
+# Experiment tracking
+wandb/
+mlruns/
+runs/
+
+# TensorBoard
+logs/
+tensorboard/
+
+# Cache directories
+.cache/
+.cache_*
+data/raw/
+data/processed/
+
+# Generated datasets
+dataset/generated/
+dataset/raw/
+dataset/processed/
+
+# Common dataset formats
+*.parquet
+*.feather
+
+# NumPy generated data
+*.npy
+*.npz
+
+# Large binary datasets
+*.hdf5
+*.h5
+
+
+
+
+
+# Temporary experiment outputs
+tmp/
+temp/
+
+# Generated experiment runs
+experiments/output/
+experiments/runs/
+
+# Local experiment configurations
+*.local.yaml
+*.local.yml
+*.local.json
+
+
+
+
+
+results/tmp/
+results/cache/
+results/raw/
+
+# Temporary plots
+results/figures/tmp/
+
+# Temporary CSV exports
+results/tables/tmp/
+
+
+
+
+
+
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+pip-log.txt
+
+
+
+
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Secrets
+*.secret
+*.secrets
+secrets/
+credentials/
+credentials.json
+
+# API keys / local configuration
+config.local.*
+settings.local.*
+
+# Private certificates / keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+
+
+
+
+# Arduino build directories
+build/
+.arduino/
+
+# PlatformIO
+.pio/
+.piolibdeps/
+.clangd/
+.vscode/
+
+# PlatformIO generated files
+firmware/.pio/
+esp32/.pio/
+informatica/esp32/.pio/
+
+# ESP32 firmware binaries
+*.bin
+*.elf
+*.map
+*.hex
+
+# Firmware build artifacts
+firmware/build/
+esp32/build/
+
+# Arduino IDE temporary files
+*.ino.d
+
+
+
+
+
+
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+
+
+
+
+
+# Raw serial captures
+*.serial
+*.serial.txt
+*.serial.csv
+
+# Temporary measurement dumps
+acquisition/raw/
+acquisition/tmp/
+
+# Large oscilloscope exports
+*.wfm
+*.isf
+*.bin
+
+
+
+
+
+
+# LaTeX auxiliary files
+*.aux
+*.lof
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+
+# LaTeX intermediate files
+*.dvi
+*.xdv
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# LaTeX temporary
+*.log
+
+# Keep final PDFs!
+# Do NOT add *.pdf here.
+
+
+
+
+
+# MkDocs
+site/
+
+# Sphinx
+docs/_build/
+
+# Doxygen
+docs/html/
+docs/latex/
+
+
+
+
+
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+.npm/
+.yarn/
+.pnp.*
+dist/
+
+
+
+
+
+
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Generic editor backups
+*.orig
+*.rej
+
+# OS temporary
+*.cache
+
+
+
+
+
+
+
+PRIVATE/
+private/
+_local/
+local/
+
+# Personal notes
+notes-private.md
+TODO-private.md
+
+
+
+
+
+
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+
+
+
+
+
+*.mov
+*.mp4
+*.avi
+*.mkv
+
+*.tiff
+*.tif
+
+
+
+
+
+rosef_tmp/
+rosef_cache/
+*.rosef.tmp
