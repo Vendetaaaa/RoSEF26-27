@@ -11,8 +11,3 @@ Proiectul de cercetare pentru **RoSEF 2026**, constă în intersecția dintre:
 - criptografie;
 - metode numerice și algoritmi de rețele;
 - reproductibilitate științiică.
-
----
-
-## 1. Ideea proiectului
-
