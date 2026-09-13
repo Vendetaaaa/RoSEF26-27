@@ -1,1 +1,16 @@
-
+cff-version: 1.2.0
+title: "Rigiditate, Zgomot și Rețele"
+type: software
+authors:
+  - family-names: Henea
+    given-names: Rareș
+  - family-names: Standler
+    given-names: Rareș
+repository-code: "https://github.com/Vendetaaaa/rosef-2026"
+keywords:
+  - mathematics
+  - computational mathematics
+  - machine learning
+  - cryptography
+  - reproducibility
+license: MIT
