@@ -127,31 +127,48 @@ pᵢ = Rᵢq. => p − qR.
 
 [1] J. W. S. Cassels, An Introduction to Diophantine Approximation, Cambridge University
 Press, 1957.
+
 [2] J. W. S. Cassels, An Introduction to the Geometry of Numbers, Springer, 1959.
+
 [3] G. H. Hardy and E. M. Wright, An Introduction to the Theory of Numbers, 6th ed., Oxford
 University Press, 2008.
+
 [4] K. Ireland and M. Rosen, A Classical Introduction to Modern Number Theory, 2nd ed.,
 Springer, 1990.
+
 [5] A. Khintchine, “Einige Sätze über Kettenbrüche, mit Anwendungen auf die Theorie der
 Diophantischen Approximationen,” Mathematische Annalen 92 (1924), 115–125.
+
 [6] W. M. Schmidt, Diophantine Approximation, Lecture Notes in Mathematics, vol. 785,
 Springer, 1980.
+
 [7] G. Harman, Metric Number Theory, London Mathematical Society Monographs, New Series
 18, Clarendon Press, 1998.
+
 [8] V. G. Sprindzhuk, Metric Theory of Diophantine Approximations, V. H. Winston, 1979.
+
 [9] Y. Bugeaud, Approximation by Algebraic Numbers, Cambridge University Press, 2004.
+
 [10] K. F. Roth, “Rational approximations to algebraic numbers,” Mathematika 2 (1955), 1–20.
+
 [11] H. Davenport and K. F. Roth, “Rational approximations to algebraic numbers,” Mathematika
 2 (1955), 160–167.
+
 [12] M. Waldschmidt, “Report on some recent advances in Diophantine approximation,”
 arXiv:0908.3973, 2009.
+
 [13] D. Badziahin, A. Pollington, and S. Velani, “On a problem in simultaneous Diophantine
 approximation: Schmidt’s conjecture,” arXiv:1001.2694, 2010.
+
 [14] P. M. Gruber and C. G. Lekkerkerker, Geometry of Numbers, 2nd ed., North-Holland, 1987.
+
 [15] T. W. Cusick and M. E. Flahive, The Markoff and Lagrange Spectra, American Mathematical
 Society, 1989.
+
 [16] S. Korsky, “Affine Copies of Three-Point Patterns in Sets of Integers,” arXiv:2609.02308,
 2026.
+
 [17] A. Einstein, “On the Electrodynamics of Moving Bodies,” Annalen der Physik 17 (1905),
 891–921.
+
 [18] B. Schutz, A First Course in General Relativity, 2nd ed., Cambridge University Press, 2009.
