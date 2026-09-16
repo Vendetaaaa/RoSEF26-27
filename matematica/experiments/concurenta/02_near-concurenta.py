@@ -31,7 +31,7 @@ ax.annotate("(0, −41): intersecția D₂ și D₃",
             (x0, y0), xytext=(0.5, -40.2),
             arrowprops=dict(arrowstyle="->"))
 
-# d1 ∩ {-41}
+# d1 ∩ y{-41}
 x1 = np.sqrt(2) * (-41) + 58
 defect = 58 - 41 * np.sqrt(2)
 
