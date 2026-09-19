@@ -56,7 +56,23 @@ flowchart LR
     class E final;
 ```
 
-Fiecare folder și fișier are un rol în proiect.
+# Transpunerea din software în hardware
+
+O etapă fundamentală în crearea acestui proiect este de a trece experimentul pe calculator, complet simulat în Python. Din microcontroler de tip esp32, după măsurarea fizică, către trace real, urmat de CNN
+
+În software noi vom:
+    1. genera cheia și nonce-ul
+    2. executare ECDSA
+    3. calcularea modelului HW/HD
+    4. adăugarea zgomotului artificial
+Iar în hardware:
+    1. cheia & nonce-ul este procesat de microcontroler
+    2. implementare ECDSA
+    3. măsurarea consumului electric sau semnal EM ( sau ambele )
+    4. obținere de trace real
+    5. trace-ul devine input pentru CNN
+
+Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 
 <div align="center">
 
