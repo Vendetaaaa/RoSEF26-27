@@ -28,7 +28,11 @@
 ├── 📄 README.md - YOU ARE HERE 🙌
 ├── 📄 Q&A.txt
 └── 📄 requirements.txt
+
+Pentru mai multe informații accesați README.md din fiecare folder
 ```
+
+### Etica proiectului se poate găsii în docs/ethics.md
 
 ---
 
@@ -88,8 +92,9 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 
 **Vrei să ne susții? Ai mai multe opțiuni!**
 1. "Star" sau "Watch" acest proiect!
-2. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
-3. Partajează codul QR:
+2. Follow [Vendeta](https://github.com/Vendetaaaa) și [RaresInsine](https://github.com/RaresInsine)
+3. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
+4. Partajează codul QR:
 
 <div align="center">
 
