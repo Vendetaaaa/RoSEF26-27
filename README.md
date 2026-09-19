@@ -2,7 +2,7 @@
 
 # Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
 
-### Creat de Henea Rareș și Standler Rareș
+### Creat de [Henea Rareș](https://github.com/Vendetaaaa) și [Standler Rareș](https://github.com/RaresInsine)
 
 </div>
 
