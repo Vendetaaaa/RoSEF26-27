@@ -8,39 +8,41 @@
 
 </br>
 
-### Domeniile abordate: Matematică - Informatică
+### Domeniile abordate: Matematică și Informatică
 
 ## Structura proiectului:
 
+```
 📁 RoSEF26-27/
-* ├── 📁 .github/
-* ├── 📁 docs/
-* ├── 📁 informatica/
-* ├── 📁 matematica/
-* ├── 📁 misc/
-* ├── 📁 notebooks/
-* ├── 📁 results/
-* ├── 📁 tests/
-* ├── 📄 .gitignore
-* ├── 📄 CITATION.cff
-* ├── 📄 LICENSE (MIT)
-* ├── 📄 README.md - YOU ARE HERE 🙌
-* └── 📄 requirements.txt
+├── 📁 .github/
+├── 📁 docs/
+├── 📁 informatica/
+├── 📁 matematica/
+├── 📁 misc/
+├── 📁 notebooks/
+├── 📁 results/
+├── 📁 tests/
+├── 📄 .gitignore
+├── 📄 CITATION.cff
+├── 📄 LICENSE (MIT)
+├── 📄 README.md - YOU ARE HERE 🙌
+└── 📄 requirements.txt
+```
 
 ---
 
-# Idea Centrală
+# Ideea centrală
 
-Pe baza proiectului de cercetare "arithmetic_concurrence" din matematica/paper/arithmetic_concurrence.pdf demonstrează două teoreme exacte despre concurența a k
+Proiectul de cercetare "arithmetic_concurrence" din matematica/paper/arithmetic_concurrence.pdf demonstrează două teoreme exacte despre concurența a k
 familii de drepte generate de parametri mărginiți: concurența apare doar când există o relație rațională forțată între pante (1), iar pentru k familii generice, condiția devine tot mai rigidă și mai improbabilă pe măsură ce k crește (2).
 
-Acestă foaie se aseamănă foarte mult cu semnătura criptografică [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm): HNP ( [Hidden Number Problem](https://github.com/kelbyludwig/notebooks/blob/master/The%20Hidden%20Number%20Problem.ipynb) ) folosit pentru a ataca și recupera sute de chei private reale Bitcoin, Etherum și SSH prin scurgerile minore de informație de nonce.
+Această problemă se aseamănă foarte mult cu cea din atacurile asupra semnăturii criptografice [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm): HNP ( [Hidden Number Problem](https://github.com/kelbyludwig/notebooks/blob/master/The%20Hidden%20Number%20Problem.ipynb) ) folosit pentru a ataca și recupera sute de chei private reale Bitcoin, Ethereum și SSH prin scurgerile minore de informație de nonce (Breitner și Heninger, 2019, „Biased Nonce Sense”).
 
 Așadar noi urmărim:
 
 ```mermaid
 flowchart LR
-    A["① Teoria aritmetică<br/><br/>Concurență exactă → defect →<br/>aproximare Diophantină<br/><br/>Condițiile problemei"]
+    A["① Teoria aritmetică<br/><br/>Concurență exactă → defect →<br/>aproximare diofantică<br/><br/>Condițiile problemei"]
     --> B["② Modelul de scurgere<br/><br/>Urme sintetice cu zgomot<br/>și măsurători controlate<br/>pe un dispozitiv experimental"]
     --> C["③ Rețeaua neuronală<br/><br/>CNN 1D mic → estimează<br/>informație discretă din<br/>urme zgomotoase"]
     --> D["④ HNP + lattice<br/><br/>Informația estimată → HNP<br/>→ reducere LLL<br/>→ test de recuperare pe<br/>chei generate de echipă"]
@@ -53,7 +55,7 @@ flowchart LR
     class E final;
 ```
 
-Fiecare folder/file are propriul scop pentru a crea acest proiect
+Fiecare folder și fișier are un rol în proiect.
 
 <div align="center">
 
@@ -67,7 +69,7 @@ Fiecare folder/file are propriul scop pentru a crea acest proiect
 
 **Vrei să ne susții? Ai mai multe opțiuni!**
 1. "Star" sau "Watch" acest proiect!
-2. Partajează acest prin link-ul: https://github.com/Vendetaaaa/RoSEF2026
+2. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
 3. Partajează codul QR:
 
 <div align="center">
