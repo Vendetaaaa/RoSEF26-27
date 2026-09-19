@@ -26,6 +26,7 @@
 ├── 📄 CITATION.cff
 ├── 📄 LICENSE (MIT)
 ├── 📄 README.md - YOU ARE HERE 🙌
+├── 📄 Q&A.txt
 └── 📄 requirements.txt
 ```
 
