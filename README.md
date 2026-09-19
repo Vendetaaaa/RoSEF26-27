@@ -55,9 +55,13 @@ flowchart LR
 
 Fiecare folder/file are propriul scop pentru a crea acest proiect
 
-Code. Collaborate. Enjoy!
+<div align="center">
 
-#HappyCoding
+### Code. Collaborate. Enjoy!
+
+### #HappyCoding
+
+</div>
 
 ---
 
