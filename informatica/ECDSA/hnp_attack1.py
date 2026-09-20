@@ -1,0 +1,91 @@
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Optional
+
+from Lattice_key6 import HNPConfig, HNPLatticeSolver
+from dataset_generator3 import CURVE
+
+ARTIFACTS_DIR = Path(__file__).resolve().parents[1] / "artifacts"
+PUBLIC_DATASET_PATH = ARTIFACTS_DIR / "public_dataset.json"
+CNN_PREDICTIONS_PATH = ARTIFACTS_DIR / "cnn_predictions.json"
+HNP_RESULT_PATH = ARTIFACTS_DIR / "hnp_result.json"
+
+
+def compute_hnp_terms(public_record: dict, leaked_prefix: int) -> tuple[int, int, int]:
+    q = CURVE.n
+    s_inv = pow(int(public_record["s"]), -1, q)
+    t_i = (s_inv * int(public_record["r"])) % q
+    u_i = (s_inv * int(public_record["z"])) % q
+    hidden_bits = q.bit_length() - int(public_record["leaked_bits"])
+    a_i = leaked_prefix << hidden_bits
+    return t_i, u_i, a_i
+
+
+def load_prefixes(source: str) -> dict[int, int]:
+    if source == "cnn":
+        records = json.loads(CNN_PREDICTIONS_PATH.read_text(encoding="utf-8"))
+        return {int(item["sample_id"]): int(item["predicted_prefix"]) for item in records}
+    if source == "oracle":
+        oracle = json.loads((ARTIFACTS_DIR / "oracle_dataset.json").read_text(encoding="utf-8"))
+        return {int(sample_id): int(item["leaked_nonce_prefix"]) for sample_id, item in oracle["samples"].items()}
+    raise ValueError("source must be cnn or oracle")
+
+
+def build_instance(source: str, sample_count: int) -> tuple[HNPLatticeSolver, list[int], list[int], list[int]]:
+    public_records = json.loads(PUBLIC_DATASET_PATH.read_text(encoding="utf-8"))
+    prefixes = load_prefixes(source)
+    selected = []
+    for record in public_records:
+        sample_id = int(record["sample_id"])
+        if sample_id in prefixes:
+            selected.append((record, prefixes[sample_id]))
+        if len(selected) >= sample_count:
+            break
+    if len(selected) < sample_count:
+        raise RuntimeError(f"Only {len(selected)} samples available for HNP; need {sample_count}.")
+
+    leaked_bits = int(selected[0][0]["leaked_bits"])
+    t_list = []
+    u_list = []
+    a_list = []
+    for record, prefix in selected:
+        t_i, u_i, a_i = compute_hnp_terms(record, prefix)
+        t_list.append(t_i)
+        u_list.append(u_i)
+        a_list.append(a_i)
+
+    return HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=sample_count)), t_list, u_list, a_list
+
+
+def run_hnp(source: str = "cnn", sample_count: int = 40) -> Optional[int]:
+    solver, t_list, u_list, a_list = build_instance(source, sample_count)
+    reduced_candidate = solver.solve(t_list, u_list, a_list)
+    result = {
+        "source": source,
+        "samples": sample_count,
+        "leaked_bits": solver.config.leaked_bits,
+        "recovered_private_key": reduced_candidate,
+        "validated": reduced_candidate is not None and solver.validate_candidate(reduced_candidate, t_list, u_list, a_list),
+    }
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    HNP_RESULT_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    if reduced_candidate is None:
+        print(f"[INFO] LLL reduction completed but did not expose a validated key vector for source={source}.")
+    else:
+        print(f"[PASS] HNP LLL reduction returned a validated key candidate for source={source}.")
+    return reduced_candidate
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source", choices=("cnn", "oracle"), default="cnn")
+    parser.add_argument("--samples", type=int, default=40)
+    args = parser.parse_args()
+    run_hnp(args.source, args.samples)
+
+
+if __name__ == "__main__":
+    main()
