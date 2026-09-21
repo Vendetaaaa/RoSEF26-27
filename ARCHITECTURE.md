@@ -15,7 +15,7 @@
     ├── 📄 reproducibility.md
     └── 📄 research-question.md
 ├── 📁 infomatica/
-    ├── 📁 ECDSA\
+    ├── 📁 ECDSA/
          ├── 📄 Lattice_key6.py
          ├── 📄 cnn_nonce_analysis5.py
          ├── 📄 dataset_generator3.py
@@ -25,43 +25,41 @@
          ├── 📄 hnp_attack1.py
          ├── 📄 main.py
          └── 📄 theory_to_experiment_bridge8.py
-├── 📁 artifacts
+├── 📁 artifacts/
     ├── 📄 README.txt
-├── 📁 cnn
+├── 📁 cnn/
     ├── 📄 config.yaml
     ├── 📄 evaluate.py
     ├── 📄 export_weights.py
     ├── 📄 model.py
     ├── 📄 train.py
     └── 📄 utils.py
-├── 📁 dataset
+├── 📁 dataset/
     ├── 📄 README.md
     └── 📄 generate.py
-├── 📁 esp32
-    ├── 📁 firmware
+├── 📁 esp32/
+    ├── 📁 firmware/
         └── 📄 tbr
     ├── 📄 README.md
     └── 📄 protcol.md
-├── 📁 experiments
-     ├── 📁 config
+├── 📁 experiments/
+     ├── 📁 config/
          └── 📄 tbr
      └── 📄 run_experiments.py
-├── 📁 lattice
+├── 📁 lattice/
      └── 📄 README.md
-├── 📁 simuator
+├── 📁 simuator/
     └── 📄 README.md   
 ├── 📁  matematica/
-    ├── 📁 experiments
-        ├── 📁 conurenta
-            ├──📁 figs_con
+    ├── 📁 experiments/
+        ├── 📁 conurenta/
+            ├──📁 figs_con/
+               └── 📄 . . . 
                └── 📄 . . .
-            ├── 📄 01_concurenta_exacta.py
-            ├── 📄 02_near-concurenta.py 
-            └── 📄 03_cocurenta-aprox.py
         ├── 📁 graficele_matematice
             ├── 📁 figs_cert
                 └── 📄 . . .
-            └── 📄 . . .
+                └── 📄 . . .
         ├── 📁 paper
                ├── 📄 arithmetic_concurrence.pdf
                └── 📄 arithmetic_concurrence.tex
@@ -71,6 +69,7 @@
 ├── 📁 results/
 ├── 📁 tests/
 ├── 📄 .gitignore
+├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
 ├── 📄 LICENSE (MIT)
 ├── 📄 README.md
