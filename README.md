@@ -37,13 +37,13 @@ Pentru mai multe informații accesați README.md din fiecare folder
 Pentru a vedea structura accesează ARCHITECTURE.md
 ```
 
-### Etica proiectului se poate găsii în docs/ethics.md
+### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
 
 ---
 
 # Ideea centrală
 
-Proiectul de cercetare "arithmetic_concurrence" din matematica/paper/arithmetic_concurrence.pdf demonstrează două teoreme exacte despre concurența a k
+Proiectul de cercetare "arithmetic_concurrence" din [matematica/paper/arithmetic_concurrence.pdf](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/matematica/paper/arithmetic_concurrence.pdf) demonstrează două teoreme exacte despre concurența a k
 familii de drepte generate de parametri mărginiți: concurența apare doar când există o relație rațională forțată între pante (1), iar pentru k familii generice, condiția devine tot mai rigidă și mai improbabilă pe măsură ce k crește (2).
 
 Această problemă se aseamănă foarte mult cu cea din atacurile asupra semnăturii criptografice [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm): HNP ( [Hidden Number Problem](https://github.com/kelbyludwig/notebooks/blob/master/The%20Hidden%20Number%20Problem.ipynb) ) folosit pentru a ataca și recupera sute de chei private reale Bitcoin, Ethereum și SSH prin scurgerile minore de informație de nonce (Breitner și Heninger, 2019, „Biased Nonce Sense”).
