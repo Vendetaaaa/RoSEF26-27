@@ -27,9 +27,12 @@
 ├── 📄 LICENSE (MIT)
 ├── 📄 README.md - YOU ARE HERE 🙌
 ├── 📄 Q&A.txt
-└── 📄 requirements.txt
+├── 📄 requirements.txt
+└── 📄 ARCHITECTURE.md
 
 Pentru mai multe informații accesați README.md din fiecare folder
+
+Pentru a vedea structura accesează ARCHITECTURE.md
 ```
 
 ### Etica proiectului se poate găsii în docs/ethics.md
