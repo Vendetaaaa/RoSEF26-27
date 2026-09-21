@@ -1,1 +1,22 @@
 
+# Q&A RoSEF26-27
+
+### Q: Care este problema pe care o rezolvă acest proiect?
+
+A: Proiectul, combinând componenta matematică, informatică, machine learning cât și cea experimentală hardware, studiem dacă informații discrete, extrem de mici, care se pot scurge din execuția implementării ECDSA pot fi extrase din urme zgomotoase și apoi folosite într-un atac de tip HNP.
+
+### Q: Există vreo noutate?
+
+A: Noutatea noastră nu constă într-un algoritm sau o ecuația revoluționară matematică, ci integrarea controlată a mai multor componente: rezultate matematic asupra concurențelor, modelare, scurgere de info., estimare CNN și validare hardware.
+
+### Q: Ce legătură are concurență cu proiectul?
+
+A: Concurență este mecanismul mecanic prin care transformăm observația geometrică într-o relație aritmetică, mai ușor de făcut calcule..
+
+### Q: De ce nu încercați să recuperați o cheie reală?
+
+A: Obiectivul cercetării este de a valida mecanismul, nu de a compromite un sistem real... moralitatea este necesară pentru dezvoltarea umană.
+
+### Q: Ce întra & iese din CNN 1D
+
+A: Întră: trace, eventual preprocesat / normalization conform protocolului de experimentare; Iese: O estimare a informațiilor discretizate pe care o vom încerca să recuperăm din trace.
