@@ -29,7 +29,7 @@ def run_module_1() -> dict:
     bounds_ok = -270.0 <= float(re_z1.min()) <= -260.0 and 260.0 <= float(re_z1.max()) <= 270.0
     print("MODULE 1: BOUNDED VS UNBOUNDED INTEGER SHIFT")
     print_metric("Bounded m_i coverage", unique_m1, "200 possible values", unique_m1 == 200)
-    print_metric("Bounded line slope", round(slope_k, 6), "13/15", math.isclose(slope_k, 19 / 23, abs_tol=1e-3))
+    print_metric("Bounded line slope", round(slope_k, 6), "19/23", math.isclose(slope_k, 19 / 23, abs_tol=1e-3))
     print_metric("Bounded real-part range", f"[{re_z1.min():.3f}, {re_z1.max():.3f}]", "inside [-270, 270]", bounds_ok)
 
     N_ab = 200000

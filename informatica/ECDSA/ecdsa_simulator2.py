@@ -79,6 +79,12 @@ def hash_message(message: bytes) -> int:
 
 
 def sign(d: int, msg_hash: int, k: int = None) -> tuple[int, int, int]:
+    if not 1 <= d < curve.q:
+        raise ValueError("Private key must be in [1, q-1].")
+    if not 0 <= msg_hash < curve.q:
+        raise ValueError("Message hash must be in [0, q-1].")
+    if k is not None and not 1 <= k < curve.q:
+        raise ValueError("Nonce k must be in [1, q-1].")
     if k is None:
         k = secrets.randbelow(curve.q - 1) + 1
 
@@ -122,10 +128,13 @@ def recover_key_from_nonce_reuse(
     r1, s1 = sig1
     r2, s2 = sig2
 
-    assert r1 == r2, "Signatures must share the same r value for k-reuse recovery!"
+    if r1 != r2:
+        raise ValueError("Signatures must share the same r value for k-reuse recovery.")
+    if s1 == s2:
+        raise ValueError("Cannot recover a nonce when s1 == s2 modulo q.")
 
     num = (z1 - z2) % curve.q
-    den = pow(s1 - s2, -1, curve.q)
+    den = pow((s1 - s2) % curve.q, -1, curve.q)
     k_recovered = (num * den) % curve.q
 
     r_inv = pow(r1, -1, curve.q)

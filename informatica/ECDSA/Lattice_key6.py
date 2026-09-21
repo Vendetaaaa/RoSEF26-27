@@ -129,7 +129,12 @@ class HNPLatticeSolver:
             from sympy import Matrix, Rational
         except ImportError as exc:
             raise RuntimeError("Install fpylll or sympy to run lattice reduction.") from exc
-        reduced = Matrix(matrix).lll(delta=Rational(str(self.config.delta)))
+        try:
+            reduced = Matrix(matrix).lll(delta=Rational(str(self.config.delta)))
+        except (AssertionError, ValueError) as exc:
+            raise RuntimeError(
+                "SymPy LLL could not reduce this lattice. Install fpylll for the recommended backend."
+            ) from exc
         return [[int(reduced[r, c]) for c in range(reduced.cols)] for r in range(reduced.rows)]
 
     def solve(self, t_list: List[int], u_list: List[int], a_list: List[int]) -> Optional[int]:

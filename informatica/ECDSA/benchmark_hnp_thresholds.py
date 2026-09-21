@@ -27,7 +27,12 @@ def evaluate_threshold(leaked_bits: int, sample_count: int, seed: int = 20260919
         a_list.append(a_i)
 
     solver = HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=sample_count))
-    recovered = solver.solve(t_list, u_list, a_list)
+    reduction_error = None
+    try:
+        recovered = solver.solve(t_list, u_list, a_list)
+    except RuntimeError as exc:
+        recovered = None
+        reduction_error = str(exc)
     relation_ok = solver.verify_expected_vector(ground_truth.private_key, t_list, u_list, a_list)
     return {
         "leaked_bits": leaked_bits,
@@ -35,6 +40,7 @@ def evaluate_threshold(leaked_bits: int, sample_count: int, seed: int = 20260919
         "relation_ok": relation_ok,
         "recovered_private_key": recovered,
         "matches_private_key": recovered == ground_truth.private_key,
+        "reduction_error": reduction_error,
     }
 
 

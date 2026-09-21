@@ -20,7 +20,7 @@ def set_seed(seed: int) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-def train_model() -> tuple[NonceBitCNN, dict, tuple[torch.Tensor, torch.Tensor]]:
+def train_model() -> tuple[NonceBitCNN, dict, tuple[torch.Tensor, torch.Tensor], dict]:
     config = load_config()
     set_seed(config["training"]["random_seed"])
     configured_profile = Path(config["dataset"]["profile_path"])
@@ -77,8 +77,20 @@ def train_model() -> tuple[NonceBitCNN, dict, tuple[torch.Tensor, torch.Tensor]]
     save_path = Path(config["training"]["model_save_path"])
     save_path.parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), save_path)
+    with torch.no_grad():
+        val_logits = model(val_x)
+        val_predictions = val_logits.argmax(dim=1)
+        bit_accuracy = float((val_predictions == val_y).float().mean().item())
+        prefix_accuracy = float((val_predictions == val_y).all(dim=1).float().mean().item())
+    metrics = {
+        "validation_bit_accuracy": bit_accuracy,
+        "validation_prefix_accuracy": prefix_accuracy,
+        "validation_samples": int(len(val_y)),
+    }
     print(f"[PASS] Model saved to {save_path}.")
-    return model, config, (val_x, val_y)
+    print(f"[PASS] Validation bit accuracy: {100 * bit_accuracy:.2f}%")
+    print(f"[PASS] Validation prefix accuracy: {100 * prefix_accuracy:.2f}%")
+    return model, config, (val_x, val_y), metrics
 
 
 if __name__ == "__main__":

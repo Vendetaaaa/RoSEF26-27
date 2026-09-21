@@ -48,6 +48,8 @@ ORACLE_DATASET_PATH = ARTIFACTS_DIR / "oracle_dataset.json"
 
 
 def point_add(curve: Curve, P: Point, Q: Point) -> Point:
+    if not is_on_curve(curve, P) or not is_on_curve(curve, Q):
+        raise ValueError("Both points must lie on the configured curve.")
     if P.is_infinity:
         return Q
     if Q.is_infinity:
@@ -73,6 +75,12 @@ def point_add(curve: Curve, P: Point, Q: Point) -> Point:
 
 
 def scalar_mult(curve: Curve, k: int, P: Point) -> Point:
+    if k < 0:
+        raise ValueError("Scalar must be non-negative.")
+    if not is_on_curve(curve, P):
+        raise ValueError("Point must lie on the configured curve.")
+    if k == 0:
+        return INF
     if k < 0:
         raise ValueError("Scalar must be non-negative.")
 

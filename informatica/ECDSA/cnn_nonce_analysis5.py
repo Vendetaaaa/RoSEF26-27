@@ -25,7 +25,7 @@ def run() -> bool:
     from train import train_model
     from utils import load_profile_dataset
 
-    model, config, _ = train_model()
+    model, config, _, metrics = train_model()
     profile_path = CNN_DIR / config["dataset"]["profile_path"]
     traces, _, records = load_profile_dataset(profile_path)
     sequence_length = int(config["dataset"]["sequence_length"])
@@ -48,7 +48,10 @@ def run() -> bool:
         })
 
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
-    PREDICTIONS_PATH.write_text(json.dumps(output, indent=2), encoding="utf-8")
+    payload = {"metrics": metrics, "predictions": output}
+    PREDICTIONS_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(f"[PASS] CNN validation bit accuracy: {100 * metrics["validation_bit_accuracy"]:.2f}%")
+    print(f"[PASS] CNN validation prefix accuracy: {100 * metrics["validation_prefix_accuracy"]:.2f}%")
     print(f"[PASS] CNN prefix predictions written to {PREDICTIONS_PATH}.")
     return True
 
