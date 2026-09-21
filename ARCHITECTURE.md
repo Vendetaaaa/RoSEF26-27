@@ -1,4 +1,4 @@
-# The project's architecture:
+# Arhitectura proiectului:
 
 ```
 📁 RoSEF26-27/
@@ -54,20 +54,33 @@
     ├── 📁 experiments/
         ├── 📁 conurenta/
             ├──📁 figs_con/
-               └── 📄 . . . 
-               └── 📄 . . .
-        ├── 📁 graficele_matematice
-            ├── 📁 figs_cert
-                └── 📄 . . .
-                └── 📄 . . .
+               └── 🖼️ . . . 
+               └── 🖼️ . . .
+        ├── 📁 graficele_matematice/
+            ├── 📁 figs_cert/
+                └── 🖼️ . . .
+                └── 🖼️ . . .
         ├── 📁 paper
                ├── 📄 arithmetic_concurrence.pdf
                └── 📄 arithmetic_concurrence.tex
-         └── 📄 README.md
+        └── 📄 README.md
 ├── 📁 misc/
+    └── 🖼️ . . .
 ├── 📁 notebooks/
+    ├── 📄 01_data-generation.ipynb
+    ├── 📄 02_baseline.ipynb
+    ├── 📄 03_cnn-training.ipynb
+    └── 📄 04_final-results.ipynb
 ├── 📁 results/
+    ├── 📁 figures/
+        └── 🖼️ . . .
+    └── 📁 tables/
+        └── final-results.csv
 ├── 📁 tests/
+    ├── 📄 .gitignore
+    ├── 📄 .gitignore
+    ├── 📄 test_simulator.py
+    └── 📄 test_smoke.py
 ├── 📄 .gitignore
 ├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
@@ -76,3 +89,5 @@
 ├── 📄 Q&A.txt
 └── 📄 requirements.txt
 ```
+
+> Structura se va modifica în timp dacă este necesară
