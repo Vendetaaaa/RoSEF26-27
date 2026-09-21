@@ -1,11 +1,12 @@
 dataset:
   profile_path: "../artifacts/profile_dataset.json"
-  sequence_length: 8
+  leaked_bits: 12
+  sequence_length: 12
 
 model:
   in_channels: 2
   out_channels: 8
-  kernel_size: 1
+  kernel_size: 3
   num_classes: 2
 
 training:

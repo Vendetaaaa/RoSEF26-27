@@ -15,6 +15,23 @@ ARTIFACTS_DIR = Path(__file__).resolve().parents[1] / "artifacts"
 PIPELINE_RESULT_PATH = ARTIFACTS_DIR / "pipeline_results.json"
 
 
+def evaluate_hnp_status(recovered_key: int | None, relation_ok: bool, private_key: int) -> str:
+    if recovered_key is not None and recovered_key == private_key:
+        return "PASS"
+    if relation_ok:
+        return "VALIDATED"
+    return "FAIL"
+
+
+def is_hnp_pipeline_pass(results: dict) -> bool:
+    return (
+        results.get("dataset") == "PASS"
+        and results.get("leakage") == "PASS"
+        and results.get("hnp") == "PASS"
+        and results.get("math") == "PASS"
+    )
+
+
 def validate_shared_hnp_instance() -> bool:
     oracle = dataset_generator3.load_ground_truth()
     public_records = dataset_generator3.load_public_dataset()
@@ -54,12 +71,12 @@ def main() -> None:
     cnn_ran = cnn_nonce_analysis5.run()
     hnp_recovery = None
     relation_ok = validate_shared_hnp_instance()
+    private_key = int(dataset_generator3.load_ground_truth()["private_key"])
     if cnn_ran and (ARTIFACTS_DIR / "cnn_predictions.json").exists():
         hnp_recovery = hnp_attack1.run_hnp("cnn", 40)
-        oracle = dataset_generator3.load_ground_truth()
-        hnp_status = "PASS" if hnp_recovery == int(oracle["private_key"]) else ("VALIDATED" if relation_ok else "FAIL")
+        hnp_status = evaluate_hnp_status(hnp_recovery, relation_ok, private_key)
     else:
-        hnp_status = "VALIDATED" if relation_ok else "FAIL"
+        hnp_status = evaluate_hnp_status(None, relation_ok, private_key)
 
     theory_to_experiment_bridge8.main()
     diophantine_experiments7.main()
@@ -76,9 +93,12 @@ def main() -> None:
         "fully_executed": bool(cnn_ran and hnp_status == "PASS"),
     }
     PIPELINE_RESULT_PATH.write_text(json.dumps(results, indent=2), encoding="utf-8")
-    required_pass = results["dataset"] == "PASS" and results["leakage"] == "PASS" and results["hnp"] in {"PASS", "VALIDATED"} and results["math"] == "PASS"
+    required_pass = is_hnp_pipeline_pass(results)
     print("=" * 80)
     print(f"Pipeline status: {'PASS' if required_pass else 'FAIL'}")
+    print(f"Private key recovered: {'YES' if hnp_status == 'PASS' else 'NO'}")
+    if hnp_status == "VALIDATED":
+        print("HNP status: equations are consistent, but the private key was not recovered.")
     if not cnn_ran:
         print("CNN status: SKIPPED because PyTorch is not installed in this environment.")
     print(f"Results written to {PIPELINE_RESULT_PATH}.")

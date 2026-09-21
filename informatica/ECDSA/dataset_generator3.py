@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import secrets
+import random
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -118,7 +118,7 @@ def ecdsa_sign(curve: Curve, private_key: int, z: int, k: int) -> tuple[int, int
     return r, s
 
 
-def nonce_with_known_msb(n: int, leaked_bits: int, rng: secrets.SystemRandom) -> tuple[int, int]:
+def nonce_with_known_msb(n: int, leaked_bits: int, rng: random.Random) -> tuple[int, int]:
     if not 0 <= leaked_bits < n.bit_length():
         raise ValueError("leaked_bits must be in [0, bit_length(n)-1].")
 
@@ -164,7 +164,9 @@ def generate_dataset(
 ) -> tuple[list[PublicSample], GroundTruth]:
     if sample_count <= 0:
         raise ValueError("sample_count must be positive.")
-    rng = secrets.SystemRandom(seed)
+    # This benchmark simulates a deterministic leakage experiment; it is intentionally not a
+    # cryptographic RNG, so a fixed seed must reproduce the sample set exactly.
+    rng = random.Random(seed)
     n = curve.n
     private_key = rng.randrange(1, n)
 
@@ -287,7 +289,7 @@ def run_consistency_checks(curve: Curve, public_samples: list[PublicSample], gro
 
 def main() -> None:
     sample_count = 160
-    leaked_bits = 8
+    leaked_bits = 12
     public_samples, ground_truth = generate_dataset(CURVE, sample_count, leaked_bits)
     run_consistency_checks(CURVE, public_samples, ground_truth)
     save_dataset(public_samples, ground_truth)
