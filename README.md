@@ -23,12 +23,12 @@
 ├── 📁 results/
 ├── 📁 tests/
 ├── 📄 .gitignore
+├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
 ├── 📄 LICENSE (MIT)
 ├── 📄 README.md - YOU ARE HERE 🙌
 ├── 📄 Q&A.txt
-├── 📄 requirements.txt
-└── 📄 ARCHITECTURE.md
+└── 📄 requirements.txt
 
 Pentru mai multe informații accesați README.md din fiecare folder
 
