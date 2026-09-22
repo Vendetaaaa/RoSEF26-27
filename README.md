@@ -33,11 +33,11 @@
 └── 📄 requirements.txt
 
 Pentru mai multe informații accesați README.md din fiecare folder
-
-Pentru a vedea structura accesează ARCHITECTURE.md
 ```
 
 ### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
+
+### Pentru a vedea structura accesează [ARCHITECTURE.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/ARCHITECTURE.md)
 
 ---
 
