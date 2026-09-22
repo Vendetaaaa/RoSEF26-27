@@ -1,6 +1,6 @@
 # Documentația matematică
 
-Fișierul curent ( RoSEF26-27/matematica/README.md ) va dezvolta abstractul parții matematice și calculele computațională a proiectului.
+Fișierul curent va dezvolta abstractul parții matematice și calculele computațională a proiectului.
 
 # Structura /matematica
 
@@ -167,8 +167,3 @@ Society, 1989.
 
 [16] S. Korsky, “Affine Copies of Three-Point Patterns in Sets of Integers,” arXiv:2609.02308,
 2026.
-
-[17] A. Einstein, “On the Electrodynamics of Moving Bodies,” Annalen der Physik 17 (1905),
-891–921.
-
-[18] B. Schutz, A First Course in General Relativity, 2nd ed., Cambridge University Press, 2009.
