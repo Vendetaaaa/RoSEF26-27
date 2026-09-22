@@ -7,8 +7,6 @@ Fișierul curent va dezvolta abstractul parții matematice și calculele computa
 ```text
 matematica/
   experiments/
-  paper/
-  theory/
   README.md
 ```
 
