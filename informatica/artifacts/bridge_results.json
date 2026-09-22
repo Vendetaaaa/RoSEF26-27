@@ -1,0 +1,40 @@
+{
+  "module_1": {
+    "passed": true,
+    "sqrt2_empirical": 0.25130001539423574,
+    "sqrt2_theoretical": 0.25,
+    "phi_empirical": 0.36656871793638857,
+    "phi_theoretical": 0.36180339887498947
+  },
+  "module_2": {
+    "passed": true,
+    "mu_geo": 1.9982985127302766,
+    "slope": 0.9982985127302766,
+    "r_squared": 0.9799496318922328
+  },
+  "module_3": {
+    "passed": true,
+    "N_scales": [
+      1000,
+      5000,
+      20000
+    ],
+    "gap_counts": [
+      3,
+      3,
+      3
+    ],
+    "variances": [
+      0.036691594499786755,
+      0.12892734744886886,
+      0.11133596830865158
+    ]
+  },
+  "module_4": {
+    "passed": true,
+    "count_nt": 321,
+    "count_geom": 321,
+    "sym_diff_size": 0,
+    "expected_count": 321
+  }
+}
