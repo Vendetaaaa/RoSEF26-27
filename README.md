@@ -22,6 +22,7 @@
 ├── 📁 matematica/
 ├── 📁 misc/
 ├── 📁 notebooks/
+├── 📁 papers/
 ├── 📁 results/
 ├── 📁 tests/
 ├── 📄 .gitignore
