@@ -1,0 +1,8 @@
+{
+  "source": "cnn",
+  "samples": 40,
+  "leaked_bits": 12,
+  "recovered_private_key": null,
+  "validated": false,
+  "reduction_error": "fpylll is not installed; SymPy is kept as a validation-only fallback because it is unreliable for this lattice size."
+}

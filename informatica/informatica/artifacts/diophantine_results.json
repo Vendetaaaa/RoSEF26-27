@@ -1,0 +1,35 @@
+{
+  "module_1": {
+    "passed": true
+  },
+  "module_2": {
+    "passed": true,
+    "slope": 1.0,
+    "r_squared": 1.0
+  },
+  "module_3": {
+    "passed": true,
+    "gap_counts": [
+      3,
+      3,
+      3
+    ],
+    "variances": [
+      0.036691594499786755,
+      0.12892734744886886,
+      0.11133596830865158
+    ]
+  },
+  "module_4": {
+    "passed": true,
+    "kept": 25346,
+    "dropped": 24654,
+    "positive_kept": 25186
+  },
+  "module_5": {
+    "passed": true,
+    "k3": 321,
+    "k4_engineered": 71,
+    "k4_unrelated": 9
+  }
+}
