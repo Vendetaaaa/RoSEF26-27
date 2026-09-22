@@ -1,0 +1,546 @@
+% !TEX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.5cm,headheight=15pt]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{placeins}
+\usepackage{needspace}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.08}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\abovedisplayskip}{10pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{10pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayshortskip}{7pt plus 2pt minus 2pt}
+\captionsetup{font=small,labelfont=bf,skip=7pt}
+\setlength{\floatsep}{14pt plus 3pt minus 2pt}
+\setlength{\textfloatsep}{18pt plus 3pt minus 3pt}
+\setlength{\intextsep}{14pt plus 3pt minus 2pt}
+
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.7em}{}[\vspace{0.2em}\titlerule]
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{2.0em plus .4em minus .2em}{0.9em}
+\titlespacing*{\subsection}{0pt}{1.4em plus .3em minus .2em}{0.6em}
+\titlespacing*{\subsubsection}{0pt}{1.0em plus .2em minus .1em}{0.4em}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\setlength{\cftbeforesecskip}{5pt}
+\setlength{\cftbeforesubsecskip}{2pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Neural Classification for ECDSA Private-Key Recovery}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{\textbf{ECDSA Private-Key Recovery from Partial Nonce Leakage}\\
+\large Using Neural Networks and LLL Reduction}
+\author{Stadler Rareș \and Henea Rareș}
+\date{September 21, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Elliptic Curve Digital Signature Algorithm (ECDSA) authenticates transactions and connections that use elliptic-curve keys. The security of the scheme assumes that the session nonce $k$ is uniform, independent, and secret for every signature. When an implementation reveals information about the nonce, such as several bits, a statistical bias, or a correlated power-consumption trace, an attacker can formulate the problem using Hidden Number Problem (HNP) techniques and lattice reduction. Results reported by Breitner and Heninger [2] and by work associated with the Minerva attack [11] show that such leakage can enable private-key recovery in real systems.
+
+The experiment reconstructs a controlled attack chain. Starting from an ECDSA simulator for secp256k1, the project generates synthetic traces using a Hamming Weight/Hamming Distance leakage model with Gaussian noise. A one-dimensional convolutional neural network (NonceBitCNN), trained in PyTorch, estimates leaked nonce bits, while the HNP stage uses these estimates in a Kannan-embedding lattice reduced with LLL/fpylll.
+
+The experiment is interpreted together with the arithmetic results from the companion work \emph{Arithmetic Concurrence and Diophantine Resonance} [5]. The rational-resonance condition for exact concurrence and the quantitative near-concurrence defect $\delta_M(R)$ are used to describe the rigidity exploited by LLL within the error interval $[0,B)$ determined by the unknown nonce bits.
+
+The verification module \texttt{theory\_to\_experiment\_bridge8.py} tests four independent theoretical identities, including
+\[
+\liminf_{M\to\infty} M\delta_M(\sqrt{2})=\frac14
+\]
+and the irrationality-exponent transfer $\mu_{\mathrm{geo}}=2$. All keys, nonces, and traces used in the experiments are generated and controlled by the research team.
+
+\textbf{Keywords:} ECDSA, Hidden Number Problem, LLL lattice reduction, one-dimensional convolutional neural networks, side-channel analysis, Diophantine approximation, arithmetic resonance, secp256k1.
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+
+Elliptic Curve Digital Signature Algorithm (ECDSA) authenticates transactions and connections based on elliptic-curve keys. The scheme relies on the discrete logarithm problem on the selected curve, but its implementation must generate the nonce $k$ correctly: uniformly, independently, and secretly for every signature. Nonce reuse, a weak random generator, or a side-channel leakage mechanism, for example through power consumption or electromagnetic emissions, can compromise this protection.
+
+When partial and noisy information about a nonce is available, such as several bits, private-key recovery can be formulated as an instance of the Hidden Number Problem (HNP), introduced formally by Boneh and Venkatesan [1]. For such instances, lattice reduction, especially the Lenstra--Lenstra--Lovász (LLL) algorithm [10], searches for a solution that remains compatible with multiple signatures.
+
+Breitner and Heninger reported in 2019 the recovery of ECDSA private keys from signatures with biased nonces [2]. Minerva investigated timing leakage in ECDSA implementations in a different setting [11].
+
+The project reconstructs this attack chain in a controlled environment. The computational part has three components:
+\begin{enumerate}[label=(\roman*),leftmargin=2.5em]
+\item construction of an ECDSA simulator over secp256k1 without external cryptographic dependencies;
+\item a side-channel leakage model based on Hamming Weight and Hamming Distance with Gaussian noise, together with a one-dimensional convolutional neural network trained to extract nonce bits from noisy traces;
+\item an HNP solver based on Kannan embedding in a full lattice, reduced with LLL, which validates private-key candidates.
+\end{enumerate}
+
+The paper then connects this computational chain to the arithmetic results in the companion work \emph{Arithmetic Concurrence and Diophantine Resonance} [5]. That work shows that $k$ families of lines parameterized by integer labels are exactly concurrent when their slopes satisfy a rational relation, and describes the best approximation in the irrational case through the constant $\mathcal L(R)$. Here, the same notion of rigidity provides a framework for the threshold at which LLL reduction can separate the correct solution from other solutions in the error interval $[0,B)$ determined by the unknown nonce bits.
+
+\section{Related Work}
+
+\textbf{Hidden Number Problem and ECDSA/(EC)DSA attacks.}
+Boneh and Venkatesan [1] introduced HNP for studying partial information about secret keys in cryptographic schemes. Howgrave-Graham and Smart [6] adapted the framework to (EC)DSA and showed how partial nonce leakage can enable private-key recovery given a sufficient number of signatures. Breitner and Heninger [2] analyzed attacks on public ECDSA signatures with biased nonces, including cases where the bias appears as a statistical correlation. Minerva and TPM-Fail studied leakage associated with timing variation and implementations of cryptographic operations [11].
+
+\textbf{Lattice reduction.}
+The LLL algorithm [10] reduces integer lattice bases and produces short vectors for moderate dimensions. BKZ can obtain stronger reductions, although its computational cost depends on the block parameter. The fpylll library provides implementations of these methods, and the project uses it in Section 3.3.
+
+\textbf{Power analysis and deep-learning side channels.}
+Modeling power consumption with Hamming Weight and Hamming Distance is standard in differential power analysis (DPA) [8]. Convolutional networks can classify power traces without manual feature extraction, and the side-channel literature contains related approaches [3]. The architecture in Section 4 retains this idea in a compact form adapted to the present experiments.
+
+\textbf{Diophantine approximation and arithmetic resonance.}
+The mathematical background in Section 5 comes from the companion work [5] and from classical Diophantine approximation literature [4, 7, 12]. The project also compares these results with recent work on affine copies of discrete patterns in sets of integers [9].
+
+\section{Technical Background}
+
+\subsection{ECDSA over secp256k1}
+
+The secp256k1 curve [13] is defined over the finite field $\mathbb F_p$ by the Weierstrass equation
+\[
+y^2\equiv x^3+7\pmod p,
+\qquad
+p=2^{256}-2^{32}-977,
+\]
+with generator point $G$ of prime order $n$, which is the subgroup used for signing. The implementation \texttt{dataset\_generator3.py} reproduces point arithmetic on the curve, including addition, doubling, and scalar multiplication by double-and-add, without external cryptographic dependencies.
+
+The signing algorithm is:
+\begin{enumerate}[label=(\arabic*),leftmargin=2.5em]
+\item choose a private key $d\in[1,n-1]$ and compute the public key $Q=dG$;
+\item for a message with hash $z=H(m)$, choose a nonce $k\in[1,n-1]$ uniformly and compute $R=kG=(x_R,y_R)$;
+\item compute $r=x_R\bmod n$ and
+\[
+s=k^{-1}(z+rd)\pmod n;
+\]
+\item the signature is the pair $(r,s)$.
+\end{enumerate}
+
+For HNP analysis, the signing equation can be written as
+\[
+d\equiv r^{-1}(sk-z)\pmod n
+\quad\Longleftrightarrow\quad
+k\equiv s^{-1}(z+rd)\pmod n.
+\tag{1}
+\]
+When part of $k$ is known or estimated with noise for several signatures $(r_i,s_i,z_i)$, Equation (1) leads to a system of modular linear relations with bounded errors in the unknown $d$, which is precisely the structure used by HNP.
+
+\subsection{Hidden Number Problem}
+
+\begin{definition}[Hidden Number Problem]
+Let $q$ be a large prime, or the order of a large subgroup, let $\alpha\in\mathbb Z_q$ be an unknown secret, and let $m$ pairs $(t_i,u_i)\in\mathbb Z_q^2$ be chosen uniformly so that
+\[
+u_i\equiv \alpha t_i+\varepsilon_i\pmod q,
+\qquad
+|\varepsilon_i|<B,
+\]
+for unknown but bounded errors $\varepsilon_i$. HNP asks for the recovery of $\alpha$ from $\{(t_i,u_i)\}_{i=1}^m$ when only the bound $B\ll q$ is known.
+\end{definition}
+
+In the implementation \texttt{hnp\_attack1.py}, for each public signature the quantities
+\[
+t_i=s_i^{-1}r_i\pmod q,
+\qquad
+u_i=s_i^{-1}z_i\pmod q,
+\qquad
+a_i=\bar{k}_i\,2^{n_{\mathrm{bits}}-\ell}
+\]
+are computed, where $\bar{k}_i$ is the estimated prefix of $\ell$ nonce bits produced by the neural network or, for validation, taken from ground truth. Here $q=n$ is the order of the secp256k1 subgroup, and the private key $d$ plays the role of the secret $\alpha$.
+
+From (1),
+\[
+t_i d+u_i-a_i\equiv\delta_i\pmod q,
+\qquad
+0\leq\delta_i<B,
+\]
+where
+\[
+B=2^{n_{\mathrm{bits}}-\ell}
+\]
+represents the uncertainty introduced by the unknown lower nonce bits.
+
+\subsection{Reduction to a Lattice Problem}
+
+The HNP instance is transformed into a lattice problem using Kannan embedding. The lattice has dimension $m+2$, where $m$ is the number of signatures. The implementation \texttt{Lattice\_key6.py}, through the class \texttt{HNPLatticeSolver}, constructs a basis of the form
+\[
+L=
+\begin{pmatrix}
+q & & & &\\
+&\ddots&&&\\
+&&q&&\\
+qt_1&\cdots&qt_m&B&\\
+qc_1&\cdots&qc_m&&M
+\end{pmatrix},
+\qquad
+c_i=(a_i-u_i)\bmod q,
+\tag{2}
+\]
+where $B=2^{n_{\mathrm{bits}}-\ell}$ bounds the error in each coordinate and $M=qB$ is the embedding factor for the final row.
+
+For the true private key $d$, the vector
+\[
+v^\star=
+(q\delta_1,\ldots,q\delta_m,dB,-M),
+\qquad
+\delta_i=(t_i d+u_i-a_i)\bmod q,
+\]
+is an integer combination of the basis rows in (2). Its norm satisfies approximately
+\[
+\norm{v^\star}\approx \sqrt{m}\,qB,
+\]
+and becomes small relative to typical lattice vectors when $B$ is sufficiently small compared with the number of signatures and the number of known bits. LLL, applied through \texttt{fpylll.LLL.reduction} or, alternatively, \texttt{sympy.Matrix.lll}, produces a reduced basis. The function \texttt{recover\_from\_reduced\_basis} searches for a private-key candidate, and \texttt{validate\_candidate} checks it independently against all $(t_i,u_i,a_i)$ pairs.
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox{0.92\textwidth}{
+\textbf{Algorithm 1. Private-key recovery using HNP + LLL.}
+\\[0.5em]
+Input: public signatures $\{(r_i,s_i,z_i,\ell)\}_{i=1}^m$ and estimated prefixes $\{\bar{k}_i\}$.
+\\
+1. Compute $t_i,u_i,a_i$ according to Section 3.2.
+\\
+2. Construct the lattice basis $L$ from (2).
+\\
+3. Compute $L' \leftarrow \operatorname{LLLReduce}(L,\delta=0.75)$.
+\\
+4. For every reduced basis vector $v$, test whether $|v_{m+1}|=M$ and $v_m\bmod B=0$.
+\\
+5. Form $d_{\mathrm{cand}}=\pm(v_m/B)\bmod q$.
+\\
+6. Validate $d_{\mathrm{cand}}$ against every $(t_i,u_i,a_i)$ pair.
+\\
+7. Return the candidate if validation succeeds; otherwise report failure and increase the number of signatures or reduce the noise.
+}}
+\end{figure}
+
+\subsection{Side-Channel Leakage Model}
+
+To model a synthetic power trace associated with nonce computation, \texttt{ecdsa\_leakage\_model4.py} uses Hamming Weight (HW) and Hamming Distance (HD) models [8]:
+\[
+HW(v)=\operatorname{popcount}(v),
+\qquad
+HD(v_1,v_2)=\operatorname{popcount}(v_1\oplus v_2).
+\]
+The models are applied progressively, bit by bit, to the partial nonce prefix $k$. Gaussian noise
+\[
+\mathcal N(0,\sigma^2)
+\]
+is added to the clean trace. Signal quality is reported through
+\[
+SNR_{\mathrm{dB}}
+=
+10\log_{10}
+\frac{\operatorname{Var}(\text{clean trace})}{\sigma^2}.
+\]
+
+The script also includes a linear reference decoder based on template matching for the two bit hypotheses. This provides a baseline before neural-network training.
+
+\section{One-Dimensional Convolutional Neural Network}
+
+For decoding nonce bits from noisy traces, the project uses a compact one-dimensional convolutional network implemented in PyTorch in \texttt{informatica/cnn/model.py}:
+\begin{verbatim}
+class NonceBitCNN(nn.Module):
+    def __init__(self, in_channels=1, out_channels=16, kernel_size=9):
+        super().__init__()
+        padding = kernel_size // 2
+        self.conv1 = nn.Conv1d(in_channels, out_channels,
+                               kernel_size, padding=padding)
+        self.relu = nn.ReLU()
+        self.conv2 = nn.Conv1d(out_channels, 2, 1)
+
+    def forward(self, x):
+        x = self.relu(self.conv1(x))
+        return self.conv2(x)
+\end{verbatim}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.92\textwidth}
+\centering
+\textbf{ECDSA Simulator, secp256k1}
+$\longrightarrow$
+\textbf{HW/HD Leakage Model}
+$\longrightarrow$
+\textbf{Gaussian Noise}
+$\longrightarrow$
+\textbf{CNN 1D, NonceBitCNN}
+$\longrightarrow$
+\textbf{HNP Instance $(t_i,u_i,a_i)$}
+$\longrightarrow$
+\textbf{LLL/fpylll Reduction}
+$\longrightarrow$
+\textbf{Private-Key Candidate and Validation}
+\captionof{figure}{Computational pipeline for nonce-bit recovery and HNP-based private-key validation.}
+\end{minipage}
+\end{figure}
+
+The network receives a trace $x\in\mathbb R^{1\times L}$, with $L=256$ for secp256k1, and produces two logits at every position for classes 0 and 1. The first convolutional layer uses a local window with \texttt{kernel\_size=9} and preserves resolution through symmetric padding. The second layer is a $1\times1$ convolution that maps the 16 hidden channels to the two output classes without pooling. Each position therefore receives a prediction for one nonce bit.
+
+Training minimizes the per-position cross-entropy between the predictions and the binary ground-truth labels \texttt{bit\_labels}, using \texttt{profile\_dataset.json} split into training and validation subsets. \texttt{cnn\_nonce\_analysis5.py} consumes the network output, extracts the first $\ell$ predicted bits, and converts them into the prefix $\bar{k}_i$ used by the HNP attack in Sections 3.2 and 3.3.
+
+\section{Connection to Arithmetic Results and the Key-Recovery Threshold}
+
+This section connects the arithmetic results from [5] with the behavior of LLL reduction in Section 3.3. The analysis focuses on the dependence on the number of leaked bits $\ell$ and the number of signatures $m$.
+
+\subsection{Arithmetic Results Used}
+
+The companion work considers $k$ families of parallel lines, each labeled by an integer $m_i\in\mathbb Z$:
+\[
+x-\kappa_i y=m_i,
+\qquad i=1,\ldots,k,
+\]
+and gives the following exact concurrence criterion.
+
+\begin{theorem}[Exact concurrence criterion]
+Let $\kappa_1,\kappa_2,\kappa_3$ be distinct and let $\mathbf m\in\mathbb R^3$. The three lines $x-\kappa_i y=m_i$ are concurrent if and only if
+\[
+(m_1-m_3)(\kappa_2-\kappa_3)
+=
+(m_2-m_3)(\kappa_1-\kappa_3).
+\]
+\end{theorem}
+
+\begin{corollary}[Arithmetic resonance]
+Let
+\[
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}.
+\]
+There is a nontrivial concurrence with integer labels if and only if $R\in\mathbb Q$. If $R=p/q$ is in lowest terms, every integer pair of concurrent differences has the form
+\[
+t(p,q),\qquad t\in\mathbb Z.
+\]
+\end{corollary}
+
+For $R\notin\mathbb Q$, exact concurrence with integer labels is impossible. The companion work measures the best approximation in a finite box $[-M,M]^3\cap\mathbb Z^3$ through
+\[
+\delta_M(R)=
+\min_{\substack{(p,q)\in\mathbb Z^2\setminus\{(0,0)\}\\
+w(p,q)\leq 2M}}
+|p-Rq|,
+\]
+where
+\[
+w(p,q)=\max\{0,p,q\}-\min\{0,p,q\}.
+\]
+
+It obtains the asymptotic identity
+\[
+\liminf_{M\to\infty}M\delta_M(R)
+=
+\frac{D(R)}{2}\mathcal L(R),
+\]
+where
+\[
+D(R)=\max\{0,1,R\}-\min\{0,1,R\},
+\qquad
+\mathcal L(R)=\liminf_{q\to\infty}q\|qR\|.
+\]
+
+\subsection{Computational Interpretation: HNP as a Noise-Delayed Resonance Problem}
+
+The framework above has a structural analogy with the HNP instance in Section 3.2. Consider a single HNP relation
+\[
+td+u-a\equiv\delta\pmod q,
+\qquad
+0\leq\delta<B.
+\]
+Following the exact-concurrence criterion, the relation can be viewed as a compatibility condition between integer-valued constraints in the $(d,\delta)$ representation modulo $q$. The admissible error is restricted to $\delta\in[0,B)$.
+
+With $m$ signatures, the same unknown $d$ must satisfy $m$ approximate constraints simultaneously, while
+\[
+B=2^{n_{\mathrm{bits}}-\ell}
+\]
+sets the error bound. Three consequences follow directly:
+\begin{itemize}[leftmargin=2em]
+\item the number of leaked bits $\ell$ directly controls $B$. As $\ell$ increases, $B$ decreases and the admissible error interval becomes narrower;
+\item the number of signatures $m$ increases the number of independent constraints that the candidate $d$ must satisfy simultaneously. In the analogy with simultaneous approximation in the companion work, each additional signature restricts the compatible solution space;
+\item the short vector $v^\star$ in (2) plays a role analogous to the minimizing pair $(p,q)$ in the finite-box approximation problem. LLL can identify it when its norm remains sufficiently small relative to typical vectors of the lattice basis. The constant $\mathcal L(R)$ provides a reference for the separation between the compatible solution and weaker approximations.
+\end{itemize}
+
+\begin{remark}
+The analogy does not constitute a formal reduction between the two problems. HNP remains, in general, a problem connected to the Shortest Vector Problem rather than to one-dimensional Diophantine approximation. The analogy is useful as an interpretive framework because both problems require an unknown bounded integer quantity to satisfy several approximate linear constraints simultaneously. In this view, the experimental threshold depends on the number of samples and the noise level, and this dependence can be compared with the rigidity described by $\mathcal L(R)$ and $\mu(R)$ in [5].
+\end{remark}
+
+\subsection{Numerical Verification of the Arithmetic Background}
+
+The numerical verification of the arithmetic theorem uses four independent modules in \texttt{theory\_to\_experiment\_bridge8.py}. They compare theoretical values with results obtained through direct scans over finite boxes $[-M,M]$.
+
+\begin{table}[H]
+\centering
+\caption{Results of the four theory-to-experiment verification modules.}
+\begin{tabular}{p{0.16\textwidth}p{0.48\textwidth}p{0.24\textwidth}}
+\toprule
+\textbf{Module} & \textbf{Quantity verified} & \textbf{Reference value}\\
+\midrule
+1. Asymptotic constant &
+$\liminf_M M\delta_M(\sqrt2)$ and $\liminf_M M\delta_M(\varphi)$ &
+$1/4$, respectively $\varphi/(2\sqrt5)$\\
+2. Exponent transfer &
+Slope of $\log(1/\delta_M)$ versus $\log M$ for $R=\sqrt2$ &
+$\mu_{\mathrm{geo}}=\mu=2$\\
+3. Steinhaus--Sós rigidity &
+Number of distinct gap lengths in $\{n\sqrt2\bmod1\}$ &
+At most 3 for $N\in\{10^3,5\times10^3,2\times10^4\}$\\
+4. Closure dictionary, $k=3$ &
+Integer solutions of $2m_1+m_2-3m_3=0$ versus geometric intersections on $[-15,15]^3$ &
+321 solutions, symmetric difference 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All four verification modules report \texttt{PASS}, and the numerical results agree with the identities from [5] used in Section 5. The corresponding convergence plots can be generated from the project data using the verification script.
+
+\section{Experimental Methodology}
+
+The experimental protocol uses five stages defined in the project plan [14] and implemented in the \texttt{informatica/} directory:
+
+\textbf{E1. Data generation.}
+\texttt{dataset\_generator3.py} generates random ECDSA keys and signatures on synthetic messages. The public dataset contains the message, $r$, $s$, and the number of leaked bits $\ell$. The ground-truth dataset contains the private key $d$ and the complete nonce $k$ for every sample. The separation prevents accidental use of hidden data during the attack stages.
+
+\textbf{E2. Leakage modeling.}
+\texttt{ecdsa\_leakage\_model4.py} produces synthetic HW/HD traces with Gaussian noise
+\[
+\sigma\in\{0.25,0.50,1.00,1.50,2.00,3.00\}.
+\]
+For each noise level, the project reports the accuracy of a linear decoder and the signal-to-noise ratio, providing a baseline for the neural network.
+
+\textbf{E3. CNN training.}
+\texttt{cnn/train.py} and \texttt{cnn\_nonce\_analysis5.py} train the NonceBitCNN on profiled traces and then run it on the test set to produce estimated prefixes $\bar{k}_i$.
+
+\textbf{E4. HNP + LLL attack.}
+\texttt{hnp\_attack1.py} and \texttt{Lattice\_key6.py} construct the HNP instance from estimated prefixes or, for implementation validation, from ground truth using the \texttt{--source oracle} option. The code reduces the lattice with LLL, extracts a private-key candidate, and validates it independently.
+
+\textbf{E5. Validation and comparison.}
+The results are compared qualitatively with thresholds reported in the reference literature [2, 11], particularly with respect to the number of leaked bits and signatures associated with complete key recovery.
+
+The automated test suite, including \texttt{tests/test\_math.py}, \texttt{test\_model.py}, \texttt{test\_simulator.py}, and \texttt{test\_smoke.py}, runs through continuous integration workflows. The tests verify curve arithmetic, the modules in Section 5, network training, and pipeline reproducibility for the fixed seed
+\[
+\texttt{RANDOM\_SEED}=20260919.
+\]
+
+\section{Discussion}
+
+In the experiments, nonce-bit decoding accuracy decreases as $\sigma$ increases. The success of LLL reduction depends on the error bound $B$ and the number of signatures $m$. When $B$ increases, more solutions become compatible because fewer nonce bits are known. Increasing $m$ adds constraints and changes the lattice dimension, affecting the relation between the target vector and typical vectors in the reduced basis.
+
+This dependence is consistent with the role of additional constraints discussed in [5]. Remark 5.4 of the companion work identifies a limitation of the current framework: for simultaneous approximation with $k>3$ families, and for $m>2$ signatures in the HNP formulation, there is not yet an exponent-transfer result with the same precision as the scalar theorem. Such a result would provide a mathematical estimate of the minimum number of signatures as a function of $\ell$ and the noise level $\sigma$.
+
+\section{Ethical Considerations}
+
+The research team generates and controls all private keys, nonces, and power traces used in the project, exclusively within the experimental environment. The project does not use or target third-party cryptographic material or production systems. The HNP and LLL code is distributed together with a separation between public data and ground truth, allowing the experiment to be inspected and reproduced without relying on data obtained from real systems.
+
+\section{Conclusions and Future Directions}
+
+This paper presents an experimental chain for studying ECDSA private-key recovery in the presence of partial nonce leakage. The chain includes an ECDSA simulator, a Gaussian-noise leakage model, a one-dimensional CNN, and an HNP solver based on Kannan embedding and LLL reduction.
+
+The arithmetic results from [5] provide a framework for describing the recovery threshold. The exact-concurrence theorem characterizes rational resonance, while the quantitative-resonance theorem quantifies the near-concurrence defect. In the experiment, these results are used to describe the rigidity required for the correct solution to separate from other vectors in the HNP lattice.
+
+Three future directions follow from the present framework:
+\begin{enumerate}[label=(\alph*),leftmargin=2.5em]
+\item formulate and prove a result for the simultaneous case $m>2$, following the higher-dimensional generalization in [5];
+\item validate the computational chain on physical traces measured from an ESP32 microcontroller, following the experimental plan in \texttt{informatica/esp32/};
+\item evaluate CNN accuracy and LLL success rate quantitatively as a function of $(\ell,\sigma,m)$, with results published together with the source code.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{bonehvenkatesan}
+D. Boneh and R. Venkatesan.
+\emph{Hardness of computing the most significant bits of secret keys in Diffie--Hellman and related schemes}.
+Advances in Cryptology, CRYPTO 1996, LNCS 1109, pp. 129--142, Springer, 1996.
+
+\bibitem{breitnerheninger}
+J. Breitner and N. Heninger.
+\emph{Biased nonce sense: lattice attacks against weak ECDSA signatures in cryptocurrencies}.
+Financial Cryptography and Data Security, FC 2019, LNCS 11598, Springer, 2019.
+
+\bibitem{cagli}
+E. Cagli, C. Dumas, and E. Prouff.
+\emph{Convolutional neural networks with data augmentation against jitter-based countermeasures}.
+Cryptographic Hardware and Embedded Systems, CHES 2017, Springer, 2017.
+
+\bibitem{cassels}
+J. W. S. Cassels.
+\emph{An Introduction to Diophantine Approximation}.
+Cambridge University Press, 1957.
+
+\bibitem{heconcurrence}
+Henea Rareș.
+\emph{Arithmetic Concurrence and Diophantine Resonance: From Exact Integer Lattices to Quantitative Near-Concurrence}.
+Companion paper, RoSEF 2026--2027 project, September 2026.
+
+\bibitem{howgrave}
+N. Howgrave-Graham and N. P. Smart.
+\emph{Lattice attacks on digital signature schemes}.
+Designs, Codes and Cryptography, 23(3):283--290, 2001.
+
+\bibitem{khintchine}
+A. Khintchine.
+\emph{Einige Sätze über Kettenbrüche, mit Anwendungen auf die Theorie der Diophantischen Approximationen}.
+Mathematische Annalen, 92:115--125, 1924.
+
+\bibitem{kocher}
+P. Kocher, J. Jaffe, and B. Jun.
+\emph{Differential power analysis}.
+Advances in Cryptology, CRYPTO 1999, LNCS 1666, Springer, 1999.
+
+\bibitem{korsky}
+S. Korsky.
+\emph{Affine Copies of Three-Point Patterns in Sets of Integers}.
+arXiv:2609.02308, 2026.
+
+\bibitem{lll}
+A. K. Lenstra, H. W. Lenstra Jr., and L. Lovász.
+\emph{Factoring polynomials with rational coefficients}.
+Mathematische Annalen, 261(4):515--534, 1982.
+
+\bibitem{tpmfail}
+D. Moghimi, B. Sunar, T. Eisenbarth, and N. Heninger.
+\emph{TPM-Fail: TPM meets Timing and Lattice Attacks}.
+USENIX Security Symposium, 2020; extended analysis of Minerva timing leakage in ECDSA, 2021.
+
+\bibitem{schmidt}
+W. M. Schmidt.
+\emph{Diophantine Approximation}.
+Lecture Notes in Mathematics 785, Springer, 1980.
+
+\bibitem{sec2}
+Standards for Efficient Cryptography Group.
+\emph{SEC 2: Recommended Elliptic Curve Domain Parameters}, Version 2.0, 2010.
+
+\bibitem{projectplan}
+Stadler Rareș and Henea Rareș.
+\emph{Research Plan for Practical Cryptographic Key Recovery}.
+Project planning document, RoSEF 2026--2027.
+
+\end{thebibliography}
+
+\end{document}

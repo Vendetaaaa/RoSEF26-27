@@ -1,0 +1,1008 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.5cm,headheight=15pt]{geometry}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{placeins}
+\usepackage{needspace}
+
+\setstretch{1.08}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\setlength{\abovedisplayskip}{10pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{10pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayshortskip}{7pt plus 2pt minus 2pt}
+
+\captionsetup{font=small,labelfont=bf,skip=7pt}
+\setlength{\floatsep}{14pt plus 3pt minus 2pt}
+\setlength{\textfloatsep}{18pt plus 3pt minus 3pt}
+\setlength{\intextsep}{14pt plus 3pt minus 2pt}
+
+\titleformat{\section}
+  {\Large\bfseries}{\thesection}{0.7em}{}
+  [\vspace{0.2em}\titlerule]
+\titleformat{\subsection}
+  {\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+
+\titlespacing*{\section}{0pt}{2.0em plus .4em minus .2em}{0.9em}
+\titlespacing*{\subsection}{0pt}{1.4em plus .3em minus .2em}{0.6em}
+\titlespacing*{\subsubsection}{0pt}{1.0em plus .2em minus .1em}{0.4em}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\setlength{\cftbeforesecskip}{5pt}
+\setlength{\cftbeforesubsecskip}{2pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Arithmetic Concurrence}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\defect}{\operatorname{def}}
+\newcommand{\deltam}{\delta_M}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Arithmetic Concurrence and Diophantine Resonance}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+
+\title{\textbf{Arithmetic Concurrence and Diophantine Resonance}\\
+\large From Exact Integer Lattices to Quantitative Near-Concurrence}
+\author{Henea Rareș}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study three families of parallel lines
+\[
+x-\kappa_i y=m_i,\qquad m_i\in\mathbb Z,
+\]
+and use exact concurrence as the starting point for a quantitative question: how close can an
+integer-labelled configuration come to concurrence when exact arithmetic resonance is absent?
+For exact concurrence, the integer labels lie in a rank-two lattice in the resonant case and admit
+the parametrization
+\[
+\mathbf m=a\mathbf 1+t\mathbf c.
+\]
+For three families, however, the failure of resonance is governed by the single ratio
+\[
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}.
+\]
+The signed defect of an integer-labelled triple is exactly
+\[
+(m_1-m_3)-R(m_2-m_3).
+\]
+We define the finite-box near-concurrence defect $\delta_M(R)$ and prove the asymptotic identity
+\[
+\liminf_{M\to\infty}M\delta_M(R)=\frac{D(R)}2\,\mathcal L(R),
+\]
+where
+\[
+D(R)=\max\{0,1,R\}-\min\{0,1,R\},
+\qquad
+\mathcal L(R)=\liminf_{q\to\infty}q\|qR\|.
+\]
+Thus the classical nearest-integer approximation constant becomes an explicit geometric constant for
+integer-labelled line families. We further show that the power-law exponent of exceptional
+near-concurrence equals the classical irrationality exponent of $R$. In particular, exact
+resonance, bad approximability, and exceptional irrational approximation become geometrically
+distinguishable regimes. A higher-family formulation is given in terms of simultaneous
+Diophantine approximation.
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\needspace{5\baselineskip}
+\section{Introduction}
+
+Consider three families of parallel lines
+\[
+x-\kappa_i y=m,\qquad m\in S_i\subseteq\mathbb Z,
+\]
+where $\kappa_1,\kappa_2,\kappa_3$ are distinct. Choosing one label from each family gives an
+integer triple $\mathbf m=(m_1,m_2,m_3)$. The first question is whether the three lines are exactly concurrent. The next is quantitative: when exact concurrence is impossible, how close can a bounded integer triple come?
+
+The exact problem has a simple linear description. Put
+\[
+\mathbf 1=(1,1,1)^T,\qquad
+\boldsymbol\kappa=(\kappa_1,\kappa_2,\kappa_3)^T.
+\]
+A common point $(x,y)$ gives
+\[
+\mathbf m=x\mathbf1-y\boldsymbol\kappa,
+\]
+so the real concurrent label vectors form the plane
+\[
+V_\kappa=\operatorname{span}_{\mathbb R}\{\mathbf1,\boldsymbol\kappa\}.
+\]
+Intersecting this plane with $\mathbb Z^3$ produces an integer lattice when the direction
+parameters are arithmetically resonant.
+
+The non-resonant case has the same geometric starting point, but no nontrivial integer direction lies in the plane. What remains is an approximation problem: the integer difference vector must approach the irrational direction determined by $R$.
+
+The exact and approximate problems are linked by two correspondences:
+\[
+\boxed{\text{integer concurrence}}
+\longleftrightarrow
+\boxed{\text{rational resonance}},
+\]
+and
+\[
+\boxed{\text{best near-concurrence}}
+\longleftrightarrow
+\boxed{\text{best rational approximation}}.
+\]
+The first correspondence is elementary. The second gives the quantitative part of the paper.
+
+We use classical Diophantine invariants and track their geometric normalization explicitly through the finite label box. The background is standard: rational approximation, continued fractions, and simultaneous approximation are treated in texts such as Cassels and Schmidt~\cite{cassels,schmidt1980,hardywright}.
+
+\needspace{5\baselineskip}
+\section{Exact concurrence}
+\needspace{5\baselineskip}
+\subsection{The master criterion}
+
+\begin{theorem}[Exact concurrence criterion]\label{thm:exact}
+Let $\kappa_1,\kappa_2,\kappa_3$ be distinct and let $\mathbf m\in\mathbb R^3$. The three lines
+\[
+x-\kappa_i y=m_i,\qquad i=1,2,3,
+\]
+are concurrent if and only if
+\[
+\mathbf m\in\operatorname{span}_{\mathbb R}\{\mathbf1,\boldsymbol\kappa\}.
+\]
+Equivalently,
+\[
+(m_1-m_3)(\kappa_2-\kappa_3)
+=(m_2-m_3)(\kappa_1-\kappa_3).
+\]
+\end{theorem}
+
+\begin{proof}
+If the lines meet at $(x,y)$, then $m_i=x-\kappa_i y$, hence
+$\mathbf m=x\mathbf1-y\boldsymbol\kappa$. Conversely, every vector of this form is realized by
+the corresponding point $(x,y)$. Subtracting the third equation from the first two and eliminating
+$y$ gives the scalar relation.
+\end{proof}
+
+Define
+\[
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}.
+\]
+Then exact concurrence becomes
+\[
+m_1-m_3=R(m_2-m_3).
+\]
+
+\begin{corollary}[Arithmetic resonance criterion]\label{cor:res}
+There exists a nontrivial integer-labelled concurrence if and only if $R\in\mathbb Q$. If
+$R=p/q$ in lowest terms with $q\ne0$, every integer concurrent difference pair is
+\[
+(m_1-m_3,m_2-m_3)=t(p,q),\qquad t\in\mathbb Z.
+\]
+\end{corollary}
+
+\begin{proof}
+If the difference pair is nonzero, Theorem~\ref{thm:exact} gives
+$R=(m_1-m_3)/(m_2-m_3)\in\mathbb Q$. Conversely, if $R=p/q$ is in lowest terms, the integer solutions of $q(m_1-m_3)=p(m_2-m_3)$ are precisely multiples of $(p,q)$, since $\gcd(p,q)=1$.
+\end{proof}
+
+\begin{remark}
+The exact problem separates translation from arithmetic shape. The common label $m_3$ shifts the
+configuration, while $(p,q)$ determines its primitive arithmetic pattern.
+\end{remark}
+
+\needspace{5\baselineskip}
+\section{From geometric residuals to Diophantine defects}
+For integers $m_1,m_2,m_3$ write
+\[
+p=m_1-m_3,\qquad q=m_2-m_3.
+\]
+
+\begin{definition}[Signed concurrence defect]
+For a real parameter ratio $R$ define
+\[
+\defect_R(p,q)=p-Rq.
+\]
+Exact concurrence occurs precisely when $\defect_R(p,q)=0$.
+\end{definition}
+
+\begin{proposition}[Exact residual identity]\label{prop:residual}
+Let $(x,y)$ be the intersection of the second and third selected lines. Then the residual in the
+first line is exactly
+\[
+\boxed{x-\kappa_1y-m_1=-\defect_R(p,q).}
+\]
+\end{proposition}
+
+\begin{proof}
+From the second and third equations,
+\[
+y=\frac{m_2-m_3}{\kappa_3-\kappa_2}.
+\]
+Also $x=m_3+\kappa_3y$. Hence
+\[
+x-\kappa_1y-m_1
+=-p+(\kappa_3-\kappa_1)y
+=-p+Rq
+=-(p-Rq).
+\]
+\end{proof}
+
+\begin{remark}
+With this normalization, the defect equals the residual in the first line equation. If one instead measures perpendicular point-to-line distance, the corresponding quantity
+is the absolute defect divided by $\sqrt{1+\kappa_1^2}$.
+\end{remark}
+
+\needspace{5\baselineskip}
+\subsection{The finite label box}
+Let
+\[
+B_M=[-M,M]^3\cap\mathbb Z^3
+\]
+and define
+\[
+w(p,q)=\max\{0,p,q\}-\min\{0,p,q\}.
+\]
+
+\begin{lemma}[Feasibility of a difference pair]\label{lem:feas}
+There exists $m_3\in\mathbb Z$ such that
+\[
+(m_3+p,m_3+q,m_3)\in[-M,M]^3
+\]
+if and only if
+\[
+w(p,q)\le2M.
+\]
+\end{lemma}
+
+\begin{proof}
+The three labels are a translate of $\{0,p,q\}$. Such a translate fits in an integer interval of
+length $2M$ exactly when the range of $\{0,p,q\}$ is at most $2M$.
+\end{proof}
+
+\begin{definition}[Finite-box near-concurrence defect]\label{def:delta}
+For irrational $R$ define
+\[
+\boxed{
+\deltam(R)=
+\min_{\substack{(p,q)\in\mathbb Z^2\setminus\{(0,0)\}\\
+w(p,q)\le2M}}
+|p-Rq|.
+}
+\]
+\end{definition}
+
+For irrational $R$, the minimum is positive for each finite $M$. By Lemma~\ref{lem:feas}, it is the smallest absolute residual attained by a nontrivial integer-labelled triple in $B_M$. This finite-box viewpoint is closely related to the use of bounded lattice regions in the geometry of numbers~\cite{casselsgeometry,gruberlekkerkerker}.
+
+\begin{lemma}[Eventual nonzero denominator]\label{lem:qnonzero}
+If $R$ is irrational, then every minimizing pair $(p,q)$ in the definition of $\deltam(R)$ has
+$q\ne0$ for all sufficiently large $M$.
+\end{lemma}
+
+\begin{proof}
+If $q=0$ and $(p,q)\ne(0,0)$, then $|p-Rq|=|p|\ge1$. On the other hand, Dirichlet's theorem
+gives infinitely many pairs $(p,q)$ with $q\ne0$ and $|p-Rq|<1/|q|$, and the corresponding
+feasible boxes have $M=O(|q|)$. Hence $\deltam(R)\to0$. Therefore a minimizing pair cannot have
+$q=0$ once $M$ is sufficiently large.
+\end{proof}
+
+\needspace{5\baselineskip}
+\section{The quantitative resonance theorem}
+Define
+\[
+D(R)=\max\{0,1,R\}-\min\{0,1,R\}.
+\]
+
+Let
+\[
+\mathcal L(R)=\liminf_{q\to\infty}q\|qR\|,
+\]
+where $\|x\|$ denotes distance to the nearest integer.
+
+\begin{theorem}[Geometric approximation constant]\label{thm:lagrange}
+For every irrational $R$,
+\[
+\boxed{
+\liminf_{M\to\infty}M\deltam(R)=\frac{D(R)}2\,\mathcal L(R).
+}
+\]
+\end{theorem}
+
+\begin{proof}
+First we prove the upper bound. Choose a sequence of positive integers $q_n\to\infty$ such that
+\[
+q_n\|q_nR\|\to\mathcal L(R),
+\]
+and choose $p_n\in\mathbb Z$ nearest to $q_nR$. Then
+\[
+|p_n-Rq_n|=\|q_nR\|
+\quad\text{and}\quad
+\frac{p_n}{q_n}\to R.
+\]
+Consequently,
+\[
+\frac{w(p_n,q_n)}{q_n}\to D(R).
+\]
+Set
+\[
+M_n=\left\lceil\frac{w(p_n,q_n)}2\right\rceil.
+\]
+By Lemma~\ref{lem:feas}, $(p_n,q_n)$ is feasible in $B_{M_n}$, so
+\[
+\deltam(R)\le\|q_nR\|.
+\]
+Therefore
+\[
+\liminf_{M\to\infty}M\deltam(R)
+\le
+\lim_{n\to\infty}M_n\|q_nR\|
+=\frac{D(R)}2\mathcal L(R).
+\]
+
+For the reverse inequality, choose integers $M_n\to\infty$ for which
+$M_n\deltam(R)$ tends to its liminf, and let $(p_n,q_n)$ be a minimizing admissible pair. By
+Dirichlet's theorem, the liminf in the statement is finite, so after passing to a subsequence we
+may assume $M_n\deltam(R)$ stays bounded. By Lemma~\ref{lem:qnonzero}, $q_n\ne0$ for all large $n$.
+If $|q_n|$ were bounded along a subsequence, then only finitely many values of $q_n$ would occur,
+while irrationality of $R$ would give a positive lower bound for $|p_n-Rq_n|$ on that subsequence;
+this would force $M_n\deltam(R)\to\infty$. Hence $|q_n|\to\infty$.
+
+Since $M_n\deltam(R)$ is bounded while $M_n\to\infty$, we have
+$|p_n-Rq_n|\to0$, and therefore
+\[
+\frac{p_n}{q_n}\to R.
+\]
+It follows that
+\[
+\frac{w(p_n,q_n)}{|q_n|}\to D(R).
+\]
+Moreover,
+\[
+|p_n-Rq_n|\ge\|q_nR\|,
+\qquad
+2M_n\ge w(p_n,q_n).
+\]
+Thus
+\[
+M_n\deltam(R)
+\ge
+\frac{w(p_n,q_n)}2\,\|q_nR\|
+=\frac{w(p_n,q_n)}{2|q_n|}\,\bigl(|q_n|\|q_nR\|\bigr).
+\]
+Taking lower limits gives
+\[
+\liminf_{M\to\infty}M\deltam(R)
+\ge
+\frac{D(R)}2\mathcal L(R).
+\]
+Together with the upper bound this proves the theorem.
+\end{proof}
+
+\begin{corollary}[Bad approximability as geometric rigidity]\label{cor:bad}
+An irrational $R$ is badly approximable if and only if
+\[
+\liminf_{M\to\infty}M\deltam(R)>0.
+\]
+\end{corollary}
+
+\begin{proof}
+The classical characterization of badly approximable numbers is $\mathcal L(R)>0$; see, for example, the standard treatments of continued fractions and metric approximation~\cite{cassels,khintchine1924,harman1998}. Applying
+Theorem~\ref{thm:lagrange}.
+\end{proof}
+
+\begin{remark}
+The quantity $\mathcal L(R)$ is classical~\cite{cassels,schmidt1980}. The content here is its exact geometric realization:
+it is the first-order asymptotic constant for the best integer-labelled near-concurrence in the
+finite box $[-M,M]^3$, up to the explicit geometric factor $D(R)/2$.
+\end{remark}
+
+\needspace{5\baselineskip}
+\section{A geometric irrationality exponent}
+
+\begin{definition}[Classical irrationality exponent]
+For irrational $R$, define
+\[
+\mu(R)=
+\sup\left\{\nu>0:\left|R-\frac pq\right|<q^{-\nu}
+\text{ for infinitely many }p\in\mathbb Z,\ q\in\mathbb N\right\}.
+\]
+\end{definition}
+
+\begin{definition}[Geometric near-concurrence exponent]
+For irrational $R$, define
+\[
+\mu_{\mathrm{geo}}(R)=1+
+\limsup_{M\to\infty}\frac{\log(1/\deltam(R))}{\log M}.
+\]
+\end{definition}
+
+\begin{theorem}[Exponent transfer]\label{thm:exponent}
+For every irrational $R$,
+\[
+\boxed{\mu_{\mathrm{geo}}(R)=\mu(R).}
+\]
+\end{theorem}
+
+\begin{proof}
+Set
+\[
+\beta=
+\limsup_{M\to\infty}
+\frac{\log(1/\deltam(R))}{\log M}.
+\]
+We prove $\mu(R)=1+\beta$.
+
+Let $\nu<\mu(R)$. There are infinitely many $p/q$ with
+\[
+\left|R-\frac pq\right|<q^{-\nu},
+\]
+hence
+\[
+|p-Rq|<q^{1-\nu}.
+\]
+Along these approximants, $p/q\to R$, so
+\[
+w(p,q)=D(R)|q|+o(|q|).
+\]
+Thus the corresponding feasible boxes satisfy
+\[
+M=\frac{D(R)}2|q|+o(|q|)=\Theta(q).
+\]
+Therefore infinitely often
+\[
+\deltam(R)\le M^{1-\nu+o(1)},
+\]
+which gives $\beta\ge\nu-1$. Letting $\nu\uparrow\mu(R)$ gives
+\[
+\beta\ge\mu(R)-1.
+\]
+
+Conversely, let $\gamma<\beta$. Then infinitely many $M$ satisfy
+\[
+\deltam(R)<M^{-\gamma}.
+\]
+Choose a minimizing pair $(p,q)$. For sufficiently large such $M$, we must have $q\ne0$; otherwise
+$|p-Rq|=|p|\ge1$. Also $w(p,q)\le2M$, so $|q|\le2M$. Hence
+\[
+\left|R-\frac pq\right|
+=\frac{|p-Rq|}{|q|}
+<\frac{M^{-\gamma}}{|q|}
+\le2^\gamma |q|^{-(\gamma+1)}.
+\]
+Thus there are infinitely many rational approximants with exponent $\gamma+1$, so
+\[
+\mu(R)\ge\gamma+1.
+\]
+Letting $\gamma\uparrow\beta$ gives $\mu(R)\ge\beta+1$.
+Therefore $\mu(R)=1+\beta=\mu_{\mathrm{geo}}(R)$.
+\end{proof}
+
+\begin{remark}[Higher-dimensional analogue]
+Theorem~\ref{thm:exponent} is stated for the three-family case because there the obstruction to exact concurrence is reduced to a single irrational ratio $R$. This places the result within the classical transition from one-dimensional rational approximation to simultaneous approximation in several coordinates~\cite{schmidt1980,waldschmidt2009}. For more than three families, the corresponding parameters form a vector of ratios
+\[
+\mathbf R=(R_1,\ldots,R_d),\qquad d=k-2,
+\]
+and to the simultaneous defect $\mathbf p-q\mathbf R$. The approximation problem then involves several ratios sharing the same denominator $q$, a standard setting in simultaneous Diophantine approximation~\cite{schmidt1980,khintchine1924,badzhinpollingtonvelani}.
+
+This higher-dimensional version should be viewed mainly as an analogue of the present framework, rather than as a claim of a new theorem about irrational numbers. Its mathematical value is in the re-framing: a question about several nearly concurrent integer-labelled families can be expressed in the language of simultaneous approximation, where the geometry makes the common denominator and the finite-box constraints visible. Establishing a precise higher-dimensional exponent transfer would require additional definitions and arguments; the present work uses the analogy to indicate the direction in which the three-family theory generalizes.
+\end{remark}
+
+\begin{corollary}[Quadratic irrationals]\label{cor:quad}
+If $R$ is a quadratic irrational, then $\mu(R)=2$, and hence
+\[
+\mu_{\mathrm{geo}}(R)=2.
+\]
+If $R$ is also badly approximable, then Theorem~\ref{thm:lagrange} gives a positive first-order
+near-concurrence constant.
+\end{corollary}
+
+\needspace{5\baselineskip}
+\section{Explicit examples}
+
+\needspace{5\baselineskip}
+\subsection{$R=\sqrt2$}
+For
+\[
+R=\sqrt2
+\]
+we have
+\[
+D(R)=\sqrt2,
+\qquad
+\mathcal L(\sqrt2)=\frac1{2\sqrt2},
+\]
+so
+\[
+\boxed{\liminf_{M\to\infty}M\deltam(\sqrt2)=\frac14.}
+\]
+Thus the integer-labelled configurations never become exactly concurrent, yet their optimal
+residual reaches the precise $1/(4M)$ scale along the best sequence of boxes.
+
+\needspace{5\baselineskip}
+\subsection{The golden ratio}
+Let
+\[
+\varphi=\frac{1+\sqrt5}{2}.
+\]
+Then
+\[
+D(\varphi)=\varphi,
+\qquad
+\mathcal L(\varphi)=\frac1{\sqrt5},
+\]
+and therefore
+\[
+\boxed{\liminf_{M\to\infty}M\deltam(\varphi)=\frac{\varphi}{2\sqrt5}.}
+\]
+Again $\mu_{\mathrm{geo}}(\varphi)=2$.
+
+\needspace{5\baselineskip}
+\subsection{Rational parameters: the zero-defect transition}
+If $R=p/q\in\mathbb Q$ in lowest terms, the exact theory gives the primitive difference pattern
+$(p,q)$. Once the box contains one nonzero translate of that pattern,
+\[
+\delta_M(R)=0.
+\]
+Thus rational resonance is the exact zero-defect endpoint of the quantitative theory.
+
+\needspace{5\baselineskip}
+\section{Geometric interpretation}
+The three-dimensional label space contains the plane
+\[
+V_\kappa=\operatorname{span}_{\mathbb R}\{\mathbf1,\boldsymbol\kappa\}.
+\]
+For rationally resonant parameters,
+\[
+V_\kappa\cap\mathbb Z^3
+\]
+contains a second lattice direction beyond $\mathbf1$. Integer points on the plane are exact
+concurrences.
+
+For irrational $R$, the second integer direction disappears. The plane still exists, and the
+integer lattice still fills the ambient label space. The quantity $\delta_M(R)$ measures the
+smallest coordinate residual among nontrivial integer points in the box.
+
+Theorem~\ref{thm:lagrange} therefore says that the asymptotic arithmetic quality of rational
+approximants to $R$ is visible directly as a geometric near-concurrence constant.
+
+\needspace{5\baselineskip}
+\section{Higher families and simultaneous approximation}
+For $k>3$, fix a reference family $k$ and choose family $2$ as the difference scale. Put
+\[
+R_i=\frac{\kappa_i-\kappa_k}{\kappa_2-\kappa_k},
+\qquad i\in\{1,3,\ldots,k-1\}.
+\]
+For integer labels define
+\[
+q=m_2-m_k,
+\qquad
+p_i=m_i-m_k.
+\]
+Exact concurrence requires the simultaneous system
+\[
+p_i=R_iq.
+\]
+Thus the scalar defect $p-Rq$ is replaced by the vector defect
+\[
+\mathbf p-q\mathbf R.
+\]
+A higher-dimensional analogue can be defined by minimizing a norm of $q\mathbf R-\mathbf p$ subject to the finite-box feasibility conditions.
+
+For $k>3$, the same reduction still applies. This is the natural point at which the classical theory of simultaneous approximation becomes relevant~\cite{schmidt1980,waldschmidt2009}. The same common point
+produces one scale parameter $q$, but now several integer differences must approximate their
+corresponding real multiples of $q$ at once. The extra families do not introduce new geometric
+unknowns; they introduce additional arithmetic compatibility conditions. The following two worked
+examples make this generalization explicit for $k=4$ and $k=5$.
+
+\needspace{5\baselineskip}
+\subsection{Worked example: $k=4$}
+Take four families with direction parameters
+\[
+\kappa_1=\sqrt2,
+\qquad
+\kappa_2=1,
+\qquad
+\kappa_3=\sqrt3,
+\qquad
+\kappa_4=0.
+\]
+Using family $4$ as reference and family $2$ as the scale, we have
+\[
+R_1=\sqrt2,
+\qquad
+R_3=\sqrt3.
+\]
+Hence exact concurrence would require, for some integer differences
+$q=m_2-m_4$,
+\[
+m_1-m_4=\sqrt2\,q,
+\qquad
+m_3-m_4=\sqrt3\,q.
+\]
+Because $\sqrt2$ and $\sqrt3$ are irrational, no nonzero integer $q$ can satisfy both
+relations exactly. The four-family problem is therefore a simultaneous approximation problem for
+the vector $(\sqrt2,\sqrt3)$.
+
+A concrete near-concurrent configuration is obtained with
+\[
+q=41,
+\qquad
+m_4=0,
+\qquad
+m_2=41,
+\qquad
+m_1=58,
+\qquad
+m_3=71.
+\]
+Indeed,
+\[
+41\sqrt2\approx57.982756,
+\qquad
+41\sqrt3\approx71.014083,
+\]
+so the coordinate defects are
+\[
+58-41\sqrt2\approx0.017244,
+\qquad
+71-41\sqrt3\approx-0.014083.
+\]
+Geometrically, families $2$ and $4$ intersect at $(x,y)=(0,-41)$, and the other two lines pass
+very close to that point. The largest absolute residual is only about $0.0173$, despite the
+absence of any exact four-way integer concurrence.
+
+For four families, the scalar defect is replaced by a simultaneous defect:
+\[
+\max\bigl\{|p_1-\sqrt2 q|,\,|p_3-\sqrt3 q|\bigr\}.
+\]
+The target is now the two-dimensional vector $(\sqrt2,\sqrt3)$ rather than a single irrational number.
+
+\needspace{5\baselineskip}
+\subsection{Worked example: $k=5$}
+Now consider five families with
+\[
+\kappa_1=\sqrt2,
+\qquad
+\kappa_2=1,
+\qquad
+\kappa_3=\sqrt3,
+\qquad
+\kappa_4=\sqrt5,
+\qquad
+\kappa_5=0.
+\]
+Using family $5$ as reference gives the three simultaneous ratios
+\[
+R_1=\sqrt2,
+\qquad
+R_3=\sqrt3,
+\qquad
+R_4=\sqrt5.
+\]
+Exact concurrence would therefore require
+\[
+m_1-m_5=\sqrt2\,q,
+\qquad
+m_3-m_5=\sqrt3\,q,
+\qquad
+m_4-m_5=\sqrt5\,q,
+\]
+with $q=m_2-m_5$. Again, there is no nonzero integer solution, but the three coordinates can be
+approximated simultaneously.
+
+For a worked configuration choose
+\[
+q=123,
+\qquad
+m_5=0,
+\qquad
+m_2=123,
+\qquad
+m_1=174,
+\qquad
+m_3=213,
+\qquad
+m_4=275.
+\]
+The relevant products are
+\[
+123\sqrt2\approx173.948268,
+\qquad
+123\sqrt3\approx213.042249,
+\qquad
+123\sqrt5\approx275.036361.
+\]
+Thus the three defects are
+\[
+174-123\sqrt2\approx0.051732,
+\]
+\[
+213-123\sqrt3\approx-0.042249,
+\]
+\[
+275-123\sqrt5\approx-0.036361.
+\]
+The five lines are therefore nearly concurrent at the intersection of families $2$ and $5$,
+namely $(0,-123)$, with maximum coordinate residual approximately $0.0518$.
+
+The $k=5$ case shows how the constraint grows. For $k=3$ there is one approximation condition; for $k=4$ there are two conditions sharing the same denominator $q$; for $k=5$ there are three. The reduction is unchanged, but the problem has moved from one-dimensional to simultaneous approximation.
+
+One higher-dimensional analogue minimizes a norm of $q\mathbf R-\mathbf p$ under the same finite-box constraints. We do not develop the corresponding constants or exponent theory here.
+
+\needspace{5\baselineskip}
+\section{Conclusion}
+Exact concurrence of integer-labelled parallel line families is rigid: rational resonance creates
+an integer lattice of solutions, while irrational resonance removes every nontrivial exact integer
+solution. The quantitative problem reveals what replaces that lattice in the non-resonant case.
+
+For three families, the entire problem is controlled by
+\[
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}.
+\]
+The best residual attainable with labels in $[-M,M]$ is governed by rational approximations to $R$.
+The identity
+\[
+\boxed{
+\liminf_{M\to\infty}M\deltam(R)
+=\frac{D(R)}2\mathcal L(R)
+}
+\]
+turns the classical approximation constant into a geometric quantity. The exponent theorem then
+shows that the same correspondence persists at the level of irrationality exponents.
+
+The exponent terminology used here follows the standard literature on rational approximation and irrationality exponents~\cite{bug,roth1955,waldschmidt2009}. The resulting dictionary is
+\[
+\begin{aligned}
+\text{rationality} &\to \text{exact concurrence},\\
+\mathcal L(R)>0 &\to \text{first-order rigidity},\\
+\mu(R)>2 &\to \text{exceptional near-concurrence}.
+\end{aligned}
+\]
+A next step is simultaneous approximation for four or more families, where the single scalar $R$ is
+replaced by an approximation vector and the corresponding Diophantine exponents become higher-dimensional.
+
+\needspace{5\baselineskip}
+\section{Discussions: relation to relativity and broader interpretation}
+The geometric picture developed in this paper can also be compared with special relativity~\cite{einstein1905,schutz2009}. The comparison is limited to the distinction between a geometric event and the coordinates used to describe it, together with the compatibility conditions that allow several descriptions to refer to the same event.
+
+Here, concurrence means that the line equations share one point $(x,y)$, which forces an exact linear relation among the labels. In special relativity, the corresponding geometric object can be described by different observers using different coordinates. The event remains the same while its coordinate representation changes.
+
+A second parallel is the gap between exact and measured coincidence. Real trajectory data have finite resolution and clock error, while an irrational $R$ rules out nontrivial exact integer concurrence but still permits small residuals for suitable bounded labels. In both settings, one can ask how the residual changes as the resolution or label range increases.
+
+The following examples develop this comparison at three levels.
+
+\needspace{5\baselineskip}
+\subsection{Example 1: a common event and a change of coordinates}
+Consider several inertial worldlines in a two-dimensional spacetime diagram. In one inertial frame they
+may be written as affine relations of the form
+\[
+x-v_i t=b_i.
+\]
+A common event $(t_*,x_*)$ satisfies all the corresponding equations simultaneously. If one changes to
+another inertial frame, the coordinates $(t_*,x_*)$ change, but the fact that the worldlines pass through
+one event does not.
+
+The present paper has the same geometric-versus-coordinate distinction. The equations
+\[
+x-\kappa_i y=m_i
+\]
+are a coordinate description of the chosen line families, while concurrence is the geometric property
+represented by the existence of a common point. The quantities $R$ and $\delta_M(R)$ encode the
+arithmetic obstruction in the chosen integer labeling; they do not replace the underlying geometric
+incidence statement.
+
+\needspace{5\baselineskip}
+\subsection{Example 2: relative motion and near-concurrence}
+For two objects moving uniformly in one spatial dimension, write
+\[
+x_1(t)=v_1t+a_1,\qquad x_2(t)=v_2t+a_2.
+\]
+An exact meeting occurs when these affine functions have a common point. The affine viewpoint is elementary, but it is consistent with the coordinate-based treatment of motion used in special relativity~\cite{einstein1905,schutz2009}. If the parameters are known
+only approximately, one instead studies the smallest separation over the observation interval.
+
+This is analogous to replacing exact concurrence by the defect $\delta_M(R)$. Exact resonance corresponds
+to a genuine integer relation, whereas irrational parameters lead to a residual that can be made small
+only through good rational approximations. The finite box $[-M,M]^3$ plays the role of a finite experimental
+window: enlarging $M$ gives access to finer arithmetic approximations, just as a longer or more precise
+observation can reveal smaller geometric residuals.
+
+\needspace{5\baselineskip}
+\subsection{Example 3: a noisy hidden relation and constrained reconstruction}
+A closer analogy appears in inverse problems. Suppose several measured signals are generated by
+an underlying geometric configuration with a hidden linear relation. The ideal model is exact, but the
+observations contain noise. One can then separate the problem into three conceptual layers:
+\[
+\text{geometric constraint}
+\;\longrightarrow\;
+\text{noisy observations}
+\;\longrightarrow\;
+\text{discrete consistency test}.
+\]
+
+For example, imagine several observers recording noisy data associated with trajectories or clock events,
+while the underlying configuration is known to obey an affine relation. The raw measurements need not
+reveal the relevant integer or discrete labels directly. A statistical model can first estimate the hidden
+discrete information from the noisy signal. The resulting estimates can then be inserted into a constrained
+integer optimization problem that asks whether one common configuration is consistent with all observations.
+The second stage does more than improve a numerical fit: it checks whether the estimated labels satisfy the rigid arithmetic constraint.
+
+In a noisy inverse problem, the exact model imposes a linear constraint, noise turns recovery into approximation, a reconstruction step estimates the hidden labels, and the final integer constraint tests whether those estimates are compatible with the model. The reconstruction does not replace the rigidity condition. It supplies candidate values that the condition can test.
+
+The three levels can be kept separate: exact results describe admissible configurations, approximation theory describes how close non-admissible ones can get, and noisy-data methods estimate the hidden parameters. They can be combined in one experiment without being treated as the same problem.
+
+\needspace{5\baselineskip}
+\subsection{Example 4: synchronizing several noisy measurements}
+Consider a practical measurement setup in which several sensors observe the same moving object. Each
+sensor has its own clock offset and records an affine approximation to the object's position over a short
+interval. After calibration, the measurements can be written schematically as
+\[
+ x-\kappa_i y=m_i+\varepsilon_i,
+\]
+where $\varepsilon_i$ represents measurement error. The question is not simply whether any two traces
+can be made to intersect after small adjustments, but whether all of them are compatible with one common
+state within the allowed error tolerance.
+
+This gives a practical instance of the distinction studied in the paper. The exact problem asks for a
+common solution of several affine equations; the noisy problem asks whether the residual vector is small
+enough to be explained by the measurement uncertainty. For $k=4$ or $k=5$, the residuals must be small
+simultaneously, so an agreement that looks convincing pairwise can still fail when the remaining families
+are included. Adding families therefore acts as a consistency check: more observations reduce the
+freedom of an accidental near-intersection.
+
+The example is also useful for interpreting the finite-box parameter $M$. A bounded range of integer
+labels can be viewed as a finite search or resolution budget. Increasing that budget does not change the
+underlying equations; it simply allows the reconstruction procedure to test finer candidate configurations.
+Thus the geometric language gives a clean way to separate model structure, measurement precision, and
+search complexity.
+
+\needspace{5\baselineskip}
+\subsection{Example 5: hidden discrete structure recovered from a noisy signal}
+Consider a generic signal-analysis setting in which a system produces a noisy trace while an internal state contains a small discrete quantity. The quantity is not read directly from the trace. A first stage estimates candidate labels; a second stage checks whether those labels satisfy a rigid relation imposed by the model.
+
+At the conceptual level, the workflow is
+\[
+\text{structured model}
+\;\longrightarrow\;
+\text{noisy observation}
+\;\longrightarrow\;
+\text{estimated discrete labels}
+\;\longrightarrow\;
+\text{consistency test}.
+\]
+The important point is that the final test is stronger than checking whether the reconstructed values look
+plausible individually. A set of labels may each be close to a measurement, yet fail the common constraint
+when considered together. Conversely, weak but coordinated evidence across several observations can become
+meaningful once it is projected onto the constrained mathematical model.
+
+The higher-family problem uses the same separation. Reconstruction supplies imperfect candidate labels; the arithmetic constraint decides whether they can belong to one compatible configuration. Geometry fixes the model, measurement adds uncertainty, and arithmetic supplies the compatibility test.
+
+The comparison with relativity is useful for one limited reason: it separates the geometric configuration from the coordinates used to represent it. Here the compatibility condition is arithmetic and Diophantine; in relativity it comes from spacetime geometry and invariant relations.
+
+\begin{thebibliography}{99}
+
+\bibitem{cassels}
+J. W. S. Cassels,
+\emph{An Introduction to Diophantine Approximation},
+Cambridge University Press, 1957.
+
+\bibitem{casselsgeometry}
+J. W. S. Cassels,
+\emph{An Introduction to the Geometry of Numbers},
+Springer, 1959.
+
+\bibitem{hardywright}
+G. H. Hardy and E. M. Wright,
+\emph{An Introduction to the Theory of Numbers},
+6th ed., Oxford University Press, 2008.
+
+\bibitem{irelandrosen}
+K. Ireland and M. Rosen,
+\emph{A Classical Introduction to Modern Number Theory},
+2nd ed., Springer, 1990.
+
+\bibitem{khintchine1924}
+A. Khintchine,
+``Einige Sätze über Kettenbrüche, mit Anwendungen auf die Theorie der Diophantischen Approximationen,''
+\emph{Mathematische Annalen} 92 (1924), 115--125.
+
+\bibitem{schmidt1980}
+W. M. Schmidt,
+\emph{Diophantine Approximation},
+Lecture Notes in Mathematics, vol. 785, Springer, 1980.
+
+\bibitem{harman1998}
+G. Harman,
+\emph{Metric Number Theory},
+London Mathematical Society Monographs, New Series 18, Clarendon Press, 1998.
+
+\bibitem{sprindzhuk1979}
+V. G. Sprindzhuk,
+\emph{Metric Theory of Diophantine Approximations},
+V. H. Winston, 1979.
+
+\bibitem{bug}
+Y. Bugeaud,
+\emph{Approximation by Algebraic Numbers},
+Cambridge University Press, 2004.
+
+\bibitem{roth1955}
+K. F. Roth,
+``Rational approximations to algebraic numbers,''
+\emph{Mathematika} 2 (1955), 1--20.
+
+\bibitem{davenportroth1955}
+H. Davenport and K. F. Roth,
+``Rational approximations to algebraic numbers,''
+\emph{Mathematika} 2 (1955), 160--167.
+
+\bibitem{waldschmidt2009}
+M. Waldschmidt,
+``Report on some recent advances in Diophantine approximation,''
+arXiv:0908.3973, 2009.
+
+\bibitem{badzhinpollingtonvelani}
+D. Badziahin, A. Pollington, and S. Velani,
+``On a problem in simultaneous Diophantine approximation: Schmidt's conjecture,''
+arXiv:1001.2694, 2010.
+
+\bibitem{gruberlekkerkerker}
+P. M. Gruber and C. G. Lekkerkerker,
+\emph{Geometry of Numbers}, 2nd ed., North-Holland, 1987.
+
+\bibitem{cusickflahive}
+T. W. Cusick and M. E. Flahive,
+\emph{The Markoff and Lagrange Spectra},
+American Mathematical Society, 1989.
+
+\bibitem{korsky2026}
+S. Korsky,
+``Affine Copies of Three-Point Patterns in Sets of Integers,''
+arXiv:2609.02308, 2026.
+
+\end{thebibliography}
+
+\end{document}
