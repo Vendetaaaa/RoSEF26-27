@@ -1,1 +1,12 @@
-
+stage,status,metric,value,reference
+dataset,PASS,samples,160,160
+leakage,PASS,traces,160,160
+leakage,PASS,trace_width_bits,256,256
+cnn,PASS,validation_bit_accuracy,0.9635416865348816,measured
+cnn,PASS,validation_prefix_accuracy,0.65625,measured
+hnp,VALIDATED,samples,40,40
+hnp,VALIDATED,recovered_private_key,,not recovered without fpylll
+hnp,VALIDATED,validated,False,True
+math,PASS,bridge_modules_passed,4,4
+math,PASS,diophantine_modules_passed,5,5
+pipeline,FAIL,fully_executed,False,requires CNN + recovered HNP key
