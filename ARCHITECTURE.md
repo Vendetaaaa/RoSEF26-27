@@ -2,10 +2,12 @@
 
 ```
 📁 RoSEF26-27/
+│
 ├── 📁 .github/
 │   ├── 📁 workflows/
 │   │   ├── 📄 reproducibility.yml
 │   │   └── 📄 tests.yml
+│   │
 │   └── 📄 pull_request_template.md
 │
 ├── 📁 docs/
@@ -14,9 +16,14 @@
 │   ├── 📄 methodology.md
 │   ├── 📄 project-overview.md
 │   ├── 📄 reproducibility.md
-│   └── 📄 research-question.md
+│   ├── 📄 research-question.md
+│   │
+│   └── 📁 papers/
+│       ├── 📄 Recovery_of_private_keys.pdf
+│       └── 📄 Recovery_of_private_keys.tex
 │
 ├── 📁 informatica/
+│   │
 │   ├── 📁 ECDSA/
 │   │   ├── 📄 Lattice_key6.py
 │   │   ├── 📄 cnn_nonce_analysis5.py
@@ -25,10 +32,20 @@
 │   │   ├── 📄 ecdsa_leakage_model4.py
 │   │   ├── 📄 ecdsa_simulator2.py
 │   │   ├── 📄 hnp_attack1.py
+│   │   ├── 📄 hnp_utils.py
 │   │   ├── 📄 main.py
 │   │   └── 📄 theory_to_experiment_bridge8.py
 │   │
 │   ├── 📁 artifacts/
+│   │   ├── 📄 bridge_results.json
+│   │   ├── 📄 cnn_predictions.json
+│   │   ├── 📄 diophantine_results.json
+│   │   ├── 📄 hnp_result.json
+│   │   ├── 📄 oracle_dataset.json
+│   │   ├── 📄 pipeline_results.json
+│   │   ├── 📄 profile_dataset.json
+│   │   ├── 📄 public_dataset.json
+│   │   ├── 🖼️ diophantine_bridge_verification.png
 │   │   └── 📄 README.txt
 │   │
 │   ├── 📁 cnn/
@@ -45,6 +62,7 @@
 │   │   │   ├── 📄 profile_dataset.json
 │   │   │   ├── 📄 dataset_metadata.json
 │   │   │   └── 📄 dataset_split.json
+│   │   │
 │   │   ├── 📄 README.md
 │   │   ├── 📄 generate.py
 │   │   └── 📄 capture_esp32.py
@@ -53,16 +71,19 @@
 │   │   ├── 📁 firmware/
 │   │   │   ├── 📄 CMakeLists.txt
 │   │   │   ├── 📄 sdkconfig.defaults
+│   │   │   │
 │   │   │   └── 📁 main/
 │   │   │       ├── 📄 CMakeLists.txt
 │   │   │       ├── 📄 main.c
 │   │   │       ├── 📄 ecdsa_exp.c
 │   │   │       └── 📄 ecdsa_exp.h
+│   │   │
 │   │   ├── 📄 README.md
 │   │   └── 📄 protocol.md
 │   │
 │   ├── 📁 experiments/
-│   │   └── 📄 run_experiments.py
+│   │   ├── 📄 run_experiments.py
+│   │   └── 📄 benchmark_hnp_thresholds.py
 │   │
 │   ├── 📁 lattice/
 │   │   ├── 📄 README.md
@@ -76,49 +97,55 @@
 │       └── 📄 noise.py
 │
 ├── 📁 matematica/
+│   │
 │   └── 📁 experiments/
+│       │
 │       ├── 📁 conurenta/
 │       │   ├── 📁 figs_con/
-│       │   │   └── 🖼️ . . .
-│       │   └── 🖼️ . . .
+│       │   │   └── 🖼️ ...
+│       │   └── 🖼️ ...
+│       │
 │       ├── 📁 graficele_matematice/
 │       │   ├── 📁 figs_cert/
-│       │   │   └── 🖼️ . . .
-│       │   └── 🖼️ . . .
+│       │   │   └── 🖼️ ...
+│       │   └── 🖼️ ...
+│       │
 │       ├── 📁 paper/
 │       │   ├── 📄 arithmetic_concurrence.pdf
 │       │   └── 📄 arithmetic_concurrence.tex
+│       │
 │       └── 📄 README.md
 │
 ├── 📁 misc/
-│   └── 🖼️ . . .
+│   └── 🖼️ ...
 │
 ├── 📁 notebooks/
-│   ├── 📄 01_data-generation.ipynb
-│   ├── 📄 02_baseline.ipynb
-│   ├── 📄 03_cnn-training.ipynb
-│   └── 📄 04_final-results.ipynb
+│   ├── 📓 01_data-generation.ipynb
+│   ├── 📓 02_baseline.ipynb
+│   ├── 📓 03_cnn-training.ipynb
+│   └── 📓 04_final-results.ipynb
 │
 ├── 📁 results/
 │   ├── 📁 figures/
-│   │   └── 🖼️ . . .
+│   │   └── 🖼️ ...
+│   │
 │   └── 📁 tables/
 │       └── 📄 final-results.csv
 │
 ├── 📁 tests/
+│   ├── 📄 test_ecdsa.py
+│   ├── 📄 test_hnp.py
 │   ├── 📄 test_math.py
 │   ├── 📄 test_model.py
 │   ├── 📄 test_simulator.py
-│   ├── 📄 test_ecdsa.py
-│   ├── 📄 test_hnp.py
 │   └── 📄 test_smoke.py
 │
 ├── 📄 .gitignore
 ├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
-├── 📄 LICENSE (MIT)
-├── 📄 README.md
+├── 📄 LICENSE
 ├── 📄 Q&A.txt
+├── 📄 README.md
 └── 📄 requirements.txt
 ```
 
