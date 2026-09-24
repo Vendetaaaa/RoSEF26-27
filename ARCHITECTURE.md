@@ -5,6 +5,7 @@
 │
 ├── 📁 .github/
 │   ├── 📁 workflows/
+│   │   ├── 📄 benchmark.yml
 │   │   ├── 📄 reproducibility.yml
 │   │   └── 📄 tests.yml
 │   │
@@ -43,6 +44,8 @@
 │   │   ├── 📄 hnp_result.json
 │   │   ├── 📄 oracle_dataset.json
 │   │   ├── 📄 pipeline_results.json
+│   │   ├── 📄 dataset_metadata.json
+│   │   ├── 📄 dataset_split.json
 │   │   ├── 📄 profile_dataset.json
 │   │   ├── 📄 public_dataset.json
 │   │   ├── 🖼️ diophantine_bridge_verification.png
@@ -82,8 +85,9 @@
 │   │   └── 📄 protocol.md
 │   │
 │   ├── 📁 experiments/
-│   │   ├── 📄 run_experiments.py
-│   │   └── 📄 benchmark_hnp_thresholds.py
+│   │   ├── 📄 benchmark_cnn_hnp_surface.py
+│   │   ├── 📄 benchmark_hnp_thresholds.py
+│   │   └── 📄 run_experiments.py
 │   │
 │   ├── 📁 lattice/
 │   │   ├── 📄 README.md
