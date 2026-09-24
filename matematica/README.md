@@ -4,6 +4,13 @@ Fișierul curent va dezvolta abstractul parții matematice și calculele computa
 
 # Structura /matematica
 
+## Starea matematică actuală
+
+Partea demonstrată riguros tratează cazul scalar cu trei familii, unde concurența se reduce la o singură relație de aproximare diofantină. Codul conține experimente pentru `k = 4` și `k = 5`, dar acestea verifică doar construcții numerice și comportamentele implementate. Ele nu constituie o demonstrație a unui transfer de exponent pentru aproximarea simultană în cazul general `k > 3`.
+
+Această limită trebuie păstrată explicit în lucrare și în interpretarea rezultatelor. Următorul rezultat teoretic ar necesita definirea exactă a exponentului simultan, a defectului comun și o demonstrație separată.
+
+
 ```text
 matematica/
   experiments/
