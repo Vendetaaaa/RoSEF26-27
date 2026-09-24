@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
-from Lattice_key6 import HNPConfig, HNPLatticeSolver
+ECDSA_DIR = Path(__file__).resolve().parents[1] / "ECDSA"
+if str(ECDSA_DIR) not in sys.path:
+    sys.path.insert(0, str(ECDSA_DIR))
+
+from Lattice_key6 import FPYLLL_AVAILABLE, HNPConfig, HNPLatticeSolver
 from dataset_generator3 import CURVE, generate_dataset
 
 
@@ -28,14 +33,17 @@ def evaluate_threshold(leaked_bits: int, sample_count: int, seed: int = 20260919
 
     solver = HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=sample_count))
     reduction_error = None
+    backend = "unavailable"
     try:
-        recovered = solver.solve(t_list, u_list, a_list)
+        recovered, backend = solver.solve(t_list, u_list, a_list)
     except RuntimeError as exc:
         recovered = None
         reduction_error = str(exc)
     relation_ok = solver.verify_expected_vector(ground_truth.private_key, t_list, u_list, a_list)
     return {
         "leaked_bits": leaked_bits,
+        "reduction_backend": backend,
+        "reduction_executed": reduction_error is None,
         "sample_count": sample_count,
         "relation_ok": relation_ok,
         "recovered_private_key": recovered,
@@ -47,7 +55,7 @@ def evaluate_threshold(leaked_bits: int, sample_count: int, seed: int = 20260919
 def main() -> None:
     parser = argparse.ArgumentParser(description="Benchmark HNP recovery thresholds on perfect leakage.")
     parser.add_argument("--leaked-bits", nargs="*", type=int, default=[8, 12])
-    parser.add_argument("--sample-counts", nargs="*", type=int, default=[20, 40, 80])
+    parser.add_argument("--sample-counts", nargs="*", type=int, default=[20, 40])
     args = parser.parse_args()
 
     rows = []

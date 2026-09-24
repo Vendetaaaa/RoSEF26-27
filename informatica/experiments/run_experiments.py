@@ -99,8 +99,9 @@ def hnp_recovery_experiment(sample_count: int, leaked_bits: int, seed: int, run_
     start = time.perf_counter()
     error = None
     recovered = None
+    backend = "unavailable"
     try:
-        recovered = solver.solve(t_list, u_list, a_list)
+        recovered, backend = solver.solve(t_list, u_list, a_list)
     except RuntimeError as exc:
         error = str(exc)
     elapsed = time.perf_counter() - start
@@ -111,7 +112,7 @@ def hnp_recovery_experiment(sample_count: int, leaked_bits: int, seed: int, run_
         "key_recovered": recovered == truth.private_key,
         "relation_valid": relation_ok, "runtime_seconds": elapsed,
         "avg_snr_db": None,
-        "backend": "fpylll" if getattr(__import__("Lattice_key6"), "FPYLLL_AVAILABLE", False) else "sympy",
+        "backend": backend,
         "reduction_error": error,
     }
 

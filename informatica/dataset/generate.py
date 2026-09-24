@@ -103,7 +103,7 @@ def generate(
     noise_sigma: float = 0.15,
     seed: int = 20260919,
     leakage_mode: str = "HW",
-    train_fraction: float = 0.70,
+    train_fraction: float = 0.60,
     validation_fraction: float = 0.15,
 ) -> dict[str, Any]:
     if sample_count < 16:

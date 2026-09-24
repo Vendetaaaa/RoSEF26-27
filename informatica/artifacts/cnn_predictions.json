@@ -1,439 +1,64 @@
 {
   "metrics": {
-    "validation_bit_accuracy": 0.9635416865348816,
-    "validation_prefix_accuracy": 0.65625,
-    "validation_samples": 32
+    "validation_bit_accuracy": 0.9965277910232544,
+    "validation_prefix_accuracy": 0.9583333134651184,
+    "validation_samples": 24,
+    "epochs": 100,
+    "test_samples": 40,
+    "test_bit_accuracy": 1.0,
+    "test_prefix_accuracy": 1.0,
+    "test_exact_prefixes": 40
+  },
+  "split": {
+    "name": "test",
+    "sample_ids": [
+      68,
+      86,
+      72,
+      135,
+      45,
+      18,
+      4,
+      55,
+      107,
+      58,
+      119,
+      91,
+      127,
+      133,
+      82,
+      56,
+      122,
+      126,
+      96,
+      47,
+      109,
+      64,
+      48,
+      17,
+      31,
+      100,
+      120,
+      130,
+      74,
+      157,
+      5,
+      154,
+      112,
+      61,
+      88,
+      104,
+      115,
+      32,
+      71,
+      150
+    ]
   },
   "predictions": [
-    {
-      "sample_id": 0,
-      "leaked_bits": 12,
-      "predicted_prefix": 528
-    },
-    {
-      "sample_id": 1,
-      "leaked_bits": 12,
-      "predicted_prefix": 2191
-    },
-    {
-      "sample_id": 2,
-      "leaked_bits": 12,
-      "predicted_prefix": 682
-    },
-    {
-      "sample_id": 3,
-      "leaked_bits": 12,
-      "predicted_prefix": 677
-    },
-    {
-      "sample_id": 4,
-      "leaked_bits": 12,
-      "predicted_prefix": 3342
-    },
-    {
-      "sample_id": 5,
-      "leaked_bits": 12,
-      "predicted_prefix": 1579
-    },
-    {
-      "sample_id": 6,
-      "leaked_bits": 12,
-      "predicted_prefix": 3092
-    },
-    {
-      "sample_id": 7,
-      "leaked_bits": 12,
-      "predicted_prefix": 379
-    },
-    {
-      "sample_id": 8,
-      "leaked_bits": 12,
-      "predicted_prefix": 3171
-    },
-    {
-      "sample_id": 9,
-      "leaked_bits": 12,
-      "predicted_prefix": 1302
-    },
-    {
-      "sample_id": 10,
-      "leaked_bits": 12,
-      "predicted_prefix": 1928
-    },
-    {
-      "sample_id": 11,
-      "leaked_bits": 12,
-      "predicted_prefix": 824
-    },
-    {
-      "sample_id": 12,
-      "leaked_bits": 12,
-      "predicted_prefix": 1867
-    },
-    {
-      "sample_id": 13,
-      "leaked_bits": 12,
-      "predicted_prefix": 2681
-    },
-    {
-      "sample_id": 14,
-      "leaked_bits": 12,
-      "predicted_prefix": 1038
-    },
-    {
-      "sample_id": 15,
-      "leaked_bits": 12,
-      "predicted_prefix": 4086
-    },
-    {
-      "sample_id": 16,
-      "leaked_bits": 12,
-      "predicted_prefix": 3844
-    },
-    {
-      "sample_id": 17,
-      "leaked_bits": 12,
-      "predicted_prefix": 3623
-    },
-    {
-      "sample_id": 18,
-      "leaked_bits": 12,
-      "predicted_prefix": 1050
-    },
-    {
-      "sample_id": 19,
-      "leaked_bits": 12,
-      "predicted_prefix": 3269
-    },
-    {
-      "sample_id": 20,
-      "leaked_bits": 12,
-      "predicted_prefix": 1240
-    },
-    {
-      "sample_id": 21,
-      "leaked_bits": 12,
-      "predicted_prefix": 2347
-    },
-    {
-      "sample_id": 22,
-      "leaked_bits": 12,
-      "predicted_prefix": 1688
-    },
-    {
-      "sample_id": 23,
-      "leaked_bits": 12,
-      "predicted_prefix": 1488
-    },
-    {
-      "sample_id": 24,
-      "leaked_bits": 12,
-      "predicted_prefix": 2517
-    },
-    {
-      "sample_id": 25,
-      "leaked_bits": 12,
-      "predicted_prefix": 938
-    },
-    {
-      "sample_id": 26,
-      "leaked_bits": 12,
-      "predicted_prefix": 1529
-    },
-    {
-      "sample_id": 27,
-      "leaked_bits": 12,
-      "predicted_prefix": 1633
-    },
-    {
-      "sample_id": 28,
-      "leaked_bits": 12,
-      "predicted_prefix": 4027
-    },
-    {
-      "sample_id": 29,
-      "leaked_bits": 12,
-      "predicted_prefix": 3868
-    },
-    {
-      "sample_id": 30,
-      "leaked_bits": 12,
-      "predicted_prefix": 1917
-    },
-    {
-      "sample_id": 31,
-      "leaked_bits": 12,
-      "predicted_prefix": 1785
-    },
-    {
-      "sample_id": 32,
-      "leaked_bits": 12,
-      "predicted_prefix": 3821
-    },
-    {
-      "sample_id": 33,
-      "leaked_bits": 12,
-      "predicted_prefix": 2950
-    },
-    {
-      "sample_id": 34,
-      "leaked_bits": 12,
-      "predicted_prefix": 3626
-    },
-    {
-      "sample_id": 35,
-      "leaked_bits": 12,
-      "predicted_prefix": 1262
-    },
-    {
-      "sample_id": 36,
-      "leaked_bits": 12,
-      "predicted_prefix": 1748
-    },
-    {
-      "sample_id": 37,
-      "leaked_bits": 12,
-      "predicted_prefix": 2092
-    },
-    {
-      "sample_id": 38,
-      "leaked_bits": 12,
-      "predicted_prefix": 3068
-    },
-    {
-      "sample_id": 39,
-      "leaked_bits": 12,
-      "predicted_prefix": 2700
-    },
-    {
-      "sample_id": 40,
-      "leaked_bits": 12,
-      "predicted_prefix": 2089
-    },
-    {
-      "sample_id": 41,
-      "leaked_bits": 12,
-      "predicted_prefix": 3738
-    },
-    {
-      "sample_id": 42,
-      "leaked_bits": 12,
-      "predicted_prefix": 1395
-    },
-    {
-      "sample_id": 43,
-      "leaked_bits": 12,
-      "predicted_prefix": 2938
-    },
-    {
-      "sample_id": 44,
-      "leaked_bits": 12,
-      "predicted_prefix": 1940
-    },
-    {
-      "sample_id": 45,
-      "leaked_bits": 12,
-      "predicted_prefix": 1463
-    },
-    {
-      "sample_id": 46,
-      "leaked_bits": 12,
-      "predicted_prefix": 2797
-    },
-    {
-      "sample_id": 47,
-      "leaked_bits": 12,
-      "predicted_prefix": 2472
-    },
-    {
-      "sample_id": 48,
-      "leaked_bits": 12,
-      "predicted_prefix": 612
-    },
-    {
-      "sample_id": 49,
-      "leaked_bits": 12,
-      "predicted_prefix": 1132
-    },
-    {
-      "sample_id": 50,
-      "leaked_bits": 12,
-      "predicted_prefix": 3479
-    },
-    {
-      "sample_id": 51,
-      "leaked_bits": 12,
-      "predicted_prefix": 3566
-    },
-    {
-      "sample_id": 52,
-      "leaked_bits": 12,
-      "predicted_prefix": 740
-    },
-    {
-      "sample_id": 53,
-      "leaked_bits": 12,
-      "predicted_prefix": 2907
-    },
-    {
-      "sample_id": 54,
-      "leaked_bits": 12,
-      "predicted_prefix": 1516
-    },
-    {
-      "sample_id": 55,
-      "leaked_bits": 12,
-      "predicted_prefix": 3912
-    },
-    {
-      "sample_id": 56,
-      "leaked_bits": 12,
-      "predicted_prefix": 2895
-    },
-    {
-      "sample_id": 57,
-      "leaked_bits": 12,
-      "predicted_prefix": 826
-    },
-    {
-      "sample_id": 58,
-      "leaked_bits": 12,
-      "predicted_prefix": 1518
-    },
-    {
-      "sample_id": 59,
-      "leaked_bits": 12,
-      "predicted_prefix": 193
-    },
-    {
-      "sample_id": 60,
-      "leaked_bits": 12,
-      "predicted_prefix": 2478
-    },
-    {
-      "sample_id": 61,
-      "leaked_bits": 12,
-      "predicted_prefix": 3399
-    },
-    {
-      "sample_id": 62,
-      "leaked_bits": 12,
-      "predicted_prefix": 3093
-    },
-    {
-      "sample_id": 63,
-      "leaked_bits": 12,
-      "predicted_prefix": 2808
-    },
-    {
-      "sample_id": 64,
-      "leaked_bits": 12,
-      "predicted_prefix": 895
-    },
-    {
-      "sample_id": 65,
-      "leaked_bits": 12,
-      "predicted_prefix": 1638
-    },
-    {
-      "sample_id": 66,
-      "leaked_bits": 12,
-      "predicted_prefix": 2855
-    },
-    {
-      "sample_id": 67,
-      "leaked_bits": 12,
-      "predicted_prefix": 1594
-    },
     {
       "sample_id": 68,
       "leaked_bits": 12,
       "predicted_prefix": 1384
-    },
-    {
-      "sample_id": 69,
-      "leaked_bits": 12,
-      "predicted_prefix": 1462
-    },
-    {
-      "sample_id": 70,
-      "leaked_bits": 12,
-      "predicted_prefix": 1470
-    },
-    {
-      "sample_id": 71,
-      "leaked_bits": 12,
-      "predicted_prefix": 2925
-    },
-    {
-      "sample_id": 72,
-      "leaked_bits": 12,
-      "predicted_prefix": 1779
-    },
-    {
-      "sample_id": 73,
-      "leaked_bits": 12,
-      "predicted_prefix": 1978
-    },
-    {
-      "sample_id": 74,
-      "leaked_bits": 12,
-      "predicted_prefix": 855
-    },
-    {
-      "sample_id": 75,
-      "leaked_bits": 12,
-      "predicted_prefix": 932
-    },
-    {
-      "sample_id": 76,
-      "leaked_bits": 12,
-      "predicted_prefix": 2344
-    },
-    {
-      "sample_id": 77,
-      "leaked_bits": 12,
-      "predicted_prefix": 2142
-    },
-    {
-      "sample_id": 78,
-      "leaked_bits": 12,
-      "predicted_prefix": 2396
-    },
-    {
-      "sample_id": 79,
-      "leaked_bits": 12,
-      "predicted_prefix": 2700
-    },
-    {
-      "sample_id": 80,
-      "leaked_bits": 12,
-      "predicted_prefix": 3940
-    },
-    {
-      "sample_id": 81,
-      "leaked_bits": 12,
-      "predicted_prefix": 3415
-    },
-    {
-      "sample_id": 82,
-      "leaked_bits": 12,
-      "predicted_prefix": 509
-    },
-    {
-      "sample_id": 83,
-      "leaked_bits": 12,
-      "predicted_prefix": 1774
-    },
-    {
-      "sample_id": 84,
-      "leaked_bits": 12,
-      "predicted_prefix": 1829
-    },
-    {
-      "sample_id": 85,
-      "leaked_bits": 12,
-      "predicted_prefix": 2897
     },
     {
       "sample_id": 86,
@@ -441,244 +66,9 @@
       "predicted_prefix": 3306
     },
     {
-      "sample_id": 87,
+      "sample_id": 72,
       "leaked_bits": 12,
-      "predicted_prefix": 885
-    },
-    {
-      "sample_id": 88,
-      "leaked_bits": 12,
-      "predicted_prefix": 3925
-    },
-    {
-      "sample_id": 89,
-      "leaked_bits": 12,
-      "predicted_prefix": 1379
-    },
-    {
-      "sample_id": 90,
-      "leaked_bits": 12,
-      "predicted_prefix": 1448
-    },
-    {
-      "sample_id": 91,
-      "leaked_bits": 12,
-      "predicted_prefix": 632
-    },
-    {
-      "sample_id": 92,
-      "leaked_bits": 12,
-      "predicted_prefix": 2625
-    },
-    {
-      "sample_id": 93,
-      "leaked_bits": 12,
-      "predicted_prefix": 2730
-    },
-    {
-      "sample_id": 94,
-      "leaked_bits": 12,
-      "predicted_prefix": 780
-    },
-    {
-      "sample_id": 95,
-      "leaked_bits": 12,
-      "predicted_prefix": 2355
-    },
-    {
-      "sample_id": 96,
-      "leaked_bits": 12,
-      "predicted_prefix": 1365
-    },
-    {
-      "sample_id": 97,
-      "leaked_bits": 12,
-      "predicted_prefix": 1386
-    },
-    {
-      "sample_id": 98,
-      "leaked_bits": 12,
-      "predicted_prefix": 1400
-    },
-    {
-      "sample_id": 99,
-      "leaked_bits": 12,
-      "predicted_prefix": 4023
-    },
-    {
-      "sample_id": 100,
-      "leaked_bits": 12,
-      "predicted_prefix": 2443
-    },
-    {
-      "sample_id": 101,
-      "leaked_bits": 12,
-      "predicted_prefix": 1668
-    },
-    {
-      "sample_id": 102,
-      "leaked_bits": 12,
-      "predicted_prefix": 1194
-    },
-    {
-      "sample_id": 103,
-      "leaked_bits": 12,
-      "predicted_prefix": 1279
-    },
-    {
-      "sample_id": 104,
-      "leaked_bits": 12,
-      "predicted_prefix": 398
-    },
-    {
-      "sample_id": 105,
-      "leaked_bits": 12,
-      "predicted_prefix": 3919
-    },
-    {
-      "sample_id": 106,
-      "leaked_bits": 12,
-      "predicted_prefix": 2430
-    },
-    {
-      "sample_id": 107,
-      "leaked_bits": 12,
-      "predicted_prefix": 2402
-    },
-    {
-      "sample_id": 108,
-      "leaked_bits": 12,
-      "predicted_prefix": 506
-    },
-    {
-      "sample_id": 109,
-      "leaked_bits": 12,
-      "predicted_prefix": 3620
-    },
-    {
-      "sample_id": 110,
-      "leaked_bits": 12,
-      "predicted_prefix": 3271
-    },
-    {
-      "sample_id": 111,
-      "leaked_bits": 12,
-      "predicted_prefix": 2476
-    },
-    {
-      "sample_id": 112,
-      "leaked_bits": 12,
-      "predicted_prefix": 3746
-    },
-    {
-      "sample_id": 113,
-      "leaked_bits": 12,
-      "predicted_prefix": 2981
-    },
-    {
-      "sample_id": 114,
-      "leaked_bits": 12,
-      "predicted_prefix": 4072
-    },
-    {
-      "sample_id": 115,
-      "leaked_bits": 12,
-      "predicted_prefix": 191
-    },
-    {
-      "sample_id": 116,
-      "leaked_bits": 12,
-      "predicted_prefix": 3053
-    },
-    {
-      "sample_id": 117,
-      "leaked_bits": 12,
-      "predicted_prefix": 3878
-    },
-    {
-      "sample_id": 118,
-      "leaked_bits": 12,
-      "predicted_prefix": 3820
-    },
-    {
-      "sample_id": 119,
-      "leaked_bits": 12,
-      "predicted_prefix": 3498
-    },
-    {
-      "sample_id": 120,
-      "leaked_bits": 12,
-      "predicted_prefix": 1624
-    },
-    {
-      "sample_id": 121,
-      "leaked_bits": 12,
-      "predicted_prefix": 3122
-    },
-    {
-      "sample_id": 122,
-      "leaked_bits": 12,
-      "predicted_prefix": 1517
-    },
-    {
-      "sample_id": 123,
-      "leaked_bits": 12,
-      "predicted_prefix": 1992
-    },
-    {
-      "sample_id": 124,
-      "leaked_bits": 12,
-      "predicted_prefix": 2595
-    },
-    {
-      "sample_id": 125,
-      "leaked_bits": 12,
-      "predicted_prefix": 976
-    },
-    {
-      "sample_id": 126,
-      "leaked_bits": 12,
-      "predicted_prefix": 2777
-    },
-    {
-      "sample_id": 127,
-      "leaked_bits": 12,
-      "predicted_prefix": 411
-    },
-    {
-      "sample_id": 128,
-      "leaked_bits": 12,
-      "predicted_prefix": 3085
-    },
-    {
-      "sample_id": 129,
-      "leaked_bits": 12,
-      "predicted_prefix": 2010
-    },
-    {
-      "sample_id": 130,
-      "leaked_bits": 12,
-      "predicted_prefix": 3974
-    },
-    {
-      "sample_id": 131,
-      "leaked_bits": 12,
-      "predicted_prefix": 321
-    },
-    {
-      "sample_id": 132,
-      "leaked_bits": 12,
-      "predicted_prefix": 1661
-    },
-    {
-      "sample_id": 133,
-      "leaked_bits": 12,
-      "predicted_prefix": 1515
-    },
-    {
-      "sample_id": 134,
-      "leaked_bits": 12,
-      "predicted_prefix": 977
+      "predicted_prefix": 1777
     },
     {
       "sample_id": 135,
@@ -686,94 +76,139 @@
       "predicted_prefix": 2937
     },
     {
-      "sample_id": 136,
+      "sample_id": 45,
       "leaked_bits": 12,
-      "predicted_prefix": 2920
+      "predicted_prefix": 439
     },
     {
-      "sample_id": 137,
+      "sample_id": 18,
       "leaked_bits": 12,
-      "predicted_prefix": 2537
+      "predicted_prefix": 1038
     },
     {
-      "sample_id": 138,
+      "sample_id": 4,
       "leaked_bits": 12,
-      "predicted_prefix": 2007
+      "predicted_prefix": 3343
     },
     {
-      "sample_id": 139,
+      "sample_id": 55,
       "leaked_bits": 12,
-      "predicted_prefix": 3705
+      "predicted_prefix": 3912
     },
     {
-      "sample_id": 140,
+      "sample_id": 107,
       "leaked_bits": 12,
-      "predicted_prefix": 2801
+      "predicted_prefix": 2400
     },
     {
-      "sample_id": 141,
+      "sample_id": 58,
       "leaked_bits": 12,
-      "predicted_prefix": 3964
+      "predicted_prefix": 1518
     },
     {
-      "sample_id": 142,
+      "sample_id": 119,
       "leaked_bits": 12,
-      "predicted_prefix": 3764
+      "predicted_prefix": 3498
     },
     {
-      "sample_id": 143,
+      "sample_id": 91,
       "leaked_bits": 12,
-      "predicted_prefix": 1495
+      "predicted_prefix": 568
     },
     {
-      "sample_id": 144,
+      "sample_id": 127,
       "leaked_bits": 12,
-      "predicted_prefix": 2607
+      "predicted_prefix": 155
     },
     {
-      "sample_id": 145,
+      "sample_id": 133,
       "leaked_bits": 12,
-      "predicted_prefix": 2626
+      "predicted_prefix": 1515
     },
     {
-      "sample_id": 146,
+      "sample_id": 82,
       "leaked_bits": 12,
-      "predicted_prefix": 2760
+      "predicted_prefix": 509
     },
     {
-      "sample_id": 147,
+      "sample_id": 56,
       "leaked_bits": 12,
-      "predicted_prefix": 582
+      "predicted_prefix": 2895
     },
     {
-      "sample_id": 148,
+      "sample_id": 122,
       "leaked_bits": 12,
-      "predicted_prefix": 434
+      "predicted_prefix": 1517
     },
     {
-      "sample_id": 149,
+      "sample_id": 126,
       "leaked_bits": 12,
-      "predicted_prefix": 1789
+      "predicted_prefix": 2777
     },
     {
-      "sample_id": 150,
+      "sample_id": 96,
       "leaked_bits": 12,
-      "predicted_prefix": 1500
+      "predicted_prefix": 1365
     },
     {
-      "sample_id": 151,
+      "sample_id": 47,
       "leaked_bits": 12,
-      "predicted_prefix": 3511
+      "predicted_prefix": 2472
     },
     {
-      "sample_id": 152,
+      "sample_id": 109,
       "leaked_bits": 12,
-      "predicted_prefix": 129
+      "predicted_prefix": 3620
     },
     {
-      "sample_id": 153,
+      "sample_id": 64,
       "leaked_bits": 12,
-      "predicted_prefix": 3042
+      "predicted_prefix": 895
+    },
+    {
+      "sample_id": 48,
+      "leaked_bits": 12,
+      "predicted_prefix": 548
+    },
+    {
+      "sample_id": 17,
+      "leaked_bits": 12,
+      "predicted_prefix": 3623
+    },
+    {
+      "sample_id": 31,
+      "leaked_bits": 12,
+      "predicted_prefix": 1785
+    },
+    {
+      "sample_id": 100,
+      "leaked_bits": 12,
+      "predicted_prefix": 2443
+    },
+    {
+      "sample_id": 120,
+      "leaked_bits": 12,
+      "predicted_prefix": 1624
+    },
+    {
+      "sample_id": 130,
+      "leaked_bits": 12,
+      "predicted_prefix": 3975
+    },
+    {
+      "sample_id": 74,
+      "leaked_bits": 12,
+      "predicted_prefix": 791
+    },
+    {
+      "sample_id": 157,
+      "leaked_bits": 12,
+      "predicted_prefix": 277
+    },
+    {
+      "sample_id": 5,
+      "leaked_bits": 12,
+      "predicted_prefix": 1579
     },
     {
       "sample_id": 154,
@@ -781,29 +216,44 @@
       "predicted_prefix": 1388
     },
     {
-      "sample_id": 155,
+      "sample_id": 112,
       "leaked_bits": 12,
-      "predicted_prefix": 1361
+      "predicted_prefix": 3746
     },
     {
-      "sample_id": 156,
+      "sample_id": 61,
       "leaked_bits": 12,
-      "predicted_prefix": 3033
+      "predicted_prefix": 3399
     },
     {
-      "sample_id": 157,
+      "sample_id": 88,
       "leaked_bits": 12,
-      "predicted_prefix": 1301
+      "predicted_prefix": 3925
     },
     {
-      "sample_id": 158,
+      "sample_id": 104,
       "leaked_bits": 12,
-      "predicted_prefix": 3527
+      "predicted_prefix": 398
     },
     {
-      "sample_id": 159,
+      "sample_id": 115,
       "leaked_bits": 12,
-      "predicted_prefix": 3559
+      "predicted_prefix": 191
+    },
+    {
+      "sample_id": 32,
+      "leaked_bits": 12,
+      "predicted_prefix": 3821
+    },
+    {
+      "sample_id": 71,
+      "leaked_bits": 12,
+      "predicted_prefix": 2925
+    },
+    {
+      "sample_id": 150,
+      "leaked_bits": 12,
+      "predicted_prefix": 1500
     }
   ]
 }

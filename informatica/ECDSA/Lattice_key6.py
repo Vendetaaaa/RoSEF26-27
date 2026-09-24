@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-import math
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -40,12 +39,22 @@ class HNPLatticeSolver:
     def __init__(self, config: HNPConfig) -> None:
         self.config = config
 
+    @staticmethod
+    def available_backends() -> tuple[str, ...]:
+        return ("fpylll", "sympy") if FPYLLL_AVAILABLE else ("sympy",)
+
+    @staticmethod
+    def default_backend() -> str:
+        return "fpylll" if FPYLLL_AVAILABLE else "sympy"
+
     def build_basis_matrix(self, t_list: List[int], u_list: List[int], a_list: List[int]) -> List[List[int]]:
         m = len(t_list)
         if m != len(u_list) or m != len(a_list):
             raise ValueError("HNP sample arrays must have equal length.")
         if m < 2:
             raise ValueError("At least two HNP samples are required.")
+        if self.config.num_samples != m:
+            raise ValueError(f"HNPConfig.num_samples={self.config.num_samples} does not match m={m}.")
         if not 1 <= self.config.leaked_bits < self.config.nbits:
             raise ValueError("leaked_bits must be between 1 and nbits-1.")
         if self.config.q != CURVE.n:
@@ -59,11 +68,9 @@ class HNPLatticeSolver:
 
         for i in range(m):
             matrix[i][i] = q * q
-
         for i in range(m):
             matrix[m][i] = q * (t_list[i] % q)
         matrix[m][m] = B
-
         for i in range(m):
             c_i = (a_list[i] - u_list[i]) % q
             matrix[m + 1][i] = q * c_i
@@ -97,7 +104,6 @@ class HNPLatticeSolver:
         return alpha * B == vector[-2] and -M == vector[-1]
 
     def recover_from_reduced_basis(self, reduced_matrix: List[List[int]], t_list: List[int], u_list: List[int], a_list: List[int]) -> Optional[int]:
-        q = self.config.q
         B = self.config.bound
         M = self.config.embedding
         m = len(t_list)
@@ -105,7 +111,7 @@ class HNPLatticeSolver:
             if abs(row[m + 1]) != M or row[m] % B != 0:
                 continue
             for sign in (1, -1):
-                candidate = (sign * (row[m] // B)) % q
+                candidate = (sign * (row[m] // B)) % self.config.q
                 if candidate and self.validate_candidate(candidate, t_list, u_list, a_list):
                     return candidate
         return None
@@ -116,14 +122,22 @@ class HNPLatticeSolver:
         B = self.config.bound
         return all(0 <= ((t * candidate + u - a) % self.config.q) < B for t, u, a in zip(t_list, u_list, a_list))
 
-    def reduce(self, matrix: List[List[int]]) -> List[List[int]]:
-        if FPYLLL_AVAILABLE:
+    def reduce(self, matrix: List[List[int]], *, backend: str = "auto", require_fpylll: bool = False) -> tuple[List[List[int]], str]:
+        selected = self.default_backend() if backend == "auto" else backend
+        if selected not in {"fpylll", "sympy"}:
+            raise ValueError("backend must be auto, fpylll, or sympy.")
+        if require_fpylll:
+            selected = "fpylll"
+        if selected == "fpylll" and not FPYLLL_AVAILABLE:
+            raise RuntimeError("fpylll is required for this run but is not installed.")
+
+        if selected == "fpylll":
             L = IntegerMatrix(len(matrix), len(matrix))
             for r, row in enumerate(matrix):
                 for c, value in enumerate(row):
                     L[r, c] = int(value)
             LLL.reduction(L, delta=self.config.delta)
-            return [[int(L[r, c]) for c in range(len(matrix))] for r in range(len(matrix))]
+            return [[int(L[r, c]) for c in range(len(matrix))] for r in range(len(matrix))], "fpylll"
 
         try:
             from sympy import Matrix, Rational
@@ -135,9 +149,17 @@ class HNPLatticeSolver:
             raise RuntimeError(
                 "SymPy LLL could not reduce this lattice. Install fpylll for the recommended backend."
             ) from exc
-        return [[int(reduced[r, c]) for c in range(reduced.cols)] for r in range(reduced.rows)]
+        return [[int(reduced[r, c]) for c in range(reduced.cols)] for r in range(reduced.rows)], "sympy"
 
-    def solve(self, t_list: List[int], u_list: List[int], a_list: List[int]) -> Optional[int]:
+    def solve(
+        self,
+        t_list: List[int],
+        u_list: List[int],
+        a_list: List[int],
+        *,
+        backend: str = "auto",
+        require_fpylll: bool = False,
+    ) -> tuple[Optional[int], str]:
         matrix = self.build_basis_matrix(t_list, u_list, a_list)
-        reduced = self.reduce(matrix)
-        return self.recover_from_reduced_basis(reduced, t_list, u_list, a_list)
+        reduced, actual_backend = self.reduce(matrix, backend=backend, require_fpylll=require_fpylll)
+        return self.recover_from_reduced_basis(reduced, t_list, u_list, a_list), actual_backend

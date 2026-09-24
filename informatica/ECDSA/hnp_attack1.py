@@ -40,58 +40,86 @@ def build_instance(source: str, sample_count: int) -> tuple[HNPLatticeSolver, li
         raise RuntimeError(f"Only {len(selected)} samples available for HNP; need {sample_count}.")
 
     leaked_bits = int(selected[0][0]["leaked_bits"])
-    t_list = []
-    u_list = []
-    a_list = []
+    if any(int(record["leaked_bits"]) != leaked_bits for record, _ in selected):
+        raise RuntimeError("HNP attack samples must use the same leaked-bit width.")
+
+    t_list: list[int] = []
+    u_list: list[int] = []
+    a_list: list[int] = []
     for record, prefix in selected:
-        t_i, u_i, a_i = compute_hnp_terms(record["r"], record["s"], record["z"], prefix, CURVE.n, int(record["leaked_bits"]))
+        t_i, u_i, a_i = compute_hnp_terms(
+            record["r"], record["s"], record["z"], prefix, CURVE.n, leaked_bits
+        )
         t_list.append(t_i)
         u_list.append(u_i)
         a_list.append(a_i)
 
-    return HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=sample_count)), t_list, u_list, a_list
+    solver = HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=sample_count))
+    return solver, t_list, u_list, a_list
 
 
-def run_hnp(source: str = "cnn", sample_count: int = 40) -> Optional[int]:
+def run_hnp(
+    source: str = "cnn",
+    sample_count: int = 40,
+    *,
+    require_fpylll: bool = False,
+) -> Optional[int]:
     solver, t_list, u_list, a_list = build_instance(source, sample_count)
     reduction_error = None
-    if not FPYLLL_AVAILABLE:
-        reduced_candidate = None
-        reduction_error = (
-            "fpylll is not installed; SymPy is kept as a validation-only fallback "
-            "because it is unreliable for this lattice size."
+    recovered = None
+    reduction_backend = "unavailable"
+    try:
+        recovered, reduction_backend = solver.solve(
+            t_list, u_list, a_list, require_fpylll=require_fpylll
         )
-    else:
-        try:
-            reduced_candidate = solver.solve(t_list, u_list, a_list)
-        except RuntimeError as exc:
-            reduced_candidate = None
-            reduction_error = str(exc)
+    except RuntimeError as exc:
+        reduction_error = str(exc)
+
+    validated = recovered is not None and solver.validate_candidate(
+        recovered, t_list, u_list, a_list
+    )
     result = {
         "source": source,
         "samples": sample_count,
         "leaked_bits": solver.config.leaked_bits,
-        "recovered_private_key": reduced_candidate,
-        "validated": reduced_candidate is not None and solver.validate_candidate(reduced_candidate, t_list, u_list, a_list),
+        "reduction_backend": reduction_backend,
+        "backend_policy": "require_fpylll" if require_fpylll else "auto",
+        "fpylll_available": bool(FPYLLL_AVAILABLE),
+        "reduction_executed": reduction_error is None and reduction_backend in {"fpylll", "sympy"},
+        "key_recovered": bool(recovered is not None),
+        "recovered_private_key": recovered,
+        "validated": validated,
         "reduction_error": reduction_error,
     }
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     HNP_RESULT_PATH.write_text(json.dumps(result, indent=2), encoding="utf-8")
+
     if reduction_error:
-        print(f"[WARN] HNP reduction was not completed: {reduction_error}")
-    elif reduced_candidate is None:
-        print(f"[INFO] LLL reduction completed but did not expose a validated key vector for source={source}.")
+        print(f"[FAIL] HNP reduction was not completed: {reduction_error}")
+    elif recovered is None:
+        print(
+            f"[FAIL] LLL reduction completed with backend={reduction_backend}, "
+            f"but did not expose a validated key candidate for source={source}."
+        )
     else:
-        print(f"[PASS] HNP LLL reduction returned a validated key candidate for source={source}.")
-    return reduced_candidate
+        policy = "fpylll" if require_fpylll else reduction_backend
+        print(
+            f"[PASS] HNP LLL reduction returned a validated key candidate for source={source} "
+            f"using {reduction_backend} (policy={policy})."
+        )
+    return recovered
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", choices=("cnn", "oracle"), default="cnn")
     parser.add_argument("--samples", type=int, default=40)
+    parser.add_argument(
+        "--require-fpylll", action="store_true",
+        help="Refuse the SymPy fallback; use this mode for the reference CI run.",
+    )
     args = parser.parse_args()
-    run_hnp(args.source, args.samples)
+    run_hnp(args.source, args.samples, require_fpylll=args.require_fpylll)
 
 
 if __name__ == "__main__":
