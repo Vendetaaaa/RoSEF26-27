@@ -31,6 +31,27 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Verify LLL backend
+        run: |
+          python -c "from fpylll import IntegerMatrix, LLL; print('fpylll import: PASS')"
+
+      - name: Verify oracle HNP key recovery
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python informatica/ECDSA/dataset_generator3.py
+          python informatica/ECDSA/main.py --require-fpylll
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('.')
+          result = json.loads((root / 'informatica/artifacts/pipeline_results.json').read_text(encoding='utf-8'))
+          assert result['fully_executed'] is True
+          assert result['hnp'] == 'PASS'
+          assert result['hnp_backend'] == 'fpylll'
+          print('End-to-end pipeline: PASS')
+          PY
+
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}
