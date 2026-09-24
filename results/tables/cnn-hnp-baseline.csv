@@ -1,0 +1,2 @@
+leaked_bits,sigma,m,seed,epochs,cnn_test_bit_accuracy,cnn_test_prefix_accuracy,cnn_test_exact_prefixes,oracle_hnp_key_recovered,cnn_hnp_key_recovered,hnp_backend,oracle_hnp_runtime_seconds,cnn_hnp_runtime_seconds,oracle_hnp_error,cnn_hnp_error
+12,0.15,40,20260919,100,1.0,1.0,40,True,True,sympy,13.95,13.64,,
