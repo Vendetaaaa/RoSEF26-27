@@ -23,7 +23,7 @@ Aceste rezultate validează experimentele matematice existente. Ele nu demonstre
 
 Datasetul executabil are 160 de semnături, `ell = 12`, traces sintetice și split fix de 96 train, 24 validation și 40 test/attack. CNN-ul și HNP primesc aceleași 40 de ID-uri pentru etapa de atac.
 
-Rularea curentă, refăcută după trecerea CNN-ului la 100 de epoci, a produs:
+Rularea de referință cu 100 de epoci și backend `fpylll` a produs:
 
 | metrică | rezultat |
 | --- | ---: |
@@ -33,10 +33,9 @@ Rularea curentă, refăcută după trecerea CNN-ului la 100 de epoci, a produs:
 | test prefix accuracy | `100.00%` (`40/40`) |
 | HNP oracle, `ell=12, m=40` | cheie recuperată |
 | CNN -> HNP, `ell=12, m=40` | cheie recuperată |
-| backend local | `sympy` |
-| `fpylll` disponibil local | `false` |
+| backend de referință | `fpylll` |
 
-Rezultatul HNP cu SymPy demonstrează că lanțul CNN -> HNP funcționează pe instanța sintetică de bază. Proiectul nu etichetează această rulare drept `PASS` de referință, deoarece backendul cerut pentru execuția de referință este `fpylll`. În CI, `PASS` cere `fpylll` și verificarea candidatului pe cheia generată în același job.
+Aceste rezultate provin din instanța sintetică de bază. Cheia privată nu este inclusă în artefactele publice.
 
 Tabelul de bază este în `results/tables/cnn-hnp-baseline.csv`.
 
@@ -49,6 +48,19 @@ Codul pentru analiza cantitativă este `informatica/experiments/benchmark_cnn_hn
 - recuperarea HNP cu prefixe produse de CNN;
 - backendul LLL și timpul de rulare.
 
-Configurația de referință folosește `ell ∈ {8,12}`, `sigma ∈ {0.10,0.15,0.20,0.25}` și `m ∈ {20,40}`. Workflow-ul `.github/workflows/benchmark.yml` rulează sweep-ul cu `fpylll` și încarcă CSV-ul ca artefact.
+Configurația folosește `ell ∈ {8,12}`, `sigma ∈ {0.10,0.15,0.20,0.25}` și `m ∈ {20,40}`, cu trei seed-uri: `20260919`, `20260920`, `20260921`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
 
-Matricea completă nu este declarată rezultată local până când workflow-ul cu `fpylll` nu rulează. Mediul curent nu poate instala `fpylll` din PyPI.
+Rezultatele complete sunt păstrate în:
+
+- `results/tables/cnn-hnp-parameter-sweep.csv`;
+- `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+
+Pentru `m = 40` și `ell = 12`, oracle HNP a recuperat cheia în 3/3 rulări la toate cele patru valori de `sigma`. CNN → HNP a obținut 2/3 la `sigma=0.10`, 1/3 la `sigma=0.15` și 0/3 la `sigma=0.20` și `sigma=0.25`.
+
+Pentru `m = 20`, nu s-a observat recuperare în configurațiile testate. Pentru `ell = 8` și `m = 40`, nu s-a observat recuperare nici în cazul oracle, nici în cazul CNN → HNP.
+
+Pentru `m = 20`, benchmarkul folosește primele 20 de ID-uri din același set de 40 de teste folosit pentru `m = 40`; comparația dintre cele două valori folosește, prin urmare, un set comun de date.
+
+## Hardware
+
+Etapa hardware nu este inclusă în rezultatele curente. Datasetul este sintetic, iar firmware-ul și protocolul ESP32 rămân pentru etapa experimentală ulterioară.
