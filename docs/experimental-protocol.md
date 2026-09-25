@@ -25,7 +25,7 @@ Nu se generează un al doilea split implicit. CNN-ul produce exact 40 de predic�
 3. CNN-ul este antrenat numai pe setul `train`.
 4. Se măsoară rezultatele pe validation și test, apoi se scriu prefixele pentru cele 40 de eșantioane test.
 5. Se construiește instanța HNP din datele publice și prefixele produse de CNN.
-6. Se rulează LLL cu backendul selectat și se validează candidatul pe relațiile HNP.
+6. Se rulează LLL cu backendul `fpylll` în execuția de referință și se validează candidatul pe relațiile HNP.
 7. Se rulează separat instanța oracle pentru a măsura capacitatea lattice-ului fără eroarea CNN.
 
 ## Criteriul de succes
@@ -36,9 +36,20 @@ Când aceeași verificare este realizată cu SymPy în mediul de dezvoltare, rez
 
 ## Matricea cantitativă `(ell, sigma, m)`
 
-`informatica/experiments/benchmark_cnn_hnp_surface.py` rulează combinațiile definite în workflow și raportează separat rezultatele CNN, prefixele oracle și prefixele produse de CNN.
+`informatica/experiments/benchmark_cnn_hnp_surface.py` rulează combinațiile:
+`ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
+`m ∈ {20, 40}`. Benchmarkul folosește 100 de epoci și trei seed-uri:
+`20260919`, `20260920`, `20260921`.
 
-Pentru fiecare configurație se păstrează acuratețea CNN, rezultatul HNP oracle, rezultatul HNP din prefixele CNN, backendul și timpii de execuție. Workflow-ul de benchmark repetă configurațiile pe trei seed-uri, astfel încât rata de succes să fie calculată din mai multe instanțe și nu dintr-o singură rulare.
+Pentru fiecare configurație se păstrează acuratețea CNN pe bit și pe prefix,
+rezultatul HNP oracle, rezultatul HNP din prefixele CNN, backendul și timpii
+de execuție. Pentru `m = 20` se folosesc primele 20 de ID-uri din același
+set de 40 de teste folosit pentru `m = 40`; cele două valori nu reprezintă
+două seturi independente.
+
+Fișierele rezultate sunt:
+- `results/tables/cnn-hnp-parameter-sweep.csv`;
+- `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
 ## Hardware
 

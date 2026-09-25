@@ -51,7 +51,7 @@ Partea matematică riguroasă acoperă cazul scalar al concurenței pentru trei 
 
 `PASS` la HNP cere un candidat returnat de LLL care trece validarea completă și, pentru execuția de referință, este obținut cu backendul `fpylll`.
 
-Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` trebuie rulată pe mai multe instanțe și raportată prin numărul de încercări și numărul de recuperări.
+Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` se rulează pe trei seed-uri și se raportează prin numărul de încercări și numărul de recuperări. Rezultatele includ separat oracle HNP și CNN → HNP.
 
 ## Limitele experimentului
 

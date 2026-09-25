@@ -16,15 +16,21 @@ Proiectul leagă două direcții care se întâlnesc în aceeași problemă: par
 
 Validarea matematică existentă este împărțită în două grupuri de artefacte. `bridge_results.json` conține patru verificări numerice, iar `diophantine_results.json` conține încă cinci. Aceste rezultate documentează separat verificările matematice și nu sunt confundate cu recuperarea cheii prin atacul HNP.
 
-Instanța oracle cu 40 de semnături poate fi redusă prin LLL-ul SymPy și returnează cheia generată pentru experiment. Această rulare verifică lanțul algebric și solverul în mediul de dezvoltare, dar nu demonstrează execuția backendului `fpylll`.
-
-Execuția de referință trebuie să folosească `fpylll` și să treacă verificarea completă CNN → HNP. În acest caz, rezultatul poate fi raportat ca `PASS`.
+Execuția de referință cu `fpylll` a verificat lanțul CNN → HNP pe instanța sintetică de bază. Pentru benchmark, oracle-ul folosește prefixele corecte, iar CNN → HNP folosește prefixele produse de model. Rezultatele sunt raportate separat.
 
 ## Experimente cantitative
 
-`informatica/experiments/benchmark_cnn_hnp_surface.py` construiește matricea de experimente pentru `ell`, `sigma` și `m`. Workflow-ul `.github/workflows/benchmark.yml` repetă configurațiile pe trei seed-uri și păstrează separat rezultatele CNN, recuperarea oracle și recuperarea bazată pe prefixele CNN.
+`informatica/experiments/benchmark_cnn_hnp_surface.py` construiește matricea de experimente pentru `ell`, `sigma` și `m`. Sweep-ul folosește:
 
-Un singur experiment de bază arată comportamentul unei configurații; rata de succes pentru o matrice de parametri trebuie calculată din toate rulările prevăzute de benchmark.
+- `ell ∈ {8, 12}`;
+- `sigma ∈ {0.10, 0.15, 0.20, 0.25}`;
+- `m ∈ {20, 40}`;
+- seed-urile `20260919`, `20260920`, `20260921`;
+- 100 de epoci.
+
+Fișierele rezultate sunt `results/tables/cnn-hnp-parameter-sweep.csv` și `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+
+Pentru `m = 20`, benchmarkul folosește primele 20 de ID-uri din același set de test de 40 de ID-uri folosit pentru `m = 40`.
 
 ## Limita matematică
 

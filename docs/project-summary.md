@@ -15,8 +15,8 @@ clasificarea semnalelor și formularea unei probleme HNP.
 ## 1. Matematica
 
 La baza codului și a algoritmilor se află matematica. Problema
-geometrică este transformată într-o problemă aritmetică prin relația (p
-= Rq), unde (p) și (q) reprezintă parametrii care descriu dreptele, iar
+geometrică este transformată într-o problemă aritmetică prin relația
+(p = Rq), unde (p) și (q) reprezintă parametrii care descriu dreptele, iar
 (R) este raportul dintre pantele acestora. Atunci când acest raport este
 rațional, ecuația admite familii de soluții întregi, ceea ce corespunde
 unor configurații în care dreptele se intersectează exact într-un punct
@@ -50,9 +50,14 @@ modelului Hamming Weight. Zgomotul Gaussian este adăugat controlat
 pentru a reproduce, într-o formă simplificată, imperfecțiunile întâlnite
 în măsurătorile fizice.
 
-Pentru zgomotul de referință (`\sigma `{=tex}= 0{,}15), algoritmul
-obține aproximativ 99,79% acuratețe pe bit și 98,75% dintre prefixele de
-12 biți recuperate integral, conform experimentului de referință.
+Pentru configurația de bază (`sigma = 0.15`), rularea de referință cu
+100 de epoci a obținut 99,65% acuratețe pe bit și 95,83% acuratețe pe
+prefix pe validation, respectiv 100,00% și 100,00% pe test (40/40).
+
+Pentru evaluarea cantitativă, proiectul a rulat o matrice cu
+`ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
+`m ∈ {20, 40}`, pe trei seed-uri: `20260919`, `20260920`,
+`20260921`.
 
 ## 4. HNP și LLL
 
@@ -60,7 +65,19 @@ obține aproximativ 99,79% acuratețe pe bit și 98,75% dintre prefixele de
 HNP, iar problema este formulată sub forma unui lattice, care poate fi
 redus prin algoritmul LLL.
 
-Relațiile HNP sunt verificate folosind 40 de semnături, concomitent cu
-valorificarea și validarea experimentelor matematice. Cheia privată
-recuperată este apoi comparată cu cheia de referință, iar rezultatul
-este înregistrat împreună cu acuratețea programului.
+Evaluarea separă două cazuri. În cazul oracle, HNP primește prefixele
+corecte ale nonce-urilor și măsoară recuperarea prin lattice fără eroarea
+CNN. În cazul CNN → HNP, solverul primește prefixele produse de CNN.
+Pentru `ell = 12` și `m = 40`, oracle a recuperat cheia în 3/3 rulări
+la toate cele patru niveluri de zgomot. CNN → HNP a recuperat cheia în
+2/3 rulări la `sigma = 0.10`, 1/3 la `sigma = 0.15` și 0/3 la
+`sigma = 0.20` și `sigma = 0.25`.
+
+Pentru `m = 20`, nu s-a observat recuperare în configurațiile testate.
+Pentru `ell = 8` și `m = 40`, nu s-a observat recuperare nici în cazul
+oracle, nici în cazul CNN → HNP.
+
+Execuția de referință a solverului folosește backendul `fpylll`.
+Rezultatele benchmarkului sunt păstrate în
+`results/tables/cnn-hnp-parameter-sweep.csv` și
+`results/tables/cnn-hnp-parameter-sweep-summary.csv`.

@@ -44,6 +44,23 @@ Experimentul folosește 160 de semnături și păstrează aceeași împărțire 
 
 Fișierul `informatica/artifacts/dataset_split.json` este sursa explicită pentru această împărțire. Etapa HNP folosește exact cele 40 de exemple din test.
 
+## Benchmarkul cantitativ
+
+Sweep-ul de referință se poate reproduce cu:
+
+```bash
+python informatica/experiments/benchmark_cnn_hnp_surface.py   --leaked-bits 8 12   --sigmas 0.10 0.15 0.20 0.25   --sample-counts 20 40   --seeds 20260919 20260920 20260921   --epochs 100
+```
+
+Execuția de referință cere `fpylll`. Benchmarkul scrie:
+
+```text
+results/tables/cnn-hnp-parameter-sweep.csv
+results/tables/cnn-hnp-parameter-sweep-summary.csv
+```
+
+Pentru `m = 20`, benchmarkul folosește primele 20 de ID-uri din setul de test de 40 de ID-uri. Prin urmare, rezultatele pentru `m = 20` și `m = 40` provin din același split și au o parte comună de date.
+
 ## CI
 
 `.github/workflows/tests.yml` verifică importul `fpylll`, rulează pipeline-ul complet cu `--require-fpylll` și cere:
@@ -55,9 +72,7 @@ Fișierul `informatica/artifacts/dataset_split.json` este sursa explicită pentr
 
 `.github/workflows/reproducibility.yml` repetă verificarea de referință.
 
-`.github/workflows/benchmark.yml` rulează matricea `(ell, sigma, m)` și păstrează rezultatele benchmarkului ca artefact GitHub Actions.
-
-Dacă importul `fpylll` eșuează din cauza unei dependențe precum `cysignals`, CI nu trebuie considerat o verificare trecută. Dependența trebuie instalată înainte ca testul de import și recuperarea oracle să ruleze.
+`.github/workflows/becnhmark.yaml` rulează matricea `(ell, sigma, m)` și păstrează rezultatele benchmarkului ca artefact GitHub Actions.
 
 ## Verificarea locală
 
