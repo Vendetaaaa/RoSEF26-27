@@ -25,6 +25,7 @@
 ├── 📁 papers/
 ├── 📁 results/
 ├── 📁 tests/
+├── 📁 website/
 ├── 📄 .gitignore
 ├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
