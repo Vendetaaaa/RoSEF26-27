@@ -144,6 +144,32 @@
 │   ├── 📄 test_simulator.py
 │   └── 📄 test_smoke.py
 │
+├── 📁 website/
+│   ├── 📄 index.html
+│   ├── 📄 app.js
+│   ├── 📄 styles.css
+│   ├── 📄 data.js
+│   ├── 📄 README.md
+│   ├── 📄 DESIGN-HANDOFF.md
+│   │
+│   ├── 📁 paper/ (*)
+│   │   └── 📄 Recovery_of_private_keys.pdf
+│   │
+│   └── 📁 source/
+│       ├── 📁 informatica/ (*)
+│       │   ├── 📄 hnp_attack1.py
+│       │   ├── 📄 ecdsa_leakage_model4.py
+│       │   ├── 📄 cnn_utils.py
+│       │   ├── 📄 cnn_model.py
+│       │   ├── 📄 dataset_generator3.py
+│       │   ├── 📄 cnn_config.yaml
+│       │   └── 📄 Lattice_key6.py
+│       │
+│       └── 📁 results/ (*)
+│           ├── 📄 hnp_result.json
+│           ├── 📄 pipeline_results.json
+│           ├── 📄 dataset_metadata.json
+│           └── 📄 final-results.csv
 ├── 📄 .gitignore
 ├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
@@ -154,3 +180,4 @@
 ```
 
 > Structura se va modifica în timp dacă este necesară
+(*) Este preluat doar ce este nevoie din sistemul deja existent.
