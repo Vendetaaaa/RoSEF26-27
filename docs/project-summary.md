@@ -56,7 +56,7 @@ prefix pe validation, respectiv 100,00% și 100,00% pe test (40/40).
 
 Pentru evaluarea cantitativă, proiectul a rulat o matrice cu
 `ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
-`m ∈ {20, 40}`, pe multe seed-uri
+`m ∈ {20, 40}`, pe `1000`-`1099` seed-uri.
 
 ## 4. HNP și LLL
 
