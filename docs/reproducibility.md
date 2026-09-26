@@ -94,4 +94,4 @@ python informatica/ECDSA/main.py --require-fpylll
 
 ## Hardware
 
-Etapa hardware rămâne în afara pipeline-ului executat. Datasetul actual este sintetic, iar documentația nu prezintă măsurători reale ca rezultate. Firmware-ul și protocolul ESP32 rămân în repository pentru etapa experimentală ulterioară.
+Etapa hardware rămâne în afara pipeline-ului executat.
