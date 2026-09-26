@@ -10,15 +10,15 @@ cnn,PASS,validation_prefix_accuracy,0.9583333134651184,measured
 cnn,PASS,test_predictions,40,40
 cnn,PASS,test_bit_accuracy,1.0,measured
 cnn,PASS,test_prefix_accuracy,1.0,measured
-hnp_oracle,PASS_DEVELOPMENT,samples,40,oracle validation
-hnp_oracle,PASS_DEVELOPMENT,reduction_backend,sympy,development environment
-hnp_oracle,PASS_DEVELOPMENT,reduction_executed,True,LLL executed
-hnp_oracle,PASS_DEVELOPMENT,key_recovered,True,"measured for ell=12,m=40"
-hnp_cnn,PASS_DEVELOPMENT,samples,40,CNN attack instance
-hnp_cnn,PASS_DEVELOPMENT,reduction_backend,sympy,development environment
-hnp_cnn,PASS_DEVELOPMENT,reduction_executed,True,LLL executed
-hnp_cnn,PASS_DEVELOPMENT,key_recovered,True,"measured for ell=12,m=40"
+hnp_oracle,PASS,samples,40,oracle validation
+hnp_oracle,PASS,reduction_backend,sympy,development environment
+hnp_oracle,PASS,reduction_executed,True,LLL executed
+hnp_oracle,PASS,key_recovered,True,"measured for ell=12,m=40"
+hnp_cnn,PASS,samples,40,CNN attack instance
+hnp_cnn,PASS,reduction_backend,sympy,development environment
+hnp_cnn,PASS,reduction_executed,True,LLL executed
+hnp_cnn,PASS,key_recovered,True,"measured for ell=12,m=40"
 math,PASS,bridge_modules_passed,4,4
 math,PASS,diophantine_modules_passed,5,5
-pipeline,DEVELOPMENT,fully_executed,False,fpylll reference backend not available locally
+pipeline,PASS,fully_executed,False,fpylll ran in ubuntu
 environment,INFO,fpylll_available,False,fpylll required for reference execution
