@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171714">
+  <meta name="description" content="RoSEF 26–27: film interactiv despre ECDSA, leakage sintetic, CNN 1D, HNP și LLL.">
+  <title>RoSEF26-27</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#player">Sari la experiment</a>
+
+  <main class="site-shell" id="top">
+    <header class="masthead">
+      <div class="masthead-left">
+        <a class="brand" href="#top" aria-label="RoSEF Visual Reel">
+          <span class="brand-glyph">R</span>
+          <span>
+            <span class="eyebrow">ROSEF 26–27 · INFORMATICĂ</span>
+            <strong class="brand-title">Signal → Learning → Recovery</strong>
+          </span>
+        </a>
+        <p class="masthead-deck">O singură urmă. Mai multe reprezentări. Fiecare pas trebuie să lase în urmă ceva verificabil.</p>
+      </div>
+      <div class="masthead-right">
+        <a class="quiet-link" href="paper/Recovery_of_private_keys.pdf" target="_blank" rel="noreferrer">PAPER ↗</a>
+        <a class="quiet-link" href="https://github.com/Vendetaaaa/RoSEF26-27" target="_blank" rel="noreferrer">GITHUB ↗</a>
+        <button class="quiet-button" id="sourcesBtn" type="button">SOURCES</button>
+      </div>
+    </header>
+
+    <section class="paper-rail" aria-label="Etapele din lucrare">
+      <div class="rail-label">PAPER / EXPERIMENTAL METHODOLOGY</div>
+      <div class="paper-stage is-active" data-paper-stage="E1"><span>E1</span><strong>DATA</strong><small>generation</small></div>
+      <div class="paper-stage" data-paper-stage="E2"><span>E2</span><strong>LEAKAGE</strong><small>HW / HD</small></div>
+      <div class="paper-stage" data-paper-stage="E3"><span>E3</span><strong>CNN</strong><small>1D</small></div>
+      <div class="paper-stage" data-paper-stage="E4"><span>E4</span><strong>HNP + LLL</strong><small>recovery</small></div>
+      <div class="paper-stage" data-paper-stage="E5"><span>E5</span><strong>VALIDATION</strong><small>limits</small></div>
+      <div class="rail-rule"></div>
+      <button class="rail-source" type="button" id="paperPageBtn">DESCHIDE PAPER · §4</button>
+    </section>
+
+    <section class="player" id="player" aria-label="Film interactiv RoSEF">
+      <div class="player-stage">
+        <div class="stage-matte" aria-hidden="true"></div>
+        <div class="stage-grid" aria-hidden="true"></div>
+        <div class="stage-serial" aria-hidden="true">
+          <span>ROSEF26-27</span>
+          <span id="stageClock">00:00 / 00:10</span>
+        </div>
+        <div class="stage" id="stage" aria-live="polite"></div>
+        <div class="stage-grain" aria-hidden="true"></div>
+      </div>
+
+      <div class="transport-bar">
+        <div class="chapter-track" id="chapterTrack" aria-label="Capitolele filmului"></div>
+        <div class="transport-row">
+          <div class="transport-left">
+            <button class="transport-btn transport-btn--round" id="restartBtn" type="button" aria-label="Reia scena">↺</button>
+            <button class="transport-btn" id="prevBtn" type="button" aria-label="Scena anterioară">←</button>
+            <button class="play-btn" id="playBtn" type="button" aria-label="Pauză" aria-pressed="true"><span id="playIcon">Ⅱ</span></button>
+            <button class="transport-btn" id="nextBtn" type="button" aria-label="Scena următoare">→</button>
+            <span class="transport-time" id="reelTime">00:00 / 01:39</span>
+          </div>
+          <div class="transport-right">
+            <button class="transport-text" id="loopBtn" type="button" aria-pressed="true">LOOP <span>↻</span></button>
+            <label class="speed-control">SPEED <select id="speedSelect" aria-label="Viteza redării"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+            <button class="transport-btn transport-btn--round" id="fullscreenBtn" type="button" aria-label="Fullscreen">⛶</button>
+          </div>
+        </div>
+        <div class="progress-line-wrap">
+          <div class="progress-line" id="progressTrack" role="slider" aria-label="Poziția în scena curentă" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+            <span class="progress-line-fill" id="progress"></span>
+            <span class="progress-line-thumb" id="progressThumb" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter-context" id="chapterContext" aria-label="Context scenă">
+      <div class="context-primary">
+        <div class="context-index" id="infoIndex">01</div>
+        <div>
+          <div class="context-kicker" id="infoKicker">MOTIVAȚIE</div>
+          <h1 class="context-title" id="infoTitle">De unde începe atacul?</h1>
+          <p class="context-copy" id="infoCopy">Pornim de la întrebarea fizică și urmărim transformarea ei într-o problemă de clasificare și apoi într-una matematică.</p>
+        </div>
+      </div>
+      <div class="context-facts">
+        <div><span>DATASET</span><strong id="factDataset">160</strong><small>signatures / traces</small></div>
+        <div><span>CNN</span><strong id="factCnn">Conv1d</strong><small id="factCnnSub">2 → 8 → 2</small></div>
+        <div><span>HNP</span><strong id="factHnp">ℓ = 12</strong><small>40 attack samples</small></div>
+        <div><span>STATUS</span><strong id="factStatus">PROBLEM FRAME</strong><small id="factStatusSub">archive snapshot</small></div>
+      </div>
+    </section>
+
+    <section class="source-strip" id="sourceStrip">
+      <div>
+        <span class="source-kicker">SOURCE-OF-TRUTH</span>
+        <strong>Site-ul urmărește implementarea din arhivă; lucrarea este folosită pentru definiții și context.</strong>
+      </div>
+      <button class="source-open" type="button" id="sourceNoteBtn">VEZI CORESPONDENȚA ↗</button>
+    </section>
+
+    <footer class="site-footer">
+      <div>Simularea sintetică nu este prezentată ca măsurătoare fizică ESP32.</div>
+      <div>SPACE · ← → · HOME / END · F</div>
+    </footer>
+  </main>
+
+  <dialog class="source-dialog" id="sourceDialog">
+    <div class="dialog-head">
+      <div>
+        <span class="eyebrow">SOURCE MAP</span>
+        <h2>Codul, protocolul și lucrarea</h2>
+      </div>
+      <button class="dialog-close" type="button" id="dialogClose" aria-label="Închide">×</button>
+    </div>
+    <div class="dialog-body" id="dialogBody"></div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
