@@ -55,6 +55,4 @@ Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de suc
 
 ## Limitele experimentului
 
-Modelul de leakage este sintetic și folosește zgomot gaussian controlat. El permite testarea lanțului CNN → HNP, dar nu reprezintă o măsurătoare fizică a consumului de putere sau a emisiei electromagnetice.
-
 Etapa ESP32 este păstrată separat până la obținerea unor traces fizice și a metadatelor necesare pentru validarea lor.
