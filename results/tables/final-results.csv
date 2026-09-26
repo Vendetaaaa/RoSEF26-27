@@ -20,5 +20,5 @@ hnp_cnn,PASS,reduction_executed,True,LLL executed
 hnp_cnn,PASS,key_recovered,True,"measured for ell=12,m=40"
 math,PASS,bridge_modules_passed,4,4
 math,PASS,diophantine_modules_passed,5,5
-pipeline,PASS,fully_executed,False,fpylll ran in ubuntu
-environment,INFO,fpylll_available,False,fpylll required for reference execution
+pipeline,PASS,fully_executed,True,fpylll ran in ubuntu
+environment,INFO,fpylll_available,True,fpylll fully done
