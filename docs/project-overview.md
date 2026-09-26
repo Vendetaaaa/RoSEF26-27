@@ -25,7 +25,6 @@ Execuția de referință cu `fpylll` a verificat lanțul CNN → HNP pe instanț
 - `ell ∈ {8, 12}`;
 - `sigma ∈ {0.10, 0.15, 0.20, 0.25}`;
 - `m ∈ {20, 40}`;
-- seed-urile `20260919`, `20260920`, `20260921`;
 - 100 de epoci.
 
 Fișierele rezultate sunt `results/tables/cnn-hnp-parameter-sweep.csv` și `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
