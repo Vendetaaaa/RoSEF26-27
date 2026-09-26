@@ -38,7 +38,7 @@ Când aceeași verificare este realizată cu SymPy în mediul de dezvoltare, rez
 
 `informatica/experiments/benchmark_cnn_hnp_surface.py` rulează combinațiile:
 `ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
-`m ∈ {20, 40}`. Benchmarkul folosește 100 de epoci și multe, multe seed-uri
+`m ∈ {20, 40}`. Benchmarkul folosește 100 de epoci și de la `1000`-`1099` seed-uri.
 
 Pentru fiecare configurație se păstrează acuratețea CNN pe bit și pe prefix,
 rezultatul HNP oracle, rezultatul HNP din prefixele CNN, backendul și timpii
