@@ -2,7 +2,7 @@
 
 # Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
 
-### Creat de [Henea Rareș](https://github.com/Vendetaaaa) și [Standler Rareș](https://github.com/RaresInsine)
+### Creat de [Henea Rareș](https://github.com/Vendetaaaa) și [Stadler Rareș](https://github.com/RaresInsine)
 
 <img src="misc/qrcode.png" height="175" alt="QR_CODE" />
 
