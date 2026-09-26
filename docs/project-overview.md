@@ -37,4 +37,4 @@ Partea matematică riguroasă acoperă cazul scalar cu trei familii și transfer
 
 ## Etapa hardware
 
-Firmware-ul și protocolul ESP32 sunt păstrate în repository, dar etapa hardware nu face parte din rezultatele curente. Datasetul folosit în pipeline este sintetic, iar măsurători fizice nu sunt revendicate până când nu există traces și metadata verificabile.
+Firmware-ul și protocolul ESP32 sunt păstrate în repository, dar etapa hardware nu face parte din rezultatele curente.
