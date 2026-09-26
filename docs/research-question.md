@@ -4,7 +4,7 @@ Proiectul testează dacă informația parțială și zgomotoasă despre nonce-ul
 
 Întrebarea computațională principală este:
 
-> Pentru semnături ECDSA pe secp256k1 generate de echipă, câtă informație despre nonce trebuie extrasă din urme sintetice pentru ca un CNN să producă prefixe suficient de precise, iar HNP + LLL să poată recupera cheia privată?
+> Pentru semnături ECDSA pe secp256k1 generate de echipă, câtă informație despre nonce trebuie extrasă din urme sintetice pentru ca un CNN să producă prefixe suficient de precise, iar HNP & LLL să poată recupera cheia privată?
 
 Experimentul de bază fixează primii 12 biți MSB ai nonce-ului, folosește 40 de semnături pentru instanța HNP și păstrează o împărțire explicită a celor 160 de eșantioane: 96 train, 24 validation și 40 test/attack.
 
