@@ -1,0 +1,37 @@
+{
+  "experiment_count": 100,
+  "seed_range": [
+    1000,
+    1099
+  ],
+  "leaked_bits": 12,
+  "config": {
+    "trace_length": 256,
+    "noise_sigma": 0.15,
+    "amplitude_mean": 1.0,
+    "amplitude_std": 0.08,
+    "min_amplitude": 0.7,
+    "max_amplitude": 1.3,
+    "max_shift": 4,
+    "baseline_offset_std": 0.5,
+    "baseline_slope_std": 0.6,
+    "baseline_sine_std": 0.35,
+    "unrelated_activity_count": [
+      1,
+      3
+    ],
+    "unrelated_activity_amplitude": 1.5,
+    "unrelated_activity_width": [
+      2.0,
+      8.0
+    ],
+    "leakage_alpha": 1.0,
+    "leakage_mode": "HW",
+    "seed": 1000
+  },
+  "formula": "T[t] = A * L[t - tau] + B[t] + U[t] + epsilon[t]",
+  "outputs": {
+    "table": "/mnt/data/rosef/RoSEF26-27/results/tables/trace-validation-100.csv",
+    "raw": "/mnt/data/rosef/RoSEF26-27/results/raw/trace-validation-100.npz"
+  }
+}
