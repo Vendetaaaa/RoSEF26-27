@@ -2,17 +2,17 @@
   "dataset": "PASS",
   "leakage": "PASS",
   "cnn": "PASS",
-  "hnp": "PASS_DEVELOPMENT",
-  "hnp_backend": "sympy",
+  "hnp": "PASS",
+  "hnp_backend": "fpylll",
   "hnp_key_recovered": true,
   "oracle_hnp": {
     "relation_ok": true,
-    "backend": "sympy",
+    "backend": "fpylll",
     "key_recovered": true,
     "reduction_error": null
   },
   "math": "PASS",
-  "fully_executed": false,
-  "fpylll_available": false,
-  "fpylll_required": false
+  "fully_executed": true,
+  "fpylll_available": true,
+  "fpylll_required": true
 }
