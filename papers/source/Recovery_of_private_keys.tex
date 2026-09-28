@@ -474,7 +474,7 @@ For the parameter sweep, recovery results are reported as aggregates over 100 se
 
 \section{Discussion}
 
-In the parameter sweep, CNN bit and prefix accuracy decreased as $\sigma$ increased. The effect was more pronounced for prefix accuracy than for per-bit accuracy. For example, with $\ell=12$ and $m=40$, mean prefix accuracy decreased from $99.17\%$ at $\sigma=0.10$ to $52.50\%$ at $\sigma=0.25$.Over the same configurations, oracle HNP recovery and CNN-to-HNP recovery are reported separately over the 100 benchmark seeds. The results quantify the effect of CNN prediction errors on the subsequent HNP stage. This separates the behavior of the lattice stage with correct prefixes from the effect of prediction errors introduced by the CNN.
+In the parameter sweep, CNN bit and prefix accuracy decreased as $\sigma$ increased. The effect was more pronounced for prefix accuracy than for per-bit accuracy. For example, with $\ell=12$ and $m=40$, mean prefix accuracy decreased from $99.17\%$ at $\sigma=0.10$ to $52.50\%$ at $\sigma=0.25$. Over the same configurations, oracle HNP recovery and CNN-to-HNP recovery are reported separately over the 100 benchmark seeds. The results quantify the effect of CNN prediction errors on the subsequent HNP stage. This separates the behavior of the lattice stage with correct prefixes from the effect of prediction errors introduced by the CNN.
 
 For $m=20$, no private-key recovery was observed in the tested configurations. For $m=40$ and $\ell=8$, no recovery was observed either with oracle prefixes or with CNN-derived prefixes. These results are measurements over the tested synthetic configurations and do not establish a general recovery threshold.
 
