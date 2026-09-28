@@ -48,7 +48,7 @@ Codul pentru analiza cantitativă este `informatica/experiments/benchmark_cnn_hn
 - recuperarea HNP cu prefixe produse de CNN;
 - backendul LLL și timpul de rulare.
 
-Configurația folosește `ell ∈ {8,12}`, `sigma ∈ {0.10,0.15,0.20,0.25}` și `m ∈ {20,40}`, cu 100 de seed-uri: `1000`-`1099`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
+Configurația folosește `ell ∈ {8,10,12,14}`, `sigma ∈ {0.10,0.15,0.20,}` și `m ∈ {20,40}`, cu 100 de seed-uri: `1000`-`1099`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
 
 Rezultatele complete sunt păstrate în:
 
