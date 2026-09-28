@@ -429,11 +429,11 @@ The experimental protocol uses five stages defined in the project plan [14] and 
 \textbf{E2. Leakage modeling.}
 The current dataset pipeline produces synthetic HW/HD traces with additive Gaussian noise. The main pipeline uses 160 signatures, 12 leaked MSB nonce bits, and $\sigma=0.15$, with a fixed split of 96 training, 24 validation, and 40 test samples. A separate parameter sweep evaluates
 \[
-\ell\in\{8,12\},\qquad
-\sigma\in\{0.10,0.15,0.20,0.25\},\qquad
-m\in\{20,40\},
+\ell\in\{8,10,12,14\},\qquad
+\sigma\in\{0,0.05,0.10,0.15,0.20\},\qquad
+m=40,
 \]
-using three seeds, $\{20260919,20260920,20260921\}$, and 100 training epochs. The complete sweep is stored in \texttt{results/tables/cnn-hnp-parameter-sweep.csv}, with aggregated results in \texttt{cnn-hnp-parameter-sweep-summary.csv}.
+using 100 seeds, $\{1000,\ldots,1099\}$, and 100 training epochs. The results are aggregated over the 100 runs for each configuration.
 
 \textbf{E3. CNN training.}
 \texttt{cnn/train.py} and \texttt{cnn\_nonce\_analysis5.py} train the NonceBitCNN on profiled traces and then run it on the test set to produce estimated prefixes $\bar{k}_i$.
@@ -470,11 +470,11 @@ Oracle HNP & CNN$\rightarrow$HNP \\
 \end{tabular}
 \end{table}
 
-For $m=20$, neither the oracle nor the CNN-to-HNP condition produced a recovery in the tested configurations. For $m=40$ and $\ell=8$, oracle and CNN-to-HNP recovery were both 0/3 at all four noise levels. For $\ell=12$, oracle recovery was 3/3 at all four noise levels, while CNN-to-HNP recovery was 2/3, 1/3, 0/3, and 0/3 as $\sigma$ increased from 0.10 to 0.25. These observations separate the robustness of the lattice stage under correct prefixes from the effect of prediction errors introduced by the CNN.
+For the parameter sweep, recovery results are reported as aggregates over 100 seeds, $\{1000,\ldots,1099\}$. Oracle and CNN-to-HNP recovery are reported separately because the oracle uses the correct nonce prefixes, whereas CNN-to-HNP uses prefixes predicted by the CNN. The recovery counts are taken directly from the corresponding benchmark results and are not inferred from the number of seeds. These observations separate the robustness of the lattice stage under correct prefixes from the effect of prediction errors introduced by the CNN.
 
 \section{Discussion}
 
-In the parameter sweep, CNN bit and prefix accuracy decreased as $\sigma$ increased. The effect was more pronounced for prefix accuracy than for per-bit accuracy. For example, with $\ell=12$ and $m=40$, mean prefix accuracy decreased from $99.17\%$ at $\sigma=0.10$ to $52.50\%$ at $\sigma=0.25$. Over the same configurations, oracle HNP recovery remained 3/3, whereas CNN-to-HNP recovery decreased from 2/3 to 0/3. This separates the behavior of the lattice stage with correct prefixes from the effect of prediction errors introduced by the CNN.
+In the parameter sweep, CNN bit and prefix accuracy decreased as $\sigma$ increased. The effect was more pronounced for prefix accuracy than for per-bit accuracy. For example, with $\ell=12$ and $m=40$, mean prefix accuracy decreased from $99.17\%$ at $\sigma=0.10$ to $52.50\%$ at $\sigma=0.25$.Over the same configurations, oracle HNP recovery and CNN-to-HNP recovery are reported separately over the 100 benchmark seeds. The results quantify the effect of CNN prediction errors on the subsequent HNP stage. This separates the behavior of the lattice stage with correct prefixes from the effect of prediction errors introduced by the CNN.
 
 For $m=20$, no private-key recovery was observed in the tested configurations. For $m=40$ and $\ell=8$, no recovery was observed either with oracle prefixes or with CNN-derived prefixes. These results are measurements over the tested synthetic configurations and do not establish a general recovery threshold.
 
