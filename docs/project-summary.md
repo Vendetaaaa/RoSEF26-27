@@ -59,6 +59,7 @@ Pentru evaluarea cantitativă, proiectul a rulat o matrice cu
 `m ∈ {20, 40}`, pe `1000`-`1099` seed-uri.
 
 ## 4. HNP și LLL
+## 4. HNP și LLL
 
 În ultima etapă, rezultatele obținute sunt compactate în constrângeri
 HNP, iar problema este formulată sub forma unui lattice, care poate fi
@@ -67,16 +68,23 @@ redus prin algoritmul LLL.
 Evaluarea separă două cazuri. În cazul oracle, HNP primește prefixele
 corecte ale nonce-urilor și măsoară recuperarea prin lattice fără eroarea
 CNN. În cazul CNN → HNP, solverul primește prefixele produse de CNN.
-Pentru `ell = 12` și `m = 40`, oracle a recuperat cheia în 3/3 rulări
-la toate cele patru niveluri de zgomot. CNN → HNP a recuperat cheia în
-2/3 rulări la `sigma = 0.10`, 1/3 la `sigma = 0.15` și 0/3 la
-`sigma = 0.20` și `sigma = 0.25`.
+Pentru `ell = 12` și `m = 40`, benchmarkul pe 100 de seed-uri a obținut
+recuperarea cheii în 100/100 de rulări atât în cazul oracle, cât și în
+cazul CNN → HNP, pentru toate valorile de zgomot testate
+(`sigma = 0.00`, `0.05`, `0.10`, `0.15` și `0.20`).
 
-Pentru `m = 20`, nu s-a observat recuperare în configurațiile testate.
-Pentru `ell = 8` și `m = 40`, nu s-a observat recuperare nici în cazul
-oracle, nici în cazul CNN → HNP.
+Pentru `ell = 8` și `m = 40`, nu s-a observat recuperarea cheii în
+benchmarkul pe 100 de seed-uri: rezultatul a fost 0/100 atât pentru
+cazul oracle, cât și pentru cazul CNN → HNP. Pentru `ell = 10` și
+`ell = 14`, benchmarkul disponibil indică, de asemenea, recuperare
+100/100 în cazul CNN → HNP pentru valorile de zgomot testate.
+
+Benchmarkul disponibil în proiect utilizează 100 de seed-uri pentru
+configurațiile cu `m = 40`. Configurația `m = 20` nu este prezentă în
+tabelul benchmarkului verificat și, prin urmare, nu este inclusă în
+această sinteză.
 
 Execuția de referință a solverului folosește backendul `fpylll`.
-Rezultatele benchmarkului sunt păstrate în
-`results/tables/cnn-hnp-parameter-sweep.csv` și
-`results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+Rezultatele disponibile sunt păstrate în `results/tables/`, inclusiv
+`cnn-hnp-baseline.csv` și `hnp-oracle-thresholds.csv`.
+
