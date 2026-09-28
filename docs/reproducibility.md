@@ -49,7 +49,7 @@ Fișierul `informatica/artifacts/dataset_split.json` este sursa explicită pentr
 Sweep-ul de referință se poate reproduce cu:
 
 ```bash
-python informatica/experiments/benchmark_cnn_hnp_surface.py   --leaked-bits 8 12   --sigmas 0.10 0.15 0.20 0.25   --sample-counts 20 40   --seeds 20260919 20260920 20260921   --epochs 100
+python informatica/experiments/benchmark_cnn_hnp_surface.py   --leaked-bits 8 12   --sigmas 0.10 0.15 0.20 0.25   --sample-counts 20 40   --seeds 1001 1002 ... 1099   --epochs 100
 ```
 
 Execuția de referință cere `fpylll`. Benchmarkul scrie:
