@@ -60,72 +60,72 @@ window.ROSEF_DATA = {
       "testBit": 100,
       "testPrefix": 100
     },
-    "paperSweep": [
-      {
-        "ell": 8,
-        "sigma": 0.1,
-        "bit": 99.79,
-        "prefix": 98.33,
-        "oracle": "0/3",
-        "cnn": "0/3"
-      },
-      {
-        "ell": 8,
-        "sigma": 0.15,
-        "bit": 99.27,
-        "prefix": 94.17,
-        "oracle": "0/3",
-        "cnn": "0/3"
-      },
-      {
-        "ell": 8,
-        "sigma": 0.2,
-        "bit": 96.88,
-        "prefix": 78.33,
-        "oracle": "0/3",
-        "cnn": "0/3"
-      },
-      {
-        "ell": 8,
-        "sigma": 0.25,
-        "bit": 93.23,
-        "prefix": 62.5,
-        "oracle": "0/3",
-        "cnn": "0/3"
-      },
-      {
-        "ell": 12,
-        "sigma": 0.1,
-        "bit": 99.93,
-        "prefix": 99.17,
-        "oracle": "3/3",
-        "cnn": "2/3"
-      },
-      {
-        "ell": 12,
-        "sigma": 0.15,
-        "bit": 99.37,
-        "prefix": 94.17,
-        "oracle": "3/3",
-        "cnn": "1/3"
-      },
-      {
-        "ell": 12,
-        "sigma": 0.2,
-        "bit": 97.29,
-        "prefix": 71.67,
-        "oracle": "3/3",
-        "cnn": "0/3"
-      },
-      {
-        "ell": 12,
-        "sigma": 0.25,
-        "bit": 93.61,
-        "prefix": 52.5,
-        "oracle": "3/3",
-        "cnn": "0/3"
-      }
-    ],
+   "paperSweep": [
+  {
+    "ell": 8,
+    "sigma": 0.1,
+    "bit": 99.79,
+    "prefix": 98.33,
+    "oracle": "0/100",
+    "cnn": "0/3"
+  },
+  {
+    "ell": 8,
+    "sigma": 0.15,
+    "bit": 99.27,
+    "prefix": 94.17,
+    "oracle": "0/100",
+    "cnn": "0/3"
+  },
+  {
+    "ell": 8,
+    "sigma": 0.2,
+    "bit": 96.88,
+    "prefix": 78.33,
+    "oracle": "0/100",
+    "cnn": "0/3"
+  },
+  {
+    "ell": 8,
+    "sigma": 0.25,
+    "bit": 93.23,
+    "prefix": 62.5,
+    "oracle": "0/100",
+    "cnn": "0/3"
+  },
+  {
+    "ell": 12,
+    "sigma": 0.1,
+    "bit": 99.93,
+    "prefix": 99.17,
+    "oracle": "100/100",
+    "cnn": "2/3"
+  },
+  {
+    "ell": 12,
+    "sigma": 0.15,
+    "bit": 99.37,
+    "prefix": 94.17,
+    "oracle": "100/100",
+    "cnn": "1/3"
+  },
+  {
+    "ell": 12,
+    "sigma": 0.2,
+    "bit": 97.29,
+    "prefix": 71.67,
+    "oracle": "100/100",
+    "cnn": "0/3"
+  },
+  {
+    "ell": 12,
+    "sigma": 0.25,
+    "bit": 93.61,
+    "prefix": 52.5,
+    "oracle": "100/100",
+    "cnn": "0/3"
+  }
+],
     "traceSampleId": 0,
     "trace": [
       -0.18168252697249293,
