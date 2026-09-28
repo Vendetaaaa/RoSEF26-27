@@ -48,18 +48,18 @@ Codul pentru analiza cantitativă este `informatica/experiments/benchmark_cnn_hn
 - recuperarea HNP cu prefixe produse de CNN;
 - backendul LLL și timpul de rulare.
 
-Configurația folosește `ell ∈ {8,10,12,14}`, `sigma ∈ {0.10,0.15,0.20,}` și `m ∈ {20,40}`, cu 100 de seed-uri: `1000`-`1099`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
+Configurația folosește `ell ∈ {8,10,12,14}`, `sigma ∈ {0.10,0.15,0.20}` și `m = 40`, cu 100 de seed-uri: `1000`-`1099`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
 
 Rezultatele complete sunt păstrate în:
 
 - `results/tables/cnn-hnp-parameter-sweep.csv`;
 - `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
-Pentru `m = 40` și `ell = 12`, oracle HNP a recuperat cheia în 3/3 rulări la toate cele patru valori de `sigma`. CNN → HNP a obținut 2/3 la `sigma=0.10`, 1/3 la `sigma=0.15` și 0/3 la `sigma=0.20` și `sigma=0.25`.
+Pentru `m = 40` și `ell = 12`, benchmarkul este evaluat pe 100 de seed-uri, de la `1000` la `1099`. Rezultatele sunt raportate ca agregări pe cele 100 de rulări, separat pentru cazul oracle și pentru cazul CNN → HNP.
 
-Pentru `m = 20`, nu s-a observat recuperare în configurațiile testate. Pentru `ell = 8` și `m = 40`, nu s-a observat recuperare nici în cazul oracle, nici în cazul CNN → HNP.
+Pentru `ell = 8` și `m = 40`, rezultatul oracle este `0/100`. Pentru `ell = 10` și `ell = 14`, rezultatele sunt raportate separat pentru fiecare valoare de `sigma`.
 
-Pentru `m = 20`, benchmarkul folosește primele 20 de ID-uri din același set de 40 de teste folosit pentru `m = 40`; comparația dintre cele două valori folosește, prin urmare, un set comun de date.
+Pentru `m = 20`, configurația trebuie raportată numai dacă rezultatele corespunzătoare sunt prezente în benchmarkul utilizat pentru versiunea curentă a proiectului.
 
 ## Hardware
 
