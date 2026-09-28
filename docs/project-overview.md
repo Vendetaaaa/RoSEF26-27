@@ -24,10 +24,10 @@ informatica/experiments/benchmark_cnn_hnp_surface.py construiește matricea de e
 
 Pentru benchmarkul verificat, configurațiile cu m = 40 folosesc:
 
-ell ∈ {8, 10, 12, 14};
-sigma ∈ {0, 0.05, 0.10, 0.15, 0.20};
-m = 40;
-100 de seed-uri: 1000–1099.
+   - ell ∈ {8, 10, 12, 14};
+   - sigma ∈ {0, 0.05, 0.10, 0.15, 0.20};
+   - m = 40;
+   - 100 de seed-uri: 1000–1099.
 
 Fișierele rezultate sunt `results/tables/cnn-hnp-parameter-sweep.csv` și `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
