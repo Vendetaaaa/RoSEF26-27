@@ -60,7 +60,7 @@ window.ROSEF_DATA = {
       "testBit": 100,
       "testPrefix": 100
     },
-   "paperSweep": [
+  "paperSweep": [
   {
     "ell": 8,
     "sigma": 0.1,
