@@ -427,7 +427,7 @@
           <div class="validation-state"><i></i><span>HARDWARE = ESP32 / NEXT EXPERIMENT</span></div>
         </div>
         <div class="results-table-wrap">
-          <div class="results-head"><strong>Paper sweep · ℓ = 12 · m = 40</strong><span>three independent seeds / configuration</span></div>
+         <div class="results-head"><strong>Paper sweep · ℓ = 12 · m = 40</strong><span>Oracle: 100 seeds · CNN→HNP: 3 seeds / configuration</span></div>
           <table class="results-table"><thead><tr><th>setting</th><th>bit acc.</th><th>prefix acc.</th><th>oracle</th><th>CNN→HNP</th></tr></thead><tbody>${rows}</tbody></table>
           <div class="boundary-note"><strong>Ce arată tabelul:</strong> pe măsură ce σ crește, acuratețea prefixului scade; lucrarea separă astfel robustețea lattice-ului de erorile introduse de predicțiile CNN. Pentru hardware real, protocolul cere traces și metadata fizice verificabile.</div>
         </div>
