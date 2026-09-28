@@ -20,13 +20,14 @@ Execuția de referință cu `fpylll` a verificat lanțul CNN → HNP pe instanț
 
 ## Experimente cantitative
 
-`informatica/experiments/benchmark_cnn_hnp_surface.py` construiește matricea de experimente pentru `ell`, `sigma` și `m`. Sweep-ul folosește:
+informatica/experiments/benchmark_cnn_hnp_surface.py construiește matricea de experimente pentru ell și sigma. Benchmarkul disponibil utilizează 100 de seed-uri, de la 1000 la 1099.
 
-- `ell ∈ {8, 12}`;
-- `sigma ∈ {0.10, 0.15, 0.20, 0.25}`;
-- `m ∈ {20, 40}`;
-- 100 de epoci.
-- 100 de seed-uri: `1000`-`1099`
+Pentru benchmarkul verificat, configurațiile cu m = 40 folosesc:
+
+ell ∈ {8, 10, 12, 14};
+sigma ∈ {0, 0.05, 0.10, 0.15, 0.20};
+m = 40;
+100 de seed-uri: 1000–1099.
 
 Fișierele rezultate sunt `results/tables/cnn-hnp-parameter-sweep.csv` și `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
