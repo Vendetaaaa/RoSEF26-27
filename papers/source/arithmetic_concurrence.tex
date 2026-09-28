@@ -1,0 +1,851 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{tikz}
+
+\hypersetup{colorlinks=false,hidelinks,hypertexnames=false}
+\setlength{\headheight}{15pt}
+\setlength{\footskip}{22pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\itshape\small Arithmetic Concurrence and Diophantine Resonance}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.2pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.2pt}%
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+
+% Equation markers are used sparingly: only the main relations that are
+% referenced later receive an E-number. Intermediate algebra remains inline.
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\defect}{\operatorname{def}}
+\newcommand{\thereforeword}{\ensuremath{\therefore}}
+
+\title{Arithmetic Concurrence and Diophantine Resonance\\
+\large From Exact Integer Lattices to Quantitative Near-Concurrence}
+\author{Henea Rares}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{plain}
+
+\begin{abstract}
+We study integer-labelled families of parallel lines
+\[
+x-\kappa_i y=m_i,\qquad m_i\in\Z,
+\]
+with exact concurrence as the starting point for a quantitative question: when arithmetic resonance is absent, how small can the concurrence residual become inside a finite label box? For three families the whole problem reduces to the ratio
+\[
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}
+\]
+and to the integer defect
+\[
+(m_1-m_3)-R(m_2-m_3).
+\]
+We define the finite-box defect $\delta_M(R)$ and prove
+\[
+\liminf_{M\to\infty}M\delta_M(R)=\frac{D(R)}{2}L(R),
+\]
+where $D(R)=\max\{0,1,R\}-\min\{0,1,R\}$ and
+$L(R)=\liminf_{q\to\infty}q\lVert qR\rVert$. We also prove that the corresponding geometric exponent equals the classical irrationality exponent of $R$.
+The principal examples are $R=\sqrt2$, the golden ratio, and a rational resonant case. Numerical experiments check the asymptotic constant and exponent. For $k=4$ and $k=5$, the same elimination produces simultaneous approximation with a shared denominator; these cases are treated numerically rather than by a general higher-dimensional theorem. The final section compares the bounded-error structure with the HNP model used in the RoSEF project.
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\thispagestyle{plain}
+\clearpage
+
+\section{Introduction}
+
+\subsection{Problem setting}
+Consider three families of parallel lines
+\[
+x-\kappa_i y=m,\qquad m\in S_i\subseteq\Z,
+\]
+where $\kappa_1,\kappa_2,\kappa_3$ are distinct. Choosing one label from each family gives an integer triple $m=(m_1,m_2,m_3)$. The first question is whether the three selected lines are exactly concurrent. The quantitative question is what happens when the labels are restricted to a finite box and exact concurrence is unavailable.
+
+\subsection{The linear model behind the geometry}
+Put
+\[
+\mathbf 1=(1,1,1)^T,
+\qquad
+\boldsymbol\kappa=(\kappa_1,\kappa_2,\kappa_3)^T.
+\]
+A common point $(x,y)$ gives
+\begin{equation}\tag{E1}\label{E1}
+ m=x\mathbf 1-y\boldsymbol\kappa.
+\end{equation}
+Thus the real concurrent label vectors form the plane
+\[
+V_\kappa=\operatorname{span}_{\R}\{\mathbf 1,\boldsymbol\kappa\}.
+\]
+When the direction parameters are arithmetically resonant, this plane contains integer points in a second direction in addition to the translation direction $\mathbf 1$.
+
+\subsection{Exact versus approximate concurrence}
+The guiding correspondence is
+\begin{align*}
+\text{integer concurrence}
+&\Longleftrightarrow
+\text{rational resonance},\\
+\text{near-concurrence}
+&\Longleftrightarrow
+\text{rational approximation}.
+\end{align*}
+The reduction will be made once in detail below. Subsequent sections refer back to the resulting relations instead of restating the same algebra.
+
+\subsection{A running numerical example}
+Take first
+$(\kappa_1,\kappa_2,\kappa_3)=(2,1,0)$ and
+$(m_1,m_2,m_3)=(2,1,0)$. The three equations meet at $(0,-1)$.
+Replacing $2$ by $\sqrt2$ removes the nontrivial rational relation. With
+\[
+(\kappa_1,\kappa_2,\kappa_3)=(\sqrt2,1,0),
+\qquad
+(m_1,m_2,m_3)=(7,5,0),
+\]
+the integer differences are $(p,q)=(7,5)$ and the defect is
+\[
+7-5\sqrt2\approx-0.071068.
+\]
+The intersection of the second and third lines is $(0,-5)$; the point of the first line directly above this vertical line is $(0,-7/\sqrt2)\approx(0,-4.94975)$. The residual in the first equation is therefore small but nonzero. The exact relation connecting this residual to the defect appears later in \eqref{E7}.
+
+\subsection{Scope of the result}
+The analytic part of the paper covers the three-family problem through the geometric constant and exponent theorems. For $k>3$, the same elimination yields simultaneous defects, and we verify concrete configurations for $k=4$ and $k=5$ without asserting a general asymptotic formula or exponent-transfer theorem. The continued-fraction, Dirichlet, and badly-approximable background used below follows standard references such as Cassels, Schmidt, Khintchine, and Harman; see the detailed bibliography.
+
+\section{Exact concurrence}
+
+\subsection{The master criterion}
+We have three equations but only two unknowns, so compatibility imposes one relation on the labels.
+
+\begin{theorem}[Exact concurrence criterion]
+Let $\kappa_1,\kappa_2,\kappa_3$ be distinct and let $m\in\R^3$. The three lines
+\[
+x-\kappa_i y=m_i,\qquad i=1,2,3,
+\]
+are concurrent if and only if $m\in\operatorname{span}_{\R}\{\mathbf 1,\boldsymbol\kappa\}$. Equivalently,
+\begin{equation}\tag{E2}\label{E2}
+(m_1-m_3)(\kappa_2-\kappa_3)
+=(m_2-m_3)(\kappa_1-\kappa_3).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+If the lines meet at $(x,y)$, then \eqref{E1} holds. Conversely, every vector of the form in \eqref{E1} is realized by its corresponding point $(x,y)$. Subtracting the third equation from the first two eliminates $x$, and eliminating $y$ gives \eqref{E2}.
+\end{proof}
+
+\subsection{Linear-algebra derivation: where the form $m=x\mathbf 1-y\boldsymbol\kappa$ comes from}
+Writing the equations together gives
+\[
+\begin{pmatrix}
+1&-\kappa_1\\
+1&-\kappa_2\\
+1&-\kappa_3
+\end{pmatrix}
+\begin{pmatrix}x\\y\end{pmatrix}
+=
+\begin{pmatrix}m_1\\m_2\\m_3\end{pmatrix}.
+\]
+The two columns are $\mathbf1$ and $-\boldsymbol\kappa$, so the column space is precisely the plane in \eqref{E1}.
+
+It is useful to see one intermediate matrix calculation explicitly. Take the second and third equations:
+\[
+C\begin{pmatrix}x\\y\end{pmatrix}=
+\begin{pmatrix}m_2\\m_3\end{pmatrix},
+\qquad
+C=\begin{pmatrix}1&-\kappa_2\\1&-\kappa_3\end{pmatrix}.
+\]
+The determinant is
+\[
+\det C=\kappa_2-\kappa_3\neq0,
+\]
+so $\exists!(x,y)$. The inverse is
+\[
+C^{-1}=\frac1{\kappa_2-\kappa_3}
+\begin{pmatrix}-\kappa_3&\kappa_2\\-1&1\end{pmatrix},
+\]
+and hence
+\begin{equation}\tag{E3}\label{E3}
+\begin{pmatrix}x\\y\end{pmatrix}
+=
+C^{-1}\begin{pmatrix}m_2\\m_3\end{pmatrix}
+=\frac1{\kappa_2-\kappa_3}
+\begin{pmatrix}
+-\kappa_3m_2+\kappa_2m_3\\-m_2+m_3
+\end{pmatrix}.
+\end{equation}
+In particular,
+$y=(m_2-m_3)/(\kappa_3-\kappa_2)$ and
+$x=m_3+\kappa_3y$. Substitution into the first equation gives \eqref{E2}.
+
+There is an equivalent null-space calculation. The vector
+\[
+n=
+\begin{pmatrix}
+\kappa_2-\kappa_3\\
+\kappa_3-\kappa_1\\
+\kappa_1-\kappa_2
+\end{pmatrix}
+\]
+satisfies $n^T\mathbf1=n^T\boldsymbol\kappa=0$, so $m$ lies in the concurrence plane exactly when $n^Tm=0$. This is again \eqref{E2}.
+
+\subsection{Reducing three equations to one ratio}
+Define the direction ratio
+\begin{equation}\tag{E4}\label{E4}
+R=\frac{\kappa_1-\kappa_3}{\kappa_2-\kappa_3}.
+\end{equation}
+Introduce the difference coordinates
+\[
+p=m_1-m_3,
+\qquad
+q=m_2-m_3.
+\]
+Then the compatibility condition \eqref{E2} becomes
+\begin{equation}\tag{E5}\label{E5}
+p=Rq.
+\end{equation}
+The label $m_3$ is a common translation; $(p,q)$ contains the relative arithmetic pattern.
+
+\subsection{Why rationality is the resonance condition}
+\begin{corollary}[Arithmetic resonance criterion]
+There exists a nontrivial integer-labelled concurrence if and only if $R\in\Q$. If $R=a/b$ is in lowest terms with $b\neq0$, every integer concurrent difference pair is
+\[
+(m_1-m_3,m_2-m_3)=t(a,b),\qquad t\in\Z.
+\]
+\end{corollary}
+
+\begin{proof}
+For a nonzero difference pair, \eqref{E5} gives $R=p/q\in\Q$. Conversely, if $R=a/b$ in lowest terms, then $bp=aq$, and coprimality forces $(p,q)$ to be an integer multiple of $(a,b)$.
+\end{proof}
+
+\begin{remark}
+The exact problem separates translation from arithmetic shape. The common label $m_3$ shifts the configuration, while the primitive direction $(a,b)$ determines the exact integer pattern.
+\end{remark}
+
+\section{From geometric residuals to Diophantine defects}
+
+\subsection{Difference coordinates and the error term}
+In the $(p,q)$-plane, \eqref{E5} is the exact-concurrence line. Define the signed concurrence defect by
+\begin{equation}\tag{E6}\label{E6}
+\defect_R(p,q)=p-Rq.
+\end{equation}
+Thus exact concurrence is equivalent to $\defect_R(p,q)=0$, while near-concurrence is measured by $|\defect_R(p,q)|$.
+
+\begin{proposition}[Exact residual identity]
+Let $(x,y)$ be the intersection of the second and third selected lines. Then the residual in the first line is exactly
+\begin{equation}\tag{E7}\label{E7}
+x-\kappa_1y-m_1=-\defect_R(p,q).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+From \eqref{E3}, the intersection of the second and third lines has
+$y=(m_2-m_3)/(\kappa_3-\kappa_2)$ and $x=m_3+\kappa_3y$. Substitution gives
+\[
+x-\kappa_1y-m_1
+=-p+(\kappa_3-\kappa_1)y
+=-p+Rq,
+\]
+which is \eqref{E7} by \eqref{E6}.
+\end{proof}
+
+If perpendicular Euclidean distance to the first line is used instead of the coordinate residual, the absolute value in \eqref{E7} is divided by $\sqrt{1+\kappa_1^2}$.
+
+\subsection{Worked calculation of a residual}
+Take
+\[
+\kappa_1=\sqrt2,
+\qquad
+\kappa_2=1,
+\qquad
+\kappa_3=0,
+\qquad
+(m_1,m_2,m_3)=(7,5,0).
+\]
+The last two lines are
+\[
+x-y=5,
+\qquad
+x=0.
+\]
+Hence
+\[
+C=\begin{pmatrix}1&-1\\1&0\end{pmatrix},
+\qquad
+C^{-1}=\begin{pmatrix}0&1\\-1&1\end{pmatrix},
+\]
+so
+\[
+\begin{pmatrix}x\\y\end{pmatrix}
+=C^{-1}\begin{pmatrix}5\\0\end{pmatrix}
+=\begin{pmatrix}0\\-5\end{pmatrix}.
+\]
+Therefore the reference intersection is
+\[
+P_{23}=(0,-5).
+\]
+The first line itself intersects $x=0$ at
+\[
+P_1=\left(0,-\frac7{\sqrt2}\right),
+\]
+which is slightly above $P_{23}$. Evaluating the first equation at $P_{23}$ gives
+\[
+0-\sqrt2(-5)-7=5\sqrt2-7\approx0.0710678.
+\]
+On the arithmetic side, \eqref{E4} gives $R=\sqrt2$ and $(p,q)=(7,5)$, so \eqref{E6} gives
+\[
+\defect_R(7,5)=7-5\sqrt2\approx-0.0710678.
+\]
+The sign reversal agrees with \eqref{E7}. The perpendicular distance is
+\[
+d_\perp=\frac{|5\sqrt2-7|}{\sqrt3}\approx0.04103.
+\]
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{near_concurrence_geometry.png}
+\caption{Near-concurrence for $R=\sqrt2$. The lines $x-y=5$ and $x=0$ meet at $P_{23}=(0,-5)$. The first line intersects the same vertical axis at $P_1=(0,-7/\sqrt2)$. Their separation in the coordinate residual is $|5\sqrt2-7|\approx0.071068$, while the perpendicular point-to-line distance is approximately $0.04103$.}
+\label{fig:geometry}
+\end{figure}
+
+\footnote{The distinction between the coordinate residual in \eqref{E7} and perpendicular Euclidean distance is only a normalization by the norm of the line normal vector. The paper uses the coordinate residual throughout the finite-box theory because it matches the integer defect exactly.}
+
+\subsection{The finite label box}
+Let
+\[
+B_M=[-M,M]^3\cap\Z^3
+\]
+and define the range of the three translated coordinates by
+\begin{equation}\tag{E8}\label{E8}
+w(p,q)=\max\{0,p,q\}-\min\{0,p,q\}.
+\end{equation}
+
+\begin{lemma}[Feasibility of a difference pair]
+There exists $m_3\in\Z$ such that
+$(m_3+p,m_3+q,m_3)\in[-M,M]^3$
+if and only if $w(p,q)\le2M$.
+\end{lemma}
+
+\begin{proof}
+The three labels are a translate of $\{0,p,q\}$. Such a translate fits inside the integer interval $[-M,M]$ exactly when the range of that set is at most $2M$.
+\end{proof}
+
+For irrational $R$, define the finite-box near-concurrence defect by
+\begin{equation}\tag{E9}\label{E9}
+\delta_M(R)=
+\min_{\substack{(p,q)\in\Z^2\setminus\{(0,0)\}\\w(p,q)\le2M}}
+|p-Rq|.
+\end{equation}
+For each fixed finite $M$, irrationality makes this minimum positive. Moreover, for all sufficiently large $M$ a minimizing pair has $q\neq0$: when $q=0$, the defect is at least $1$, whereas Dirichlet approximation gives infinitely many nonzero denominators for which $|p-Rq|<1/|q|$; the corresponding feasible boxes have $M=O(|q|)$. This is the finite-box version of the standard homogeneous approximation argument; see Cassels and Schmidt.
+
+\section{The quantitative resonance theorem}
+
+\subsection{Normalizing the approximation}
+Define
+\begin{equation}\tag{E10}\label{E10}
+D(R)=\max\{0,1,R\}-\min\{0,1,R\}
+\end{equation}
+and
+\begin{equation}\tag{E11}\label{E11}
+L(R)=\liminf_{q\to\infty}q\lVert qR\rVert,
+\end{equation}
+where $\lVert x\rVert$ denotes distance to the nearest integer.
+For good rational approximants $p/q\to R$, the three normalized points $0$, $p/q$, and $1$ approach $0$, $R$, and $1$. Hence \eqref{E8} gives
+$w(p,q)=D(R)|q|+o(|q|)$, and the finite-box condition occurs on the scale $M\sim D(R)|q|/2$.
+
+\subsection{The asymptotic constant}
+\begin{theorem}[Geometric approximation constant]
+For every irrational $R$,
+\begin{equation}\tag{E12}\label{E12}
+\liminf_{M\to\infty}M\delta_M(R)=\frac{D(R)}{2}L(R).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+For the upper bound, choose positive integers $q_n\to\infty$ such that
+$q_n\lVert q_nR\rVert\to L(R)$, and let $p_n$ be a nearest integer to $q_nR$. Then
+$|p_n-Rq_n|=\lVert q_nR\rVert$ and $p_n/q_n\to R$. Thus
+\[
+\frac{w(p_n,q_n)}{|q_n|}\to D(R).
+\]
+Set $M_n=\lceil w(p_n,q_n)/2\rceil$. By the feasibility lemma and \eqref{E9},
+\[
+\delta_{M_n}(R)\le\lVert q_nR\rVert.
+\]
+Since $M_n/|q_n|\to D(R)/2$,
+\[
+\liminf_{M\to\infty}M\delta_M(R)\le\frac{D(R)}2L(R).
+\]
+
+For the reverse inequality, choose $M_n\to\infty$ along a sequence realizing the liminf in \eqref{E12}, with minimizing pairs $(p_n,q_n)$. For large $n$, $q_n\neq0$. If $|q_n|$ remained bounded, irrationality of $R$ would give a positive lower bound for $|p_n-Rq_n|$ on a subsequence, contradicting boundedness of $M_n\delta_{M_n}(R)$. Hence $|q_n|\to\infty$. Since the normalized defects remain bounded while $M_n\to\infty$, we have $|p_n-Rq_n|\to0$, so $p_n/q_n\to R$. Therefore
+\[
+\frac{w(p_n,q_n)}{|q_n|}\to D(R).
+\]
+Also
+\[
+|p_n-Rq_n|\ge\lVert q_nR\rVert,
+\qquad
+2M_n\ge w(p_n,q_n),
+\]
+so
+\[
+M_n\delta_{M_n}(R)
+\ge
+\frac{w(p_n,q_n)}{2|q_n|}
+\left(|q_n|\lVert q_nR\rVert\right).
+\]
+Taking lower limits gives
+\[
+\liminf_{M\to\infty}M\delta_M(R)
+\ge\frac{D(R)}2L(R),
+\]
+and the two inequalities prove \eqref{E12}.
+\end{proof}
+
+\subsection{Bad approximability as geometric rigidity}
+\begin{corollary}
+An irrational $R$ is badly approximable if and only if
+\[
+\liminf_{M\to\infty}M\delta_M(R)>0.
+\]
+\end{corollary}
+
+Indeed, the classical criterion is $L(R)>0$; combined with \eqref{E12}, this is exactly the geometric criterion above. See Schmidt, Chapter II, \S4, for the classical badly-approximable characterization.
+
+\section{A geometric irrationality exponent}
+
+\subsection{Two notions of approximation quality}
+The coordinate defect and the ordinary rational-approximation error differ by one factor of $|q|$:
+\begin{equation}\tag{E13}\label{E13}
+|p-Rq|=|q|\left|R-\frac pq\right|.
+\end{equation}
+For irrational $R$, define the classical irrationality exponent by
+\begin{equation}\tag{E14}\label{E14}
+\mu(R)=\sup\left\{\nu>0:\left|R-\frac pq\right|<q^{-\nu}\ \text{for infinitely many }p\in\Z,\ q\in\N\right\}.
+\end{equation}
+The corresponding finite-box exponent is
+\begin{equation}\tag{E15}\label{E15}
+\mu_{\mathrm{geo}}(R)=1+\limsup_{M\to\infty}\frac{\log(1/\delta_M(R))}{\log M}.
+\end{equation}
+
+\subsection{Exponent transfer}
+\begin{theorem}[Exponent transfer]
+For every irrational $R$,
+\begin{equation}\tag{E16}\label{E16}
+\mu_{\mathrm{geo}}(R)=\mu(R).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Set
+\[
+\beta=\limsup_{M\to\infty}\frac{\log(1/\delta_M(R))}{\log M}.
+\]
+We show $\mu(R)=1+\beta$.
+
+Let $\nu<\mu(R)$. By \eqref{E14}, there are infinitely many rational approximants with
+$|R-p/q|<q^{-\nu}$. By \eqref{E13},
+$|p-Rq|<q^{1-\nu}$. Along these approximants $p/q\to R$, hence the finite-box range satisfies
+$w(p,q)=D(R)|q|+o(|q|)$ and the corresponding $M$ satisfy $M=\Theta(q)$. Thus infinitely often
+\[
+\delta_M(R)\le M^{1-\nu+o(1)},
+\]
+which gives $\beta\ge\nu-1$. Letting $\nu\uparrow\mu(R)$ yields
+$\beta\ge\mu(R)-1$.
+
+Conversely, let $\gamma<\beta$. Then infinitely many $M$ satisfy
+$\delta_M(R)<M^{-\gamma}$. Let $(p,q)$ be a minimizing pair. For sufficiently large $M$, $q\neq0$, and \eqref{E8} implies $|q|\le2M$. Hence, by \eqref{E13},
+\[
+\left|R-\frac pq\right|
+=\frac{|p-Rq|}{|q|}
+<\frac{M^{-\gamma}}{|q|}
+\le\frac{2^\gamma}{|q|^{\gamma+1}}.
+\]
+Thus infinitely many rational approximants occur with exponent $\gamma+1$, so $\mu(R)\ge\gamma+1$. Letting $\gamma\uparrow\beta$ gives $\mu(R)\ge\beta+1$. Therefore \eqref{E16} follows.
+\end{proof}
+
+\begin{remark}[Higher-dimensional analogue]
+For $k>3$ the scalar obstruction becomes simultaneous approximation. In that setting there are several ratios sharing the same denominator, so the proof of \eqref{E16} does not transfer automatically. Schmidt, Chapter II, treats simultaneous approximation beginning with the simultaneous Dirichlet theorem on p.~27. The present paper uses the higher-dimensional formulation only for concrete numerical examples.
+\end{remark}
+
+\subsection{Quadratic irrationals as a benchmark class}
+If $R$ is a quadratic irrational, then $\mu(R)=2$, hence \eqref{E16} gives $\mu_{\mathrm{geo}}(R)=2$. Quadratic irrationals are also badly approximable, so \eqref{E12} gives a positive first-order near-concurrence constant.
+
+\section{Explicit examples}
+
+\subsection{$R=\sqrt2$}
+The continued-fraction convergents begin
+\[
+1,
+\quad \frac32,
+\quad \frac75,
+\quad \frac{17}{12},
+\quad \frac{41}{29},
+\quad\cdots
+\]
+and give increasingly small values of $|p-q\sqrt2|$. For example,
+\[
+|7-5\sqrt2|\approx0.0710678,
+\qquad
+|41-29\sqrt2|\approx0.0121933.
+\]
+The denominator has increased from $5$ to $29$, while the residual has decreased by nearly a factor of six. For $R=\sqrt2$,
+\[
+D(\sqrt2)=\sqrt2,
+\qquad
+L(\sqrt2)=\frac1{2\sqrt2}.
+\]
+Therefore \eqref{E12} gives
+\[
+\liminf_{M\to\infty}M\delta_M(\sqrt2)=\frac14.
+\]
+By \eqref{E16}, $\mu_{\mathrm{geo}}(\sqrt2)=2$.
+
+\footnote{The continued-fraction statements used here are standard; the relevant background is Hardy and Wright, Chapter X on continued fractions and Chapter XI on approximation of irrationals by rationals, pp.~165--228 in the 6th edition.}
+
+\subsection{The golden ratio}
+Let
+\[
+\varphi=\frac{1+\sqrt5}{2}.
+\]
+Then
+\[
+D(\varphi)=\varphi,
+\qquad
+L(\varphi)=\frac1{\sqrt5},
+\]
+so \eqref{E12} gives
+\[
+\liminf_{M\to\infty}M\delta_M(\varphi)=\frac{\varphi}{2\sqrt5}.
+\]
+Again, \eqref{E16} gives $\mu_{\mathrm{geo}}(\varphi)=2$.
+
+\subsection{Rational parameters: the zero-defect transition}
+If $R=a/b\in\Q$ in lowest terms, the primitive difference pattern is $(a,b)$. Once the box contains a nonzero translate of this pattern, \eqref{E5} is satisfied exactly and therefore $\delta_M(R)=0$. Rational resonance is thus the exact zero-defect endpoint of the quantitative theory.
+
+\section{Numerical verification of the scalar theory}
+Table~\ref{tab:scalar} summarizes the numerical checks reported for the three-family problem.
+
+\begin{table}[H]
+\centering
+\caption{Numerical checks of the three-family theory.}
+\label{tab:scalar}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Quantity & Empirical & Theoretical / target & Difference\\
+\midrule
+$\liminf M\delta_M(\sqrt2)$ & 0.251300 & 0.250000 & 0.001300\\
+$\liminf M\delta_M(\varphi)$ & 0.366569 & 0.361803 & 0.004765\\
+$\mu_{\mathrm{geo}}(\sqrt2)$ & 1.998299 & 2.000000 & 0.001701\\
+log--log slope & 0.998299 & 1.000000 & 0.001701\\
+$R^2$ of exponent fit & 0.979950 & $>0.95$ & ---\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The finite-box computation uses the normalization in \eqref{E9} and compares the observed values with the quantities determined by \eqref{E12} and \eqref{E16}. Because \eqref{E12} is a liminf statement, the sequence $M\delta_M(R)$ need not decrease monotonically; repeated returns near the theoretical level are the relevant numerical signature.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{near_concurrence_constants.png}
+\caption{Finite-box near-concurrence constants. The plotted values show the oscillatory finite-box behaviour for $R=\sqrt2$ and $R=\varphi$ together with the theoretical liminf levels from \eqref{E12}: $1/4$ for $\sqrt2$ and $\varphi/(2\sqrt5)$ for the golden ratio.}
+\label{fig:constants}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{geometric_exponent_fit.png}
+\caption{Log--log exponent check for $R=\sqrt2$. The least-squares fit has slope $0.9983$ and $R^2\approx0.97995$. Since the definition in \eqref{E15} adds $1$ to the log--log slope, the fitted geometric exponent is approximately $1.9983$.}
+\label{fig:exponent}
+\end{figure}
+
+\footnote{The numerical tables and plots are checks of the stated constructions and asymptotic formulas. They are not used as substitutes for the proofs of \eqref{E12} and \eqref{E16}.}
+
+\section{Geometric interpretation}
+The three-dimensional label space contains the concurrence plane
+\[
+V_\kappa=\operatorname{span}_{\R}\{\mathbf1,\boldsymbol\kappa\}
+\]
+from \eqref{E1}. For rationally resonant parameters, $V_\kappa\cap\Z^3$ contains a second integer direction beyond $\mathbf1$, and integer points on the plane correspond to exact concurrences. For irrational $R$, that second integer direction is absent.
+
+The quantity $\delta_M(R)$ in \eqref{E9} measures the smallest coordinate residual attained by a nontrivial integer point in the finite box. The theorem \eqref{E12} therefore turns a classical approximation constant into a geometric near-concurrence constant.
+
+\section{Higher families and simultaneous approximation}
+
+\subsection{From one defect to a vector of defects}
+For $k>3$, fix family $k$ as the reference and family $2$ as the scale. Put
+\[
+R_i=\frac{\kappa_i-\kappa_k}{\kappa_2-\kappa_k},
+\qquad
+q=m_2-m_k,
+\qquad
+p_i=m_i-m_k,
+\]
+for $i\in\{1,3,\ldots,k-1\}$. Exact concurrence requires $p_i=R_iq$ in every coordinate. The simultaneous defect is
+\begin{equation}\tag{E17}\label{E17}
+\Delta^{(k)}(p,q)=p-qR,
+\qquad
+\norm{\Delta^{(k)}(p,q)}_\infty
+=\max_i|p_i-R_iq|.
+\end{equation}
+All coordinates share the same denominator $q$, which is the essential difference from the three-family case.
+
+\begin{table}[H]
+\centering
+\caption{Simultaneous defect for the first higher-family cases.}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$k$ & Unknown ratios & Number of defects & Quantity checked\\
+\midrule
+3 & $R_1$ & 1 & $|p_1-R_1q|$\\
+4 & $R_1,R_3$ & 2 & $\max(|p_1-R_1q|,|p_3-R_3q|)$\\
+5 & $R_1,R_3,R_4$ & 3 & $\max(|p_1-R_1q|,|p_3-R_3q|,|p_4-R_4q|)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Worked example: $k=4$}
+Take
+\[
+\kappa_1=\sqrt2,
+\quad \kappa_2=1,
+\quad \kappa_3=\sqrt3,
+\quad \kappa_4=0.
+\]
+Using family $4$ as reference gives $R_1=\sqrt2$ and $R_3=\sqrt3$. Exact concurrence would require
+\[
+m_1-m_4=\sqrt2\,q,
+\qquad
+m_3-m_4=\sqrt3\,q,
+\qquad
+q=m_2-m_4.
+\]
+Because both targets are irrational, no nonzero integer $q$ can satisfy these equations exactly.
+
+Choose
+\[
+q=41,
+\qquad
+(m_1,m_2,m_3,m_4)=(58,41,71,0).
+\]
+At the reference intersection,
+\[
+x- y=41,
+\qquad
+x=0,
+\]
+so
+\[
+P_{24}=(0,-41).
+\]
+At this point the other two lines have residuals
+\[
+58-41\sqrt2\approx0.017244,
+\qquad
+71-41\sqrt3\approx-0.014083.
+\]
+Thus the maximum absolute coordinate defect in \eqref{E17} is approximately $0.0173$.
+
+\subsection{Worked example: $k=5$}
+Take
+\[
+\kappa_1=\sqrt2,
+\quad \kappa_2=1,
+\quad \kappa_3=\sqrt3,
+\quad \kappa_4=\sqrt5,
+\quad \kappa_5=0.
+\]
+Using family $5$ as reference gives the three targets $\sqrt2$, $\sqrt3$, and $\sqrt5$. Choose
+\[
+q=123,
+\qquad
+(m_1,m_2,m_3,m_4,m_5)=(174,123,213,275,0).
+\]
+The reference families satisfy
+\[
+x-y=123,
+\qquad x=0,
+\]
+so the common reference point is
+\[
+P_{25}=(0,-123).
+\]
+The target values are
+\[
+123\sqrt2\approx173.948268,
+\quad
+123\sqrt3\approx213.042249,
+\quad
+123\sqrt5\approx275.036361,
+\]
+which gives the coordinate defects
+\[
+174-123\sqrt2\approx0.051732,
+\]
+\[
+213-123\sqrt3\approx-0.042249,
+\]
+\[
+275-123\sqrt5\approx-0.036361.
+\]
+Hence the maximum coordinate defect is about $0.0518$.
+
+\begin{table}[H]
+\centering
+\caption{Worked simultaneous-approximation configurations.}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$k$ & $q$ & Integer labels & $\norm{\Delta^{(k)}}_\infty$ & Reference point\\
+\midrule
+4 & 41 & $(58,41,71,0)$ & 0.017244 & $(0,-41)$\\
+5 & 123 & $(174,123,213,275,0)$ & 0.051732 & $(0,-123)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}
+The $k=4$ and $k=5$ computations verify the intended arithmetic-geometric correspondence at concrete points. They do not establish a general asymptotic constant or exponent theorem in simultaneous approximation.
+\end{remark}
+
+\section{Conclusion}
+For three families, exact concurrence is characterized by \eqref{E2}, the arithmetic reduction is given by \eqref{E4}--\eqref{E6}, the geometric residual is exactly \eqref{E7}, and the finite-box asymptotic is the identity \eqref{E12}. The exponent transfer is \eqref{E16}. The examples $R=\sqrt2$ and $R=\varphi$ make the constants explicit, while the numerical plots are consistent with the predicted levels and exponent. For $k=4$ and $k=5$, the same elimination produces the simultaneous defect \eqref{E17}; the examples illustrate the mechanism without asserting a general higher-dimensional asymptotic law.
+
+\section{Discussion: relation to the RoSEF HNP pipeline}
+
+\subsection{Why the comparison is useful}
+The comparison is made at the level of reduction to bounded-error constraints. It is not an identification of the line model with the HNP problem.
+
+\subsection{What is common}
+For three line families the geometric constraint has the form
+\[
+p-Rq=\varepsilon,
+\]
+while for more families it has the vector form in \eqref{E17}. The line model uses an ordinary real-valued relation; the RoSEF HNP system is modular. The common structural pattern is
+\[
+\text{exact algebraic relation}
+\longrightarrow
+\text{bounded residual}
+\longrightarrow
+\text{integer/lattice search}
+\longrightarrow
+\text{independent validation}.
+\]
+
+\subsection{Where the CNN enters}
+In the baseline RoSEF experiment, the CNN supplies the first 12 MSB of each nonce and the HNP stage uses 40 signatures. An oracle variant replaces predicted prefixes with their true values, isolating the lattice step. The documented run reports 40 CNN-fed samples, 12 leaked bits, fpylll reduction, and a validated key recovery \cite{RoSEF}. Successful recovery tests the supplied HNP instance; it does not, by itself, quantify CNN accuracy.
+
+\subsection{Structural comparison with the HNP model}
+The HNP stage uses congruences of the form
+\[
+ t_i d+u_i-a_i=\delta_i\pmod n,
+\qquad 0\le\delta_i<B.
+\]
+Thus both settings attach bounded errors to discrete variables, but the algebraic objects differ: the line model is real approximation, while HNP recovery uses modular inequalities and lattice reduction.
+
+\subsection{What the present data support}
+The scalar tests are consistent with \eqref{E12} for $\sqrt2$ and the golden ratio, and the log--log fit at $\sqrt2$ is consistent with the exponent in \eqref{E16}. The $k=4$ and $k=5$ examples verify the shared-denominator reduction in \eqref{E17}. The repository artefacts support the separate computational claim that the tested HNP instances pass their documented validation pipeline \cite{RoSEF}.
+
+\subsection{Limit of the bridge}
+The comparison with RoSEF is structural only. This paper does not prove that the three-family exponent identity \eqref{E16} extends to the HNP setting, nor does it derive asymptotic constants for $k>3$. A higher-dimensional result would require its own simultaneous approximation framework and proof.
+
+\begin{thebibliography}{17}
+
+\bibitem{CasselsApprox}
+J. W. S. Cassels, \emph{An Introduction to Diophantine Approximation}, Cambridge University Press, 1957.\\
+\textit{Relevant material:} homogeneous approximation begins on p.~1; equivalence on p.~8; the Markoff chain on p.~18; inhomogeneous approximation on p.~45; metrical theory on p.~120. Used here for the homogeneous/inhomogeneous approximation framework behind \eqref{E11}--\eqref{E12}.
+
+\bibitem{CasselsGeometry}
+J. W. S. Cassels, \emph{An Introduction to the Geometry of Numbers}, Springer, 1959.\\
+\textit{Relevant material:} Chapter I, ``Lattices,'' begins on p.~9; pp.~9--26 give the lattice setting used in the finite-box and label-space interpretation. Used here for the geometry-of-numbers viewpoint surrounding \eqref{E8} and \eqref{E9}.
+
+\bibitem{HardyWright}
+G. H. Hardy and E. M. Wright, \emph{An Introduction to the Theory of Numbers}, 6th ed., Oxford University Press, 2008.\\
+\textit{Relevant material:} Chapter X, ``Continued Fractions,'' pp.~165--197; Chapter XI, ``Approximation of Irrationals by Rationals,'' pp.~198--228. Used for the continued-fraction and rational-approximation background in Section 6.
+
+\bibitem{IrelandRosen}
+K. Ireland and M. Rosen, \emph{A Classical Introduction to Modern Number Theory}, 2nd ed., Springer, 1990.\\
+\textit{Relevant material:} Chapter 17, ``Diophantine Equations,'' especially \S12, ``Diophantine Equations and Diophantine Approximation,'' p.~292. Provides the elementary number-theoretic background relevant to the reduction from exact relations to integer approximation.
+
+\bibitem{Khintchine}
+A. Khintchine, ``Einige Sätze über Kettenbrüche, mit Anwendungen auf die Theorie der Diophantischen Approximationen,'' \emph{Mathematische Annalen} 92 (1924), 115--125.\\
+\textit{Relevant material:} foundational metric results on continued fractions and their Diophantine applications. Used as background for the approximation constants invoked in Sections 4--6.
+
+\bibitem{Schmidt}
+W. M. Schmidt, \emph{Diophantine Approximation}, Lecture Notes in Mathematics 785, Springer, 1980.\\
+\textit{Relevant material:} Chapter I, ``Approximation to Irrational Numbers by Rationals,'' pp.~1--26; Chapter II, ``Simultaneous Approximation,'' pp.~27--47; Chapter III, ``Games and Measures,'' pp.~48--79; Chapter IV, ``Integer Points in Parallelepipeds,'' pp.~80--113; Chapter V, ``Roth's Theorem,'' pp.~114--150. In the present paper, Chapter I supports the one-dimensional approximation estimates and Chapter II the simultaneous-approximation discussion.
+
+\bibitem{Harman}
+G. Harman, \emph{Metric Number Theory}, London Mathematical Society Monographs, New Series 18, Clarendon Press, 1998.\\
+\textit{Relevant material:} Chapter 2, ``Diophantine approximation,'' pp.~24--59, including Dirichlet and Khintchine-type results; Chapter 6, ``Diophantine approximation with restricted numerator and denominator,'' pp.~164--186. Used here as broader metric background for finite-box variants.
+
+\bibitem{Sprindzhuk}
+V. G. Sprindzhuk, \emph{Metric Theory of Diophantine Approximations}, V. H. Winston, 1979.\\
+\textit{Relevant material:} monograph-wide background on metric Diophantine approximation. Used as contextual background rather than as the source of a quoted theorem.
+
+\bibitem{Bugeaud}
+Y. Bugeaud, \emph{Approximation by Algebraic Numbers}, Cambridge University Press, 2004.\\
+\textit{Relevant material:} Chapter 1, ``Approximation by rational numbers,'' pp.~1--26; Chapter 2, ``Approximation to algebraic numbers,'' pp.~27--40. Includes Dirichlet, continued fractions, and classical consequences for algebraic irrational numbers.
+
+\bibitem{Roth}
+K. F. Roth, ``Rational approximations to algebraic numbers,'' \emph{Mathematika} 2 (1955), 1--20.\\
+\textit{Relevant result:} the finiteness statement for rational approximations to algebraic irrationals beyond exponent $2$. Included here for the classical exponent background surrounding quadratic and algebraic irrationals.
+
+\bibitem{DavenportRoth}
+H. Davenport and K. F. Roth, ``Rational approximations to algebraic numbers,'' \emph{Mathematika} 2 (1955), 160--167.\\
+\textit{Relevant material:} explicit estimates concerning the number of rational approximations in the setting of the preceding Roth theorem; discussion begins on p.~160.
+
+\bibitem{Waldschmidt}
+M. Waldschmidt, ``Report on some recent advances in Diophantine approximation,'' arXiv:0908.3973 (2009).\\
+\textit{Relevant material:} \S1.1, ``Asymptotic and uniform rational approximation,'' p.~6 onward; \S1.2, ``Metric results,'' pp.~9--10. Used for the exponent notation and metric background in Section 5.
+
+\bibitem{Badziahin}
+D. Badziahin, A. Pollington, and S. Velani, ``On a problem in simultaneous Diophantine approximation: Schmidt's conjecture,'' \emph{Annals of Mathematics} 174 (2011), 1837--1883.\\
+\textit{Relevant material:} Theorem 1 and the surrounding simultaneous-approximation framework. Included only for higher-dimensional context; no result from this paper is used as a proof of the present $k>3$ discussion.
+
+\bibitem{GruberLekkerkerker}
+P. M. Gruber and C. G. Lekkerkerker, \emph{Geometry of Numbers}, 2nd ed., North-Holland Mathematical Library, vol.~37, North-Holland/Elsevier, 1987.\\
+\textit{Relevant material:} Chapter 1, ``Preliminaries,'' pp.~1--38; Chapter 2, ``Convex bodies and lattice points,'' pp.~39--126. Provides the general geometry-of-numbers context for bounded lattice regions.
+
+\bibitem{CusickFlahive}
+T. W. Cusick and M. E. Flahive, \emph{The Markoff and Lagrange Spectra}, American Mathematical Society, 1989.\\
+\textit{Relevant material:} Chapter 1, ``Older Results on the Markoff Spectrum,'' pp.~1--16; Chapter 3, ``The Markoff and Lagrange Spectra Compared,'' pp.~35--46. Included for context on approximation constants associated with continued fractions and quadratic irrationals.
+
+\bibitem{Korsky}
+S. Korsky, ``Affine Copies of Three-Point Patterns in Sets of Integers,'' arXiv:2609.02308 (2026).\\
+\textit{Relevant role:} a recent combinatorial result on affine three-point patterns in integer sets. It is cited as related integer-pattern context, not as a source for the analytic approximation theorems above.
+
+\bibitem{RoSEF}
+H. Rares, \emph{RoSEF26-27 research repository}, 2026.\\
+\textit{Relevant project material:} \texttt{docs/research-question.md}, \texttt{docs/methodology.md}, \texttt{docs/experimental-protocol.md}, and \texttt{matematica/k4-k5-verification.md}; numerical artefacts include \texttt{informatica/artifacts/bridge\_results.json}, \texttt{diophantine\_results.json}, and \texttt{hnp\_result.json}. These materials document the computational checks referenced in Section 11. In particular, the repository records the reported 40 CNN-fed samples, 12 leaked bits, fpylll reduction, and the validated HNP recovery used for the structural comparison.
+
+\end{thebibliography}
+
+\end{document}
