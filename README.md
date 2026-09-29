@@ -1,18 +1,20 @@
 <div align="center">
 
+<p align="center">
+    <img src="misc/LEAKON.png" height="250" alt="LEAKON" />
+</p>
+
 # Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
 
-### Creat de [Henea Rareș](https://github.com/Vendetaaaa) și [Stadler Rareș](https://github.com/RaresInsine)
-
-<img src="misc/qrcode.png" height="175" alt="QR_CODE" />
+### [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
 
 </div>
 
 </br>
 
-### Domeniile abordate: Matematică și Informatică
-
 ## Structura proiectului:
+
+### Pentru a vedea structura completă accesează: [ARCHITECTURE.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/ARCHITECTURE.md)
 
 ```text
 📁 RoSEF26-27/
@@ -38,8 +40,6 @@ Pentru mai multe informații accesați README.md din fiecare folder
 ```
 
 ### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
-
-### Pentru a vedea structura accesează [ARCHITECTURE.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/ARCHITECTURE.md)
 
 ---
 
@@ -101,9 +101,9 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 1. "Star" sau "Watch" acest proiect!
 2. Follow [Vendeta](https://github.com/Vendetaaaa) și [RaresInsine](https://github.com/RaresInsine)
 3. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
+4. 
 
-<div align="center">
-
-<img src="misc/Echipa.png" height="400" alt="TEAM" />
-
-</div>
+<p align="center">
+    <img src="misc/Echipa.png" width="45%" alt="TEAM" />
+    <img src="misc/qrcode.png" width="33.9%" alt="CodeQR" />
+</p>
