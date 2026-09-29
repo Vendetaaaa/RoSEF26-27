@@ -6,6 +6,7 @@
 ├── 📁 .github/
 │   ├── 📁 workflows/
 │   │   ├── 📄 benchmark.yml
+│   │   ├── 📄 pages.yml
 │   │   ├── 📄 reproducibility.yml
 │   │   └── 📄 tests.yml
 │   │
@@ -15,13 +16,12 @@
 │   ├── 📄 ethics.md
 │   ├── 📄 experimental-protocol.md
 │   ├── 📄 methodology.md
+│   ├── 📄 project-guide.md
+│   ├── 📄 project-motivation.md
 │   ├── 📄 project-overview.md
+│   ├── 📄 project-summary.md
 │   ├── 📄 reproducibility.md
-│   ├── 📄 research-question.md
-│   │
-│   └── 📁 papers/
-│       ├── 📄 Recovery_of_private_keys.pdf
-│       └── 📄 Recovery_of_private_keys.tex
+│   └── 📄 research-question.md
 │
 ├── 📁 informatica/
 │   │
@@ -49,6 +49,7 @@
 │   │   ├── 📄 profile_dataset.json
 │   │   ├── 📄 public_dataset.json
 │   │   ├── 🖼️ diophantine_bridge_verification.png
+│   │   ├── 📄 trace_validation_metadata.json
 │   │   └── 📄 README.txt
 │   │
 │   ├── 📁 cnn/
@@ -57,6 +58,7 @@
 │   │   ├── 📄 export_weights.py
 │   │   ├── 📄 model.py
 │   │   ├── 📄 train.py
+│   │   ├── 📄 model_weights.py
 │   │   └── 📄 utils.py
 │   │
 │   ├── 📁 dataset/
@@ -114,10 +116,8 @@
 │       │   │   └── 🖼️ ...
 │       │   └── 🖼️ ...
 │       │
-│       ├── 📁 paper/
-│       │   ├── 📄 arithmetic_concurrence.pdf
-│       │   └── 📄 arithmetic_concurrence.tex
 │       │
+│       ├── 📄 k4-k5-verification.md
 │       └── 📄 README.md
 │
 ├── 📁 misc/
@@ -127,15 +127,32 @@
 │   ├── 📓 01_data-generation.ipynb
 │   ├── 📓 02_baseline.ipynb
 │   ├── 📓 03_cnn-training.ipynb
-│   └── 📓 04_final-results.ipynb
+│   ├── 📓 04_final-results.ipynb
+│   └── 📓 05_trace-validation.ipynb
 │
+|
+├── 📁 papers/
+│   ├── 📁 source/
+│   │   ├── 📄 Recovery_of_private_keys.tex
+│   │   ├── 📄 README.md
+|   |   └── 📄 arithmetic_concurrence.tex
+│   │
+│   ├── 📄 Recovery_of_private_keys.pdf
+│   └── 📄 arithmetic_concurrence.pdf
+|
 ├── 📁 results/
 │   ├── 📁 figures/
 │   │   └── 🖼️ ...
 │   │
-│   └── 📁 tables/
-│       └── 📄 final-results.csv
-│
+│   ├── 📁 tables/
+│   |   ├── 📄 cnn-hnp-baseline.csv
+│   |   ├── 📄 final-results.csv
+│   |   ├── 📄 hnp-oracle-thresholds.csv
+│   |   └── trace-validation-100.csv
+|   |
+│   ├── 📁 raw/
+│       └── 📄 trace-validation-100.npz
+│ 
 ├── 📁 tests/
 │   ├── 📄 test_ecdsa.py
 │   ├── 📄 test_hnp.py
