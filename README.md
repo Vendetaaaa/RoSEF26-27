@@ -1,6 +1,6 @@
 <div align="center">
 
-# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027 - LEAKON -
+# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
 
 ### Creat de [Henea Rareș](https://github.com/Vendetaaaa) și [Stadler Rareș](https://github.com/RaresInsine)
 
