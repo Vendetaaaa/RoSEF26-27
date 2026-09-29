@@ -1,10 +1,10 @@
 <div align="center">
 
+# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
+
 <p align="center">
     <img src="misc/LEAKON.png" height="250" alt="LEAKON" />
 </p>
-
-# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
 
 ### [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
 
