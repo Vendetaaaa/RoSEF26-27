@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#include "mbedtls/sha256.h"
+
 #include "ecdsa_exp.h"
 
 namespace rosef {
@@ -112,24 +114,17 @@ void signDigest(const uint8_t digest[32]) {
 void handleSignMessage(const char *message) {
   uint8_t digest[32];
 
-  mbedtls_sha256_context ctx;
-  mbedtls_sha256_init(&ctx);
+  const int rc = mbedtls_sha256(
+    reinterpret_cast<const unsigned char *>(message),
+    strlen(message),
+    digest,
+    0
+  );
 
-  if (mbedtls_sha256_starts_ret(&ctx, 0) != 0 ||
-      mbedtls_sha256_update_ret(
-        &ctx,
-        reinterpret_cast<const unsigned char *>(message),
-        strlen(message)
-      ) != 0 ||
-      mbedtls_sha256_finish_ret(&ctx, digest) != 0) {
-
-    mbedtls_sha256_free(&ctx);
-
+  if (rc != 0) {
     Serial.println(F("ERR HASH_FAILED"));
     return;
   }
-
-  mbedtls_sha256_free(&ctx);
 
   signDigest(digest);
 }
