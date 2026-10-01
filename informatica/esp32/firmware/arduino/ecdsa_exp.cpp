@@ -2,6 +2,7 @@
 
 #include <cstring>
 
+#include "esp_random.h"
 #include "mbedtls/bignum.h"
 #include "mbedtls/ecp.h"
 
@@ -25,9 +26,23 @@ int hexValue(char c) {
   return -1;
 }
 
+int ecpRngCallback(
+    void * /*p_rng*/,
+    unsigned char *output,
+    size_t output_len) {
+
+  if (output == nullptr) {
+    return -1;
+  }
+
+  esp_fill_random(output, output_len);
+  return 0;
+}
+
 bool scalarInRange(
     const mbedtls_mpi *value,
     const mbedtls_mpi *order) {
+
   if (mbedtls_mpi_cmp_int(value, 0) <= 0) {
     return false;
   }
@@ -99,13 +114,13 @@ int ecdsa_sign_fixed_k(
 
     /*
      * R = kG
-     */
+    */
     if (mbedtls_ecp_mul(
             &group,
             &point,
             &k,
             &group.G,
-            nullptr,
+            ecpRngCallback,
             nullptr) != 0) {
       break;
     }
@@ -128,14 +143,22 @@ int ecdsa_sign_fixed_k(
     }
 
     /*
-     *
-     *   r = X mod n
+     * X coordinate.
      */
-    if (mbedtls_mpi_read_binary(&x, &point_binary[1], 32) != 0) {
+    if (mbedtls_mpi_read_binary(
+            &x,
+            &point_binary[1],
+            32) != 0) {
       break;
     }
 
-    if (mbedtls_mpi_mod_mpi(&r, &x, &group.N) != 0) {
+    /*
+     * r = X mod n
+     */
+    if (mbedtls_mpi_mod_mpi(
+            &r,
+            &x,
+            &group.N) != 0) {
       break;
     }
 
@@ -144,7 +167,7 @@ int ecdsa_sign_fixed_k(
     }
 
     /*
-     *   s = k^(-1) * (z + r*d) mod n
+     * s = k^(-1) * (z + r*d) mod n
      */
     mbedtls_mpi rd;
     mbedtls_mpi numerator;
@@ -156,36 +179,55 @@ int ecdsa_sign_fixed_k(
 
     bool success = true;
 
-    if (mbedtls_mpi_mul_mpi(&rd, &r, &d) != 0) {
+    if (mbedtls_mpi_mul_mpi(
+            &rd,
+            &r,
+            &d) != 0) {
       success = false;
     }
 
     if (success &&
-        mbedtls_mpi_add_mpi(&numerator, &rd, &z) != 0) {
+        mbedtls_mpi_add_mpi(
+            &numerator,
+            &rd,
+            &z) != 0) {
       success = false;
     }
 
     if (success &&
-        mbedtls_mpi_mod_mpi(&numerator, &numerator, &group.N) != 0) {
+        mbedtls_mpi_mod_mpi(
+            &numerator,
+            &numerator,
+            &group.N) != 0) {
       success = false;
     }
 
     if (success &&
-        mbedtls_mpi_inv_mod(&k_inv, &k, &group.N) != 0) {
+        mbedtls_mpi_inv_mod(
+            &k_inv,
+            &k,
+            &group.N) != 0) {
       success = false;
     }
 
     if (success &&
-        mbedtls_mpi_mul_mpi(&s, &numerator, &k_inv) != 0) {
+        mbedtls_mpi_mul_mpi(
+            &s,
+            &numerator,
+            &k_inv) != 0) {
       success = false;
     }
 
     if (success &&
-        mbedtls_mpi_mod_mpi(&s, &s, &group.N) != 0) {
+        mbedtls_mpi_mod_mpi(
+            &s,
+            &s,
+            &group.N) != 0) {
       success = false;
     }
 
-    if (success && mbedtls_mpi_cmp_int(&s, 0) == 0) {
+    if (success &&
+        mbedtls_mpi_cmp_int(&s, 0) == 0) {
       success = false;
     }
 
@@ -196,11 +238,18 @@ int ecdsa_sign_fixed_k(
     if (!success) {
       break;
     }
-    if (mbedtls_mpi_write_binary(&r, r_out, 32) != 0) {
+
+    if (mbedtls_mpi_write_binary(
+            &r,
+            r_out,
+            32) != 0) {
       break;
     }
 
-    if (mbedtls_mpi_write_binary(&s, s_out, 32) != 0) {
+    if (mbedtls_mpi_write_binary(
+            &s,
+            s_out,
+            32) != 0) {
       break;
     }
 
@@ -227,7 +276,8 @@ void bytesToHex(
     char *output,
     size_t output_size) {
 
-  static const char HEX_DIGITS[] = "0123456789abcdef";
+  static const char HEX_DIGITS[] =
+      "0123456789abcdef";
 
   if (output == nullptr || output_size == 0) {
     return;
@@ -259,7 +309,8 @@ bool hexToBytes(
     return false;
   }
 
-  const size_t expected_length = output_length * 2;
+  const size_t expected_length =
+      output_length * 2;
 
   if (strlen(hex) != expected_length) {
     return false;
