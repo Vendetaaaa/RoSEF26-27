@@ -335,6 +335,43 @@ void handlePulse(const char *argument) {
   Serial.println(elapsed_us);
 }
 
+void handleBenchmark(const char *argument) {
+  uint32_t count = 0;
+
+  if (!parseUnsigned(
+          argument,
+          count,
+          MAX_BENCH_COUNT)) {
+    Serial.println(F("ERR BAD_BENCH_COUNT"));
+    return;
+  }
+
+  BenchmarkResult result;
+
+  if (!benchmarkRun(count, result)) {
+    Serial.println(F("ERR BENCH_FAILED"));
+    return;
+  }
+
+  Serial.print(F("OK BENCH"));
+
+  Serial.print(F(" N="));
+  Serial.print(result.count);
+
+  Serial.print(F(" TOTAL_US="));
+  Serial.print(
+      static_cast<unsigned long>(result.total_us));
+
+  Serial.print(F(" AVG_US="));
+  Serial.print(result.average_us);
+
+  Serial.print(F(" MIN_US="));
+  Serial.print(result.min_us);
+
+  Serial.print(F(" MAX_US="));
+  Serial.println(result.max_us);
+}
+
 void handleLine(char *command) {
   if (strcmp(command, "PING") == 0) {
     Serial.println(F("OK PONG"));
