@@ -7,6 +7,7 @@
 #include "config.h"
 #include "ecdsa_exp.h"
 #include "experiment.h"
+#include "benchmark.h"
 
 namespace rosef {
 
@@ -334,80 +335,6 @@ void handlePulse(const char *argument) {
   Serial.println(elapsed_us);
 }
 
-void handleBenchmark(const char *argument) {
-  uint32_t count = 0;
-
-  if (!parseUnsigned(
-          argument,
-          count,
-          MAX_BENCH_COUNT)) {
-    Serial.println(F("ERR BAD_BENCH_COUNT"));
-    return;
-  }
-
-  uint8_t digest[32];
-
-  if (!experimentSha256(
-          "rosef-benchmark",
-          digest)) {
-    Serial.println(F("ERR BENCH_HASH"));
-    return;
-  }
-
-  uint8_t *nonce =
-      experimentDefaultNonce();
-
-  uint64_t total_us = 0;
-  uint32_t min_us = UINT32_MAX;
-  uint32_t max_us = 0;
-
-  for (uint32_t i = 0; i < count; ++i) {
-    SignResult result;
-
-    if (!experimentSignDigest(
-            digest,
-            nonce,
-            result)) {
-      Serial.print(F("ERR BENCH_SIGN I="));
-      Serial.println(i);
-      return;
-    }
-
-    total_us += result.elapsed_us;
-
-    if (result.elapsed_us < min_us) {
-      min_us = result.elapsed_us;
-    }
-
-    if (result.elapsed_us > max_us) {
-      max_us = result.elapsed_us;
-    }
-  }
-
-  const uint32_t average_us =
-      static_cast<uint32_t>(
-          total_us / count);
-
-  Serial.print(F("OK BENCH"));
-
-  Serial.print(F(" N="));
-  Serial.print(count);
-
-  Serial.print(F(" TOTAL_US="));
-  Serial.print(
-      static_cast<unsigned long>(
-          total_us));
-
-  Serial.print(F(" AVG_US="));
-  Serial.print(average_us);
-
-  Serial.print(F(" MIN_US="));
-  Serial.print(min_us);
-
-  Serial.print(F(" MAX_US="));
-  Serial.println(max_us);
-}
-
 void handleLine(char *command) {
   if (strcmp(command, "PING") == 0) {
     Serial.println(F("OK PONG"));
@@ -488,7 +415,7 @@ void handleLine(char *command) {
   }
 }
 
-}  // namespace
+}
 
 void protocolBegin() {
   Serial.begin(SERIAL_BAUD);
