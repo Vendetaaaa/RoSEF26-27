@@ -1,4 +1,4 @@
-#include "protocol.h"
+#include "src/protocol/protocol.h"
 
 void setup() {
   rosef::protocolBegin();
