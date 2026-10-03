@@ -4,11 +4,13 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "../../core/config.h"
-#include "../../crypto/ecdsa_exp.h"
-#include "../../experiment/experiment.h"
-#include "../../benchmark/benchmark.h"
-#include "../../selftest/selftest.h"
+#include "../core/config.h"
+#include "../crypto/ecdsa_exp.h"
+#include "../experiment/experiment.h"
+#include "../benchmark/benchmark.h"
+#include "../selftest/selftest.h"
+#include "../batch/batch.h"
+#include "../hardware/button/button.h" // pus asap
 
 namespace rosef {
 
@@ -32,8 +34,11 @@ void printHelp() {
   Serial.println(F("SIGNK <64hex-k> <ascii-message>"));
   Serial.println(F("SIGNHEXK <64hex-k> <64hex-digest>"));
   Serial.println(F("BENCH <count>"));
+  Serial.println(F("BATCH <count>"));
   Serial.println(F("PULSE"));
   Serial.println(F("PULSE <microseconds>"));
+  Serial.println(F("BUTTON"));
+  Serial.println(F("BUTTON_EVENT"));
   Serial.println(F("HELP"));
 }
 
@@ -61,8 +66,16 @@ void printStatus() {
   Serial.print(ESP.getCpuFreqMHz());
 
   Serial.print(F(" TRIGGER="));
+  Serial.print(
+      digitalRead(TRIGGER_GPIO)
+          ? F("HIGH")
+          : F("LOW"));
+
+  Serial.print(F(" BUTTON="));
   Serial.println(
-      digitalRead(TRIGGER_GPIO) ? F("HIGH") : F("LOW"));
+      buttonIsPressed()
+          ? F("PRESSED")
+          : F("RELEASED"));
 }
 
 bool parseUnsigned(
@@ -87,31 +100,57 @@ bool parseUnsigned(
     return false;
   }
 
-  value_out = static_cast<uint32_t>(parsed);
+  value_out =
+      static_cast<uint32_t>(parsed);
+
   return true;
 }
 
-void printSignResult(const SignResult &result) {
-  char r_hex[65];
-  char s_hex[65];
+bool parseNonce(
+    const char *hex,
+    uint8_t nonce[32]) {
+
+  if (hex == nullptr || nonce == nullptr) {
+    return false;
+  }
+
+  return hexToBytes(
+      hex,
+      nonce,
+      32);
+}
+
+void printHex(
+    const uint8_t *data,
+    size_t length) {
+
+  char buffer[65];
+
+  if (data == nullptr || length > 32) {
+    return;
+  }
 
   bytesToHex(
-      result.r,
-      sizeof(result.r),
-      r_hex,
-      sizeof(r_hex));
+      data,
+      length,
+      buffer,
+      sizeof(buffer));
 
-  bytesToHex(
-      result.s,
-      sizeof(result.s),
-      s_hex,
-      sizeof(s_hex));
+  Serial.print(buffer);
+}
+
+void printSignResult(
+    const SignResult &result) {
 
   Serial.print(F("OK R="));
-  Serial.print(r_hex);
+  printHex(
+      result.r,
+      sizeof(result.r));
 
   Serial.print(F(" S="));
-  Serial.print(s_hex);
+  printHex(
+      result.s,
+      sizeof(result.s));
 
   Serial.print(F(" DT_US="));
   Serial.println(result.elapsed_us);
@@ -132,16 +171,6 @@ void signWithDigest(
   }
 
   printSignResult(result);
-}
-
-bool parseNonce(
-    const char *hex,
-    uint8_t nonce[32]) {
-
-  return hexToBytes(
-      hex,
-      nonce,
-      32);
 }
 
 void handleSignMessage(
@@ -166,8 +195,11 @@ void handleSignMessage(
   printSignResult(result);
 }
 
-void handleSetK(const char *hex) {
-  uint8_t *nonce = experimentDefaultNonce();
+void handleSetK(
+    const char *hex) {
+
+  uint8_t *nonce =
+      experimentDefaultNonce();
 
   if (!hexToBytes(
           hex,
@@ -180,8 +212,11 @@ void handleSetK(const char *hex) {
   Serial.println(F("OK K_SET"));
 }
 
-void handleSetD(const char *hex) {
-  uint8_t *private_key = experimentPrivateKey();
+void handleSetD(
+    const char *hex) {
+
+  uint8_t *private_key =
+      experimentPrivateKey();
 
   if (!hexToBytes(
           hex,
@@ -194,7 +229,9 @@ void handleSetD(const char *hex) {
   Serial.println(F("OK D_SET"));
 }
 
-void handleSignHex(const char *hex) {
+void handleSignHex(
+    const char *hex) {
+
   uint8_t digest[32];
 
   if (!hexToBytes(
@@ -210,13 +247,17 @@ void handleSignHex(const char *hex) {
       experimentDefaultNonce());
 }
 
-void handleSign(const char *message) {
+void handleSign(
+    const char *message) {
+
   handleSignMessage(
       message,
       experimentDefaultNonce());
 }
 
-void handleSignK(char *payload) {
+void handleSignK(
+    char *payload) {
+
   if (payload == nullptr) {
     Serial.println(F("ERR BAD_SIGNK"));
     return;
@@ -234,24 +275,33 @@ void handleSignK(char *payload) {
 
   char k_hex[65];
 
-  memcpy(k_hex, payload, 64);
+  memcpy(
+      k_hex,
+      payload,
+      64);
+
   k_hex[64] = '\0';
 
   uint8_t nonce[32];
 
-  if (!parseNonce(k_hex, nonce)) {
+  if (!parseNonce(
+          k_hex,
+          nonce)) {
     Serial.println(F("ERR BAD_K"));
     return;
   }
 
-  const char *message = payload + 65;
+  const char *message =
+      payload + 65;
 
   handleSignMessage(
       message,
       nonce);
 }
 
-void handleSignHexK(char *payload) {
+void handleSignHexK(
+    char *payload) {
+
   if (payload == nullptr) {
     Serial.println(F("ERR BAD_SIGNHEXK"));
     return;
@@ -270,7 +320,11 @@ void handleSignHexK(char *payload) {
   char k_hex[65];
   char digest_hex[65];
 
-  memcpy(k_hex, payload, 64);
+  memcpy(
+      k_hex,
+      payload,
+      64);
+
   k_hex[64] = '\0';
 
   memcpy(
@@ -283,7 +337,9 @@ void handleSignHexK(char *payload) {
   uint8_t nonce[32];
   uint8_t digest[32];
 
-  if (!parseNonce(k_hex, nonce)) {
+  if (!parseNonce(
+          k_hex,
+          nonce)) {
     Serial.println(F("ERR BAD_K"));
     return;
   }
@@ -301,8 +357,11 @@ void handleSignHexK(char *payload) {
       nonce);
 }
 
-void handlePulse(const char *argument) {
-  uint32_t width_us = DEFAULT_TRIGGER_PULSE_US;
+void handlePulse(
+    const char *argument) {
+
+  uint32_t width_us =
+      DEFAULT_TRIGGER_PULSE_US;
 
   if (argument != nullptr &&
       *argument != '\0') {
@@ -316,7 +375,8 @@ void handlePulse(const char *argument) {
     }
   }
 
-  const uint32_t start_us = micros();
+  const uint32_t start_us =
+      micros();
 
   digitalWrite(
       TRIGGER_GPIO,
@@ -335,7 +395,9 @@ void handlePulse(const char *argument) {
   Serial.println(elapsed_us);
 }
 
-void handleBenchmark(const char *argument) {
+void handleBenchmark(
+    const char *argument) {
+
   uint32_t count = 0;
 
   if (!parseUnsigned(
@@ -348,7 +410,9 @@ void handleBenchmark(const char *argument) {
 
   BenchmarkResult result;
 
-  if (!benchmarkRun(count, result)) {
+  if (!benchmarkRun(
+          count,
+          result)) {
     Serial.println(F("ERR BENCH_FAILED"));
     return;
   }
@@ -360,7 +424,8 @@ void handleBenchmark(const char *argument) {
 
   Serial.print(F(" TOTAL_US="));
   Serial.print(
-      static_cast<unsigned long>(result.total_us));
+      static_cast<unsigned long>(
+          result.total_us));
 
   Serial.print(F(" AVG_US="));
   Serial.print(result.average_us);
@@ -372,92 +437,224 @@ void handleBenchmark(const char *argument) {
   Serial.println(result.max_us);
 }
 
-void handleLine(char *command) {
-  if (strcmp(command, "PING") == 0) {
+void handleBatch(
+    const char *argument) {
+
+  uint32_t count = 0;
+
+  if (!parseUnsigned(
+          argument,
+          count,
+          MAX_BATCH_COUNT)) {
+    Serial.println(F("ERR BAD_BATCH_COUNT"));
+    return;
+  }
+
+  BatchConfig config;
+
+  config.sample_count = count;
+  config.message = "rosef-batch";
+
+  if (!batchRun(config)) {
+    Serial.println(F("ERR BATCH_FAILED"));
+    return;
+  }
+
+  Serial.println(F("OK BATCH=PASS"));
+}
+
+void handleButton() {
+  Serial.print(F("OK BUTTON="));
+
+  Serial.println(
+      buttonIsPressed()
+          ? F("PRESSED")
+          : F("RELEASED"));
+}
+
+void handleButtonEvent() {
+  Serial.print(F("OK BUTTON_EVENT="));
+
+  Serial.println(
+      buttonWasPressed()
+          ? F("PRESSED")
+          : F("NONE"));
+}
+
+void handleLine(
+    char *command) {
+
+  if (strcmp(
+          command,
+          "PING") == 0) {
+
     Serial.println(F("OK PONG"));
     return;
   }
 
-  if (strcmp(command, "INFO") == 0) {
+  if (strcmp(
+          command,
+          "INFO") == 0) {
+
     printInfo();
     return;
   }
 
-  if (strcmp(command, "STATUS") == 0) {
+  if (strcmp(
+          command,
+          "STATUS") == 0) {
+
     printStatus();
     return;
   }
 
-  if (strcmp(command, "SELFTEST") == 0) {
+  if (strcmp(
+          command,
+          "SELFTEST") == 0) {
+
     if (selfTestRun()) {
-      Serial.println(F("OK SELFTEST=PASS"));
+      Serial.println(
+          F("OK SELFTEST=PASS"));
     } else {
-      Serial.println(F("ERR SELFTEST=FAIL"));
+      Serial.println(
+          F("ERR SELFTEST=FAIL"));
     }
+
     return;
   }
 
-  if (strcmp(command, "HELP") == 0) {
+  if (strcmp(
+          command,
+          "HELP") == 0) {
+
     printHelp();
     return;
   }
 
-  if (strcmp(command, "PULSE") == 0) {
+  if (strcmp(
+          command,
+          "BUTTON") == 0) {
+
+    handleButton();
+    return;
+  }
+
+  if (strcmp(
+          command,
+          "BUTTON_EVENT") == 0) {
+
+    handleButtonEvent();
+    return;
+  }
+
+  if (strcmp(
+          command,
+          "PULSE") == 0) {
+
     handlePulse(nullptr);
     return;
   }
 
-  if (strncmp(command, "PULSE ", 6) == 0) {
+  if (strncmp(
+          command,
+          "PULSE ",
+          6) == 0) {
+
     handlePulse(command + 6);
     return;
   }
 
-  if (strncmp(command, "SETK ", 5) == 0) {
+  if (strncmp(
+          command,
+          "SETK ",
+          5) == 0) {
+
     handleSetK(command + 5);
     return;
   }
 
-  if (strncmp(command, "SETD ", 5) == 0) {
+  if (strncmp(
+          command,
+          "SETD ",
+          5) == 0) {
+
     handleSetD(command + 5);
     return;
   }
 
-  if (strncmp(command, "SIGNHEXK ", 9) == 0) {
-    handleSignHexK(command + 9);
+  if (strncmp(
+          command,
+          "SIGNHEXK ",
+          9) == 0) {
+
+    handleSignHexK(
+        command + 9);
     return;
   }
 
-  if (strncmp(command, "SIGNK ", 6) == 0) {
-    handleSignK(command + 6);
+  if (strncmp(
+          command,
+          "SIGNK ",
+          6) == 0) {
+
+    handleSignK(
+        command + 6);
     return;
   }
 
-  if (strncmp(command, "SIGNHEX ", 8) == 0) {
-    handleSignHex(command + 8);
+  if (strncmp(
+          command,
+          "SIGNHEX ",
+          8) == 0) {
+
+    handleSignHex(
+        command + 8);
     return;
   }
 
-  if (strncmp(command, "SIGN ", 5) == 0) {
-    handleSign(command + 5);
+  if (strncmp(
+          command,
+          "SIGN ",
+          5) == 0) {
+
+    handleSign(
+        command + 5);
     return;
   }
 
-  if (strncmp(command, "BENCH ", 6) == 0) {
-    handleBenchmark(command + 6);
+  if (strncmp(
+          command,
+          "BENCH ",
+          6) == 0) {
+
+    handleBenchmark(
+        command + 6);
+    return;
+  }
+
+  if (strncmp(
+          command,
+          "BATCH ",
+          6) == 0) {
+
+    handleBatch(
+        command + 6);
     return;
   }
 
   if (*command != '\0') {
-    Serial.println(F("ERR UNKNOWN_COMMAND"));
+    Serial.println(
+        F("ERR UNKNOWN_COMMAND"));
   }
 }
 
-}  // namespace
+}
 
 void protocolBegin() {
   Serial.begin(SERIAL_BAUD);
 
   experimentBegin();
+  buttonBegin();
 
   delay(250);
 
@@ -469,8 +666,11 @@ void protocolBegin() {
 }
 
 void protocolLoop() {
+  buttonIsPressed();
+
   while (Serial.available() > 0) {
-    const int value = Serial.read();
+    const int value =
+        Serial.read();
 
     if (value < 0) {
       return;
@@ -479,24 +679,31 @@ void protocolLoop() {
     const char c =
         static_cast<char>(value);
 
-    if (c == '\r' || c == '\n') {
+    if (c == '\r' ||
+        c == '\n') {
+
       if (line_length == 0) {
         continue;
       }
 
-      line[line_length] = '\0';
+      line[line_length] =
+          '\0';
 
       handleLine(line);
 
       line_length = 0;
+
       continue;
     }
 
     if (line_length + 1 >=
         sizeof(line)) {
+
       line_length = 0;
+
       Serial.println(
           F("ERR LINE_TOO_LONG"));
+
       continue;
     }
 
@@ -504,5 +711,4 @@ void protocolLoop() {
   }
 }
 
-
-}  // namespace rosef
+}
