@@ -10,8 +10,6 @@ namespace rosef {
 
 namespace {
 
-constexpr uint32_t MAX_BATCH_COUNT = 1000;
-
 void incrementNonce(uint8_t nonce[32]) {
   for (int i = 31; i >= 0; --i) {
     ++nonce[i];
