@@ -10,7 +10,7 @@
 #include "../benchmark/benchmark.h"
 #include "../selftest/selftest.h"
 #include "../batch/batch.h"
-#include "../hardware/button/button.h" // pus asap
+#include "../hardware/button/button.h"
 
 namespace rosef {
 
