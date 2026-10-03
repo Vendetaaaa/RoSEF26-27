@@ -14,5 +14,6 @@ constexpr size_t MAX_SERIAL_LINE = 256;
 constexpr uint32_t DEFAULT_TRIGGER_PULSE_US = 1000;
 
 constexpr uint32_t MAX_BENCH_COUNT = 1000;
+constexpr uint32_t MAX_BATCH_COUNT = 1000;
 
 }
