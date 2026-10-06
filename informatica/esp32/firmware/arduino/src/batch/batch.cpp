@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <cstring>
 
+#include "../core/config.h"
 #include "../crypto/ecdsa_exp.h"
 #include "../experiment/experiment.h"
 
