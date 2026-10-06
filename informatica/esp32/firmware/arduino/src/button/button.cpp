@@ -1,6 +1,6 @@
 #include "button.h"
 
-#include "../../core/config.h"
+#include "../core/config.h"
 
 namespace rosef {
 
