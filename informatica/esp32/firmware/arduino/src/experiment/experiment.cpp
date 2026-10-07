@@ -11,9 +11,6 @@ namespace rosef {
 
 namespace {
 
-/*
- * Test-only runtime state.
- */
 uint8_t g_private_key[32];
 uint8_t g_default_nonce[32];
 
@@ -56,8 +53,6 @@ bool experimentSignDigest(
 
   const uint32_t start_us = micros();
 
-  // Active-LOW trigger: keep the line HIGH at idle so BUFA stays
-  // enabled/ON, and pull it LOW only for the measured crypto work.
   digitalWrite(TRIGGER_GPIO, TRIGGER_ACTIVE_LEVEL);
 
   const int rc = ecdsa_sign_fixed_k(
@@ -67,7 +62,6 @@ bool experimentSignDigest(
       result.r,
       result.s);
 
-  // Always return to the idle HIGH level after the measurement.
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
 
   result.elapsed_us = micros() - start_us;
