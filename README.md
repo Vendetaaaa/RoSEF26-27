@@ -104,6 +104,6 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 4. Partajează codul QR!
 
 <p align="center">
-    <img src="misc/Echipa.png" width="45%" alt="TEAM" />
+    <img src="misc/Team2.jpg" width="45%" alt="TEAM" />
     <img src="misc/qrcode.png" width="33.9%" alt="CodeQR" />
 </p>
