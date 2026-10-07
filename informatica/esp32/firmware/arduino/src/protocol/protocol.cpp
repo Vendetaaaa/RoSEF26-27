@@ -19,6 +19,70 @@ namespace {
 char line[MAX_SERIAL_LINE];
 size_t line_length = 0;
 
+// ============================================================
+// TEMPORARY LOGIC ANALYZER CONNECTIVITY TEST
+// ============================================================
+//
+// These are GPIOs that can safely be used as temporary outputs.
+// Each pin will be HIGH for 1 second and LOW for 0.5 seconds.
+//
+// Watch D0-D7 in PulseView.
+// The channel that changes during "TEST GPIO=X HIGH"
+// is the analyzer channel connected to GPIO X.
+//
+// ============================================================
+
+constexpr uint8_t TEST_PINS[] = {
+  4,
+  5,
+  13,
+  14,
+  16,
+  17,
+  18,
+  19
+};
+
+constexpr size_t TEST_PIN_COUNT =
+    sizeof(TEST_PINS) / sizeof(TEST_PINS[0]);
+
+void handleTestPR() {
+  Serial.println(F("TESTPR START"));
+
+  for (size_t i = 0; i < TEST_PIN_COUNT; ++i) {
+    const uint8_t pin = TEST_PINS[i];
+
+    pinMode(pin, OUTPUT);
+
+    // Make sure the pin starts LOW.
+    digitalWrite(pin, LOW);
+    delay(100);
+
+    // HIGH for 1 second.
+    Serial.print(F("TEST GPIO="));
+    Serial.print(pin);
+    Serial.println(F(" HIGH"));
+
+    digitalWrite(pin, HIGH);
+    delay(1000);
+
+    // LOW for 0.5 second.
+    digitalWrite(pin, LOW);
+
+    Serial.print(F("TEST GPIO="));
+    Serial.print(pin);
+    Serial.println(F(" LOW"));
+
+    delay(500);
+  }
+
+  // Restore the project's trigger pin to its normal state.
+  pinMode(TRIGGER_GPIO, OUTPUT);
+  digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
+
+  Serial.println(F("TESTPR END"));
+}
+
 constexpr uint32_t MAX_PULSE_US = 1000000;
 
 void printHelp() {
@@ -37,6 +101,7 @@ void printHelp() {
   Serial.println(F("BATCH <count>"));
   Serial.println(F("PULSE"));
   Serial.println(F("PULSE <microseconds>"));
+  Serial.println(F("TESTPR"));
   Serial.println(F("BUTTON"));
   Serial.println(F("BUTTON_EVENT"));
   Serial.println(F("HELP"));
@@ -528,6 +593,17 @@ void handleLine(
           "HELP") == 0) {
 
     printHelp();
+    return;
+  }
+
+  // ----------------------------------------------------------
+  // TEMPORARY CONNECTIVITY TEST
+  // ----------------------------------------------------------
+  if (strcmp(
+          command,
+          "TESTPR") == 0) {
+
+    handleTestPR();
     return;
   }
 

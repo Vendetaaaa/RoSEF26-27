@@ -23,7 +23,7 @@ void experimentBegin() {
   memcpy(g_private_key, TEST_PRIVATE_KEY, sizeof(g_private_key));
   memcpy(g_default_nonce, TEST_DEFAULT_NONCE, sizeof(g_default_nonce));
   pinMode(TRIGGER_GPIO, OUTPUT);
-  digitalWrite(TRIGGER_GPIO, LOW);
+  digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
 }
 
 bool experimentSha256(
@@ -56,7 +56,9 @@ bool experimentSignDigest(
 
   const uint32_t start_us = micros();
 
-  digitalWrite(TRIGGER_GPIO, HIGH);
+  // Active-LOW trigger: keep the line HIGH at idle so BUFA stays
+  // enabled/ON, and pull it LOW only for the measured crypto work.
+  digitalWrite(TRIGGER_GPIO, TRIGGER_ACTIVE_LEVEL);
 
   const int rc = ecdsa_sign_fixed_k(
       g_private_key,
@@ -65,7 +67,8 @@ bool experimentSignDigest(
       result.r,
       result.s);
 
-  digitalWrite(TRIGGER_GPIO, LOW);
+  // Always return to the idle HIGH level after the measurement.
+  digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
 
   result.elapsed_us = micros() - start_us;
 
