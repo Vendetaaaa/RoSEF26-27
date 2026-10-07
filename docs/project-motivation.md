@@ -18,3 +18,7 @@ rezultat.
 Aceste cuvinte reprezintă motivația noastră de a construi acest proiect
 de la zero. Dacă ne-am întoarce în timp pentru a retrăi toate blocajele
 mentale și orele de somn pierdute, nu aș schimba nimic.
+
+<p align="center">
+    <img src="../misc/Echipa.png" width="50%" alt="TEAM2" />
+</p>
