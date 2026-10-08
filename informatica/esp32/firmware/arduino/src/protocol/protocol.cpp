@@ -7,6 +7,7 @@
 #include "../core/config.h"
 #include "../crypto/ecdsa_exp.h"
 #include "../experiment/experiment.h"
+#include "../ina219/ina219.h"
 #include "../benchmark/benchmark.h"
 #include "../selftest/selftest.h"
 #include "../batch/batch.h"
@@ -85,26 +86,26 @@ void handleTestPR() {
 
 constexpr uint32_t MAX_PULSE_US = 1000000;
 
-void printHelp() {
-  Serial.println(F("OK COMMANDS"));
-  Serial.println(F("PING"));
-  Serial.println(F("INFO"));
-  Serial.println(F("STATUS"));
-  Serial.println(F("SELFTEST"));
-  Serial.println(F("SETK <64hex>"));
-  Serial.println(F("SETD <64hex>"));
-  Serial.println(F("SIGN <ascii-message>"));
-  Serial.println(F("SIGNHEX <64hex-digest>"));
-  Serial.println(F("SIGNK <64hex-k> <ascii-message>"));
-  Serial.println(F("SIGNHEXK <64hex-k> <64hex-digest>"));
-  Serial.println(F("BENCH <count>"));
-  Serial.println(F("BATCH <count>"));
-  Serial.println(F("PULSE"));
-  Serial.println(F("PULSE <microseconds>"));
-  Serial.println(F("TESTPR"));
-  Serial.println(F("BUTTON"));
-  Serial.println(F("BUTTON_EVENT"));
-  Serial.println(F("HELP"));
+void printIntro() {
+  Serial.println(F("COMMANDS"));
+  Serial.println(F("PING - testa conexiunea"));
+  Serial.println(F("INFO - arata configuratia"));
+  Serial.println(F("STATUS - arata starea"));
+  Serial.println(F("SELFTEST - ruleaza autotestul"));
+  Serial.println(F("SETK - seteaza nonce-ul"));
+  Serial.println(F("SETD - seteaza cheia"));
+  Serial.println(F("SIGN - semneaza mesajul"));
+  Serial.println(F("SIGNHEX - semneaza digestul"));
+  Serial.println(F("SIGNK - semneaza cu nonce"));
+  Serial.println(F("SIGNHEXK - semneaza digest+nonce"));
+  Serial.println(F("BENCH - ruleaza benchmark-ul"));
+  Serial.println(F("BATCH - ruleaza testul batch"));
+  Serial.println(F("PULSE - genereaza un puls"));
+  Serial.println(F("TESTPR - testeaza GPIO-urile"));
+  Serial.println(F("BUTTON - citeste butonul"));
+  Serial.println(F("BUTTON_EVENT - citeste evenimentul"));
+  Serial.println(F("INA219 - cauta si citeste senzorul"));
+  Serial.println();
 }
 
 void printInfo() {
@@ -116,6 +117,21 @@ void printInfo() {
   Serial.print(BUTTON_GPIO);
   Serial.print(F(" SERIAL="));
   Serial.println(SERIAL_BAUD);
+
+  Serial.print(F(" INA219_SDA="));
+  Serial.print(INA219_SDA_GPIO);
+
+  Serial.print(F(" INA219_SCL="));
+  Serial.print(INA219_SCL_GPIO);
+
+  Serial.print(F(" INA219_ADDR=0x"));
+  const uint8_t detected_address = ina219Address();
+  if (detected_address == 0) {
+    Serial.print(F("NONE"));
+  } else {
+    Serial.print(static_cast<unsigned int>(detected_address), HEX);
+  }
+  Serial.println();
 }
 
 void printStatus() {
@@ -528,6 +544,25 @@ void handleBatch(
   Serial.println(F("OK BATCH=PASS"));
 }
 
+void handleIna219() {
+  const Ina219Reading reading = ina219Read();
+
+  if (!reading.valid) {
+    Serial.println(F("ERR INA219_UNAVAILABLE"));
+    return;
+  }
+
+  Serial.print(F("OK INA219"));
+  Serial.print(F(" V="));
+  Serial.print(reading.bus_voltage_v, 6);
+  Serial.print(F(" SHUNT_MV="));
+  Serial.print(reading.shunt_voltage_mv, 6);
+  Serial.print(F(" I_MA="));
+  Serial.print(reading.current_ma, 6);
+  Serial.print(F(" P_MW="));
+  Serial.println(reading.power_mw, 6);
+}
+
 void handleButton() {
   Serial.print(F("OK BUTTON="));
 
@@ -592,7 +627,7 @@ void handleLine(
           command,
           "HELP") == 0) {
 
-    printHelp();
+    printIntro();
     return;
   }
 
@@ -604,6 +639,14 @@ void handleLine(
           "TESTPR") == 0) {
 
     handleTestPR();
+    return;
+  }
+
+  if (strcmp(
+          command,
+          "INA219") == 0) {
+
+    ina219FindBlocking();
     return;
   }
 
@@ -734,11 +777,12 @@ void protocolBegin() {
 
   delay(250);
 
+  printIntro();
+
   Serial.println(
       F("READY ROSEF_ECDSA_EXP"));
 
   printInfo();
-  printHelp();
 }
 
 void protocolLoop() {

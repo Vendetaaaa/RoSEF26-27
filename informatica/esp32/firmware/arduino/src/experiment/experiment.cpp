@@ -3,6 +3,7 @@
 #include <cstring>
 
 #include "../core/config.h"
+#include "../ina219/ina219.h"
 #include "../crypto/ecdsa_exp.h"
 #include "../test_vectors/test_vectors.h"
 #include "mbedtls/sha256.h"
@@ -11,6 +12,9 @@ namespace rosef {
 
 namespace {
 
+/*
+ * Test-only runtime state.
+ */
 uint8_t g_private_key[32];
 uint8_t g_default_nonce[32];
 
@@ -21,6 +25,7 @@ void experimentBegin() {
   memcpy(g_default_nonce, TEST_DEFAULT_NONCE, sizeof(g_default_nonce));
   pinMode(TRIGGER_GPIO, OUTPUT);
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
+  ina219Begin();
 }
 
 bool experimentSha256(
@@ -53,6 +58,8 @@ bool experimentSignDigest(
 
   const uint32_t start_us = micros();
 
+  // Active-LOW trigger: keep the line HIGH at idle so BUFA stays
+  // enabled/ON, and pull it LOW only for the measured crypto work.
   digitalWrite(TRIGGER_GPIO, TRIGGER_ACTIVE_LEVEL);
 
   const int rc = ecdsa_sign_fixed_k(
@@ -62,6 +69,7 @@ bool experimentSignDigest(
       result.r,
       result.s);
 
+  // Always return to the idle HIGH level after the measurement.
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
 
   result.elapsed_us = micros() - start_us;
