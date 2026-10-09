@@ -1,0 +1,45 @@
+name: Parameter Benchmark
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sweep:
+    name: CNN + HNP parameter sweep
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify fpylll
+        run: python -c "from fpylll import IntegerMatrix, LLL; print('fpylll import: PASS')"
+
+      - name: Run parameter sweep
+        env:
+          PYTHONPATH: ${{ github.workspace }}/informatica/ECDSA:${{ github.workspace }}/informatica/cnn
+        run: |
+          python informatica/experiments/benchmark_cnn_hnp_surface.py \
+            --leaked-bits 8 12 \
+            --sigmas 0.10 0.15 0.20 0.25 \
+            --sample-counts 20 40 \
+            --seeds 20260919 20260920 20260921 \
+            --epochs 100
+
+      - name: Upload benchmark table
+        uses: actions/upload-artifact@v4
+        with:
+          name: cnn-hnp-parameter-sweep
+          path: |
+            results/tables/cnn-hnp-parameter-sweep.csv
+            results/tables/cnn-hnp-parameter-sweep-summary.csv
