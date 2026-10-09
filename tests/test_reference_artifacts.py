@@ -120,6 +120,7 @@ def test_website_source_mirrors_match_canonical_files() -> None:
         assert (
         mirror_text.replace("\r\n", "\n")
         == canonical_text.replace("\r\n", "\n")
+        )
 
 
 def test_website_reference_config_matches_canonical_dataset() -> None:
