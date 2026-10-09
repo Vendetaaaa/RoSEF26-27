@@ -51,6 +51,10 @@ jobs:
           print('End-to-end pipeline: PASS')
           PY
 
+      - name: Restore tracked files after runtime verification
+        run: |
+          git checkout -- .
+
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}
