@@ -45,7 +45,7 @@ Pentru mai multe informații accesați README.md din fiecare folder
 
 # Ideea centrală
 
-Proiectul de cercetare "arithmetic_concurrence" din [matematica/paper/arithmetic_concurrence.pdf](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/matematica/paper/arithmetic_concurrence.pdf) demonstrează două teoreme exacte despre concurența a k
+Proiectul de cercetare "arithmetic_concurrence" din [papers/arithmetic_concurrence.pdf](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/papers/arithmetic_concurrence.pdf) demonstrează două teoreme exacte despre concurența a k
 familii de drepte generate de parametri mărginiți: concurența apare doar când există o relație rațională forțată între pante (1), iar pentru k familii generice, condiția devine tot mai rigidă și mai improbabilă pe măsură ce k crește (2).
 
 Această problemă se aseamănă foarte mult cu cea din atacurile asupra semnăturii criptografice [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm): HNP ( [Hidden Number Problem](https://github.com/kelbyludwig/notebooks/blob/master/The%20Hidden%20Number%20Problem.ipynb) ) folosit pentru a ataca și recupera sute de chei private reale Bitcoin, Ethereum și SSH prin scurgerile minore de informație de nonce (Breitner și Heninger, 2019, „Biased Nonce Sense”).
@@ -55,7 +55,7 @@ Așadar noi urmărim:
 ```mermaid
 flowchart LR
     A["① Teoria aritmetică<br/><br/>Concurență exactă → defect →<br/>aproximare diofantică<br/><br/>Condițiile problemei"]
-    --> B["② Modelul de scurgere<br/><br/>Urme sintetice cu zgomot<br/>și măsurători controlate<br/>pe un dispozitiv experimental"]
+    --> B["② Modelul de scurgere<br/><br/>Urme sintetice cu zgomot<br/>și model de scurgere controlat"]
     --> C["③ Rețeaua neuronală<br/><br/>CNN 1D mic → estimează<br/>informație discretă din<br/>urme zgomotoase"]
     --> D["④ HNP + lattice<br/><br/>Informația estimată → HNP<br/>→ reducere LLL<br/>→ test de recuperare pe<br/>chei generate de echipă"]
     --> E["⑤ Validare și interpretare<br/><br/>Variază numărul de semnături,<br/>acuratețea CNN și nivelul de zgomot<br/>→ compară cu literatura relevantă"]
@@ -69,7 +69,7 @@ flowchart LR
 
 # Transpunerea din software în hardware
 
-O etapă fundamentală în crearea acestui proiect este de a trece experimentul pe calculator, complet simulat în Python. Din microcontroler de tip esp32, după măsurarea fizică, către trace real, urmat de CNN
+Rularea curentă folosește traces sintetice generate în Python. Etapa următoare este capturarea unor traces fizice pe ESP32 și evaluarea lor cu același CNN.
 
 ```text
 În software noi vom:
@@ -77,7 +77,7 @@ O etapă fundamentală în crearea acestui proiect este de a trece experimentul 
     2. executare ECDSA
     3. calcularea modelului HW/HD
     4. adăugarea zgomotului artificial
-Iar în hardware:
+Pentru etapa hardware planificată:
     1. cheia & nonce-ul este procesat de microcontroler
     2. implementare ECDSA
     3. măsurarea consumului electric sau semnal EM ( sau ambele )
