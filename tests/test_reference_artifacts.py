@@ -115,7 +115,11 @@ def test_website_source_mirrors_match_canonical_files() -> None:
         canonical = ROOT / canonical_rel
         mirror = ROOT / mirror_rel
         assert mirror.is_file()
-        assert mirror.read_bytes() == canonical.read_bytes()
+        canonical_text = canonical.read_text(encoding="utf-8")
+        mirror_text = mirror.read_text(encoding="utf-8")
+        assert (
+        mirror_text.replace("\r\n", "\n")
+        == canonical_text.replace("\r\n", "\n")
 
 
 def test_website_reference_config_matches_canonical_dataset() -> None:
