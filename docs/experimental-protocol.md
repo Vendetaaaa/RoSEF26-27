@@ -34,21 +34,13 @@ O recuperare HNP primește `PASS` numai când solverul returnează cheia corect�
 
 Când aceeași verificare este realizată cu SymPy în mediul de dezvoltare, rezultatul este etichetat `PASS_DEVELOPMENT`. Această etichetă păstrează diferența dintre validarea locală și execuția de referință.
 
-## Matricea cantitativă `(ell, sigma, m)`
+## Matricea cantitativă
 
-`informatica/experiments/benchmark_cnn_hnp_surface.py` rulează combinațiile:
-`ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
-`m ∈ {20, 40}`. Benchmarkul folosește 100 de epoci și de la `1000`-`1099` seed-uri.
+Fișierul `informatica/experiments/benchmark_cnn_hnp_surface.py` a produs sweep-ul cu `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}`, `m = 40` și 100 de seed-uri, de la `1000` la `1099`. Fiecare configurație rulează 100 de epoci.
 
-Pentru fiecare configurație se păstrează acuratețea CNN pe bit și pe prefix,
-rezultatul HNP oracle, rezultatul HNP din prefixele CNN, backendul și timpii
-de execuție. Pentru `m = 20` se folosesc primele 20 de ID-uri din același
-set de 40 de teste folosit pentru `m = 40`; cele două valori nu reprezintă
-două seturi independente.
+Rezultatele detaliate sunt în `results/tables/cnn-hnp-parameter-sweep.csv`, iar agregările pe cele 20 de configurații sunt în `results/tables/cnn-hnp-parameter-sweep-summary.csv`. Rezultatele oracle sunt în `results/tables/hnp-oracle-thresholds.csv`, fără valori de chei private publicate.
 
-Fișierele rezultate sunt:
-- `results/tables/cnn-hnp-parameter-sweep.csv`;
-- `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+Ratele de recuperare diferă între configurații. Un rezultat de recuperare fals înseamnă că acea configurație nu a recuperat cheia, nu că testul software al pipeline-ului a eșuat.
 
 ## Hardware
 

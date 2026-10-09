@@ -54,37 +54,22 @@ Pentru configurația de bază (`sigma = 0.15`), rularea de referință cu
 100 de epoci a obținut 99,65% acuratețe pe bit și 95,83% acuratețe pe
 prefix pe validation, respectiv 100,00% și 100,00% pe test (40/40).
 
-Pentru evaluarea cantitativă, proiectul a rulat o matrice cu
-`ell ∈ {8, 12}`, `sigma ∈ {0.10, 0.15, 0.20, 0.25}` și
-`m ∈ {20, 40}`, pe `1000`-`1099` seed-uri.
+Pentru evaluarea cantitativă, proiectul a rulat 20 de configurații: `ell ∈ {8, 10, 12, 14}`, `sigma ∈ {0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`. Fiecare configurație agregă 100 de seed-uri, de la `1000` la `1099`, cu 100 de epoci de antrenare. Rezultatele sunt în `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
 ## 4. HNP și LLL
-## 4. HNP și LLL
 
-În ultima etapă, rezultatele obținute sunt compactate în constrângeri
-HNP, iar problema este formulată sub forma unui lattice, care poate fi
-redus prin algoritmul LLL.
+În ultima etapă, prefixele nonce devin constrângeri HNP, iar problema este formulată ca un lattice redus cu LLL. Rularea de referință pentru configurația de bază este înregistrată ca `PASS`: solverul a folosit `fpylll`, a recuperat cheia sintetică și a validat-o față de ground truth. Acest rezultat se referă la instanța de bază, nu la fiecare configurație din benchmark.
 
-Evaluarea separă două cazuri. În cazul oracle, HNP primește prefixele
-corecte ale nonce-urilor și măsoară recuperarea prin lattice fără eroarea
-CNN. În cazul CNN → HNP, solverul primește prefixele produse de CNN.
-Pentru `ell = 12` și `m = 40`, benchmarkul pe 100 de seed-uri a obținut
-recuperarea cheii în 100/100 de rulări atât în cazul oracle, cât și în
-cazul CNN → HNP, pentru toate valorile de zgomot testate
-(`sigma = 0.00`, `0.05`, `0.10`, `0.15` și `0.20`).
+Sweep-ul de 100 de seed-uri arată diferența dintre oracle și prefixele prezise de CNN. Pentru `m = 40`, rezultatele de recuperare sunt:
 
-Pentru `ell = 8` și `m = 40`, nu s-a observat recuperarea cheii în
-benchmarkul pe 100 de seed-uri: rezultatul a fost 0/100 atât pentru
-cazul oracle, cât și pentru cazul CNN → HNP. Pentru `ell = 10` și
-`ell = 14`, benchmarkul disponibil indică, de asemenea, recuperare
-100/100 în cazul CNN → HNP pentru valorile de zgomot testate.
+| Biți scurși `ell` | Oracle HNP | CNN → HNP pentru `sigma = 0, 0.05, 0.10, 0.15, 0.20` |
+| ---: | ---: | --- |
+| 8 | `0/100` în toate configurațiile | `0/100`, `0/100`, `0/100`, `0/100`, `0/100` |
+| 10 | `100/100` în toate configurațiile | `61/100`, `51/100`, `47/100`, `6/100`, `0/100` |
+| 12 | `100/100` în toate configurațiile | `69/100`, `44/100`, `33/100`, `4/100`, `0/100` |
+| 14 | `100/100` în toate configurațiile | `70/100`, `49/100`, `40/100`, `3/100`, `0/100` |
 
-Benchmarkul disponibil în proiect utilizează 100 de seed-uri pentru
-configurațiile cu `m = 40`. Configurația `m = 20` nu este prezentă în
-tabelul benchmarkului verificat și, prin urmare, nu este inclusă în
-această sinteză.
+Acuratețea CNN pe bit și pe prefix scade odată cu creșterea zgomotului. O acuratețe ridicată pe bit nu garantează un prefix complet corect, iar erorile de prefix afectează recuperarea HNP. Valorile din sweep rămân rezultate experimentale pentru configurațiile și seed-urile testate. Tabelul `cnn-hnp-baseline.csv` păstrează rezultatele baseline-ului, iar `hnp-oracle-thresholds.csv` conține rezultatele oracle pentru 400 de combinații.
 
-Execuția de referință a solverului folosește backendul `fpylll`.
-Rezultatele disponibile sunt păstrate în `results/tables/`, inclusiv
-`cnn-hnp-baseline.csv` și `hnp-oracle-thresholds.csv`.
+Execuția de referință a solverului folosește backendul `fpylll`; artefactele raportate sunt în `informatica/artifacts/pipeline_results.json` și `informatica/artifacts/hnp_result.json`. Cheia privată este redactată în artefactele publice.
 

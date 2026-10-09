@@ -4,7 +4,7 @@ Proiectul leagă două direcții care se întâlnesc în aceeași problemă: par
 
 ## Lanțul informatic
 
-`dataset_generator3.py` generează chei, nonce-uri și semnături ECDSA pe secp256k1. Datasetul public conține numai date disponibile atacului. Oracle-ul păstrează cheia privată și nonce-urile complete pentru verificarea experimentală.
+`dataset_generator3.py` generează chei, nonce-uri și semnături ECDSA pe secp256k1. Datasetul public conține numai date disponibile atacului. În mediul local controlat, oracle-ul păstrează cheia privată și nonce-urile complete pentru verificarea experimentală; copia publică redactează cheia privată.
 
 `ecdsa_leakage_model4.py` transformă nonce-urile într-un model sintetic bazat pe Hamming Weight / Hamming Distance și adaugă zgomot gaussian. Configurația de bază folosește `sigma = 0.15`, 256 de eșantioane pe trace și primii 12 biți MSB ai nonce-ului ca țintă pentru CNN.
 
@@ -16,22 +16,13 @@ Proiectul leagă două direcții care se întâlnesc în aceeași problemă: par
 
 Validarea matematică existentă este împărțită în două grupuri de artefacte. `bridge_results.json` conține patru verificări numerice, iar `diophantine_results.json` conține încă cinci. Aceste rezultate documentează separat verificările matematice și nu sunt confundate cu recuperarea cheii prin atacul HNP.
 
-Execuția de referință cu `fpylll` a verificat lanțul CNN → HNP pe instanța sintetică de bază. Pentru benchmark, oracle-ul folosește prefixele corecte, iar CNN → HNP folosește prefixele produse de model. Rezultatele sunt raportate separat.
+Artefactele rulării de referință înregistrează `PASS` pentru lanțul CNN → HNP pe instanța sintetică de bază, cu backend `fpylll` și cheia verificată față de ground truth. Acest statut descrie acea instanță. Sweep-ul separat agregă 100 de seed-uri pentru fiecare dintre cele 20 de configurații; rata de recuperare CNN → HNP variază cu numărul de biți și nivelul zgomotului. Valorile sunt păstrate în `results/tables/cnn-hnp-parameter-sweep-summary.csv` și rezumate în `docs/project-summary.md`.
 
 ## Experimente cantitative
 
-informatica/experiments/benchmark_cnn_hnp_surface.py construiește matricea de experimente pentru ell și sigma. Benchmarkul disponibil utilizează 100 de seed-uri, de la 1000 la 1099.
+`informatica/experiments/benchmark_cnn_hnp_surface.py` evaluează acuratețea CNN și recuperarea HNP pentru 20 de configurații. Sweep-ul disponibil folosește 100 de seed-uri, de la `1000` la `1099`, 100 de epoci, `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`.
 
-Pentru benchmarkul verificat, configurațiile cu m = 40 folosesc:
-
-   - ell ∈ {8, 10, 12, 14};
-   - sigma ∈ {0, 0.05, 0.10, 0.15, 0.20};
-   - m = 40;
-   - 100 de seed-uri: 1000–1099.
-
-Fișierele rezultate sunt `results/tables/cnn-hnp-parameter-sweep.csv` și `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
-
-Pentru `m = 20`, benchmarkul folosește primele 20 de ID-uri din același set de test de 40 de ID-uri folosit pentru `m = 40`.
+Tabelul detaliat este `results/tables/cnn-hnp-parameter-sweep.csv`, rezumatul agregat este `results/tables/cnn-hnp-parameter-sweep-summary.csv`, iar pragurile oracle sunt în `results/tables/hnp-oracle-thresholds.csv`.
 
 ## Limita matematică
 
