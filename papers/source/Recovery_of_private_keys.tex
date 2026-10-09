@@ -46,7 +46,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{Neural Classification for ECDSA Private-Key Recovery}}
+\fancyhead[L]{\small\textit{ECDSA Private-Key Recovery from Partial Nonce Leakage}}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.35pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -78,7 +78,7 @@ The experiment reconstructs a controlled attack chain. Starting from an ECDSA si
 
 The experiment is interpreted together with the arithmetic results from the companion work \emph{Arithmetic Concurrence and Diophantine Resonance} [5]. The rational-resonance condition for exact concurrence and the quantitative near-concurrence defect $\delta_M(R)$ are used to describe the rigidity exploited by LLL within the error interval $[0,B)$ determined by the unknown nonce bits.
 
-The verification module \texttt{theory\_to\_experiment\_bridge8.py} tests four independent theoretical identities, including
+The verification module \path{theory_to_experiment_bridge8.py} tests four independent theoretical identities, including
 \[
 \liminf_{M\to\infty} M\delta_M(\sqrt{2})=\frac14
 \]
@@ -217,7 +217,7 @@ is an integer combination of the basis rows in (2). Its norm satisfies approxima
 \[
 \norm{v^\star}\approx \sqrt{m}\,qB,
 \]
-and becomes small relative to typical lattice vectors when $B$ is sufficiently small compared with the number of signatures and the number of known bits. LLL, applied through \texttt{fpylll.LLL.reduction} or, alternatively, \texttt{sympy.Matrix.lll}, produces a reduced basis. The function \texttt{recover\_from\_reduced\_basis} searches for a private-key candidate, and \texttt{validate\_candidate} checks it independently against all $(t_i,u_i,a_i)$ pairs.
+and becomes small relative to typical lattice vectors when $B$ is sufficiently small compared with the number of signatures and the number of known bits. LLL, applied through \path{fpylll.LLL.reduction} or, alternatively, \path{sympy.Matrix.lll}, produces a reduced basis. The function \path{recover_from_reduced_basis} searches for a private-key candidate, and \path{validate_candidate} checks it independently against all $(t_i,u_i,a_i)$ pairs.
 
 \begin{figure}[H]
 \centering
@@ -303,7 +303,7 @@ $\longrightarrow$
 \end{minipage}
 \end{figure}
 
-The network receives a trace $x\in\mathbb R^{1\times L}$, with $L=256$ for secp256k1, and produces two logits at every position for classes 0 and 1. The first convolutional layer uses a local window with \texttt{kernel\_size=9} and preserves resolution through symmetric padding. The second layer is a $1\times1$ convolution that maps the 16 hidden channels to the two output classes without pooling. Each position therefore receives a prediction for one nonce bit.
+The constructor listing above shows the model's default arguments. The reference run overrides those defaults through \texttt{informatica/cnn/config.yaml}, setting \texttt{in\_channels=2}, \texttt{out\_channels=8}, \texttt{kernel\_size=3}, and \texttt{num\_classes=2}. The input contains the raw trace and its first difference. The configured sequence length is 12 positions, matching the 12 nonce bits evaluated by the reference pipeline. The final $1\times1$ convolution produces two logits for each position, one for each bit class.
 
 Training minimizes the per-position cross-entropy between the predictions and the binary ground-truth labels \texttt{bit\_labels}, using \texttt{profile\_dataset.json} split into training and validation subsets. \texttt{cnn\_nonce\_analysis5.py} consumes the network output, extracts the first $\ell$ predicted bits, and converts them into the prefix $\bar{k}_i$ used by the HNP attack in Sections 3.2 and 3.3.
 
@@ -392,7 +392,7 @@ The analogy does not constitute a formal reduction between the two problems. HNP
 
 \subsection{Numerical Verification of the Arithmetic Background}
 
-The numerical verification of the arithmetic theorem uses four independent modules in \texttt{theory\_to\_experiment\_bridge8.py}. They compare theoretical values with results obtained through direct scans over finite boxes $[-M,M]$.
+The numerical verification of the arithmetic theorem uses four independent modules in \path{theory_to_experiment_bridge8.py}. They compare theoretical values with results obtained through direct scans over finite boxes $[-M,M]$.
 
 \begin{table}[H]
 \centering
@@ -451,32 +451,46 @@ The automated test suite in \texttt{tests/} runs through the continuous integrat
 
 \begin{table}[H]
 \centering
-\caption{Aggregated recovery results for $m=40$. Each configuration contains three independent seeds. CNN accuracy values are means over the three runs.}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{Aggregated recovery results for $m=40$. Each row aggregates 100 seeds for one $(\ell,\sigma)$ configuration. Accuracy values are means over those runs.}
 \label{tab:cnn-hnp-sweep}
 \begin{tabular}{cccccc}
 \toprule
-$\ell$ & $\sigma$ & CNN bit acc. & CNN prefix acc. &
-Oracle HNP & CNN$\rightarrow$HNP \\
+$\ell$ & $\sigma$ & CNN bit acc. & CNN prefix acc. & Oracle HNP & CNN$\rightarrow$HNP \\
 \midrule
-8  & 0.10 & 99.79\% & 98.33\% & 0/100   & 0/3 \\
-8  & 0.15 & 99.27\% & 94.17\% & 0/100   & 0/3 \\
-8  & 0.20 & 96.88\% & 78.33\% & 0/100   & 0/3 \\
-8  & 0.25 & 93.23\% & 62.50\% & 0/100   & 0/3 \\
-12 & 0.10 & 99.93\% & 99.17\% & 100/100 & 2/3 \\
-12 & 0.15 & 99.37\% & 94.17\% & 100/100 & 1/3 \\
-12 & 0.20 & 97.29\% & 71.67\% & 100/100 & 0/3 \\
-12 & 0.25 & 93.61\% & 52.50\% & 100/100 & 0/3 \\
+8 & 0.00 & 99.80\% & 98.45\% & 0/100 & 0/100 \\
+8 & 0.05 & 99.71\% & 97.70\% & 0/100 & 0/100 \\
+8 & 0.10 & 99.59\% & 96.75\% & 0/100 & 0/100 \\
+8 & 0.15 & 98.98\% & 92.45\% & 0/100 & 0/100 \\
+8 & 0.20 & 97.03\% & 79.60\% & 0/100 & 0/100 \\
+10 & 0.00 & 99.78\% & 97.88\% & 100/100 & 61/100 \\
+10 & 0.05 & 99.74\% & 97.50\% & 100/100 & 51/100 \\
+10 & 0.10 & 99.66\% & 96.70\% & 100/100 & 47/100 \\
+10 & 0.15 & 99.02\% & 90.80\% & 100/100 & 6/100 \\
+10 & 0.20 & 97.13\% & 76.40\% & 100/100 & 0/100 \\
+12 & 0.00 & 99.85\% & 98.28\% & 100/100 & 69/100 \\
+12 & 0.05 & 99.75\% & 97.00\% & 100/100 & 44/100 \\
+12 & 0.10 & 99.70\% & 96.50\% & 100/100 & 33/100 \\
+12 & 0.15 & 99.08\% & 90.00\% & 100/100 & 4/100 \\
+12 & 0.20 & 97.06\% & 71.60\% & 100/100 & 0/100 \\
+14 & 0.00 & 99.87\% & 98.35\% & 100/100 & 70/100 \\
+14 & 0.05 & 99.80\% & 97.23\% & 100/100 & 49/100 \\
+14 & 0.10 & 99.69\% & 95.70\% & 100/100 & 40/100 \\
+14 & 0.15 & 99.14\% & 88.98\% & 100/100 & 3/100 \\
+14 & 0.20 & 96.98\% & 67.82\% & 100/100 & 0/100 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-For the parameter sweep, recovery results are reported as aggregates over 100 seeds, $\{1000,\ldots,1099\}$. Oracle and CNN-to-HNP recovery are reported separately because the oracle uses the correct nonce prefixes, whereas CNN-to-HNP uses prefixes predicted by the CNN. The recovery counts are taken directly from the corresponding benchmark results and are not inferred from the number of seeds. These observations separate the robustness of the lattice stage under correct prefixes from the effect of prediction errors introduced by the CNN.
+The table uses the recorded values in \path{results/tables/cnn-hnp-parameter-sweep-summary.csv}. The fixed reference pipeline run and the aggregated parameter sweep answer different questions. A key recovered in the fixed reference instance does not imply successful recovery for every seed or noise configuration. Oracle HNP uses the known prefixes and succeeds in all 100 runs for $\ell\geq10$. CNN-to-HNP recovery depends on the predicted prefix and decreases as the noise increases.
 
 \section{Discussion}
 
-In the parameter sweep, CNN bit and prefix accuracy decreased as $\sigma$ increased. The effect was more pronounced for prefix accuracy than for per-bit accuracy. For example, with $\ell=12$ and $m=40$, mean prefix accuracy decreased from $99.17\%$ at $\sigma=0.10$ to $52.50\%$ at $\sigma=0.25$. Over the same configurations, oracle HNP recovery and CNN-to-HNP recovery are reported separately over the 100 benchmark seeds. The results quantify the effect of CNN prediction errors on the subsequent HNP stage. This separates the behavior of the lattice stage with correct prefixes from the effect of prediction errors introduced by the CNN.
+In the parameter sweep, CNN bit and prefix accuracy decrease as $\sigma$ increases. For $\ell=12$ and $m=40$, mean prefix accuracy decreases from $98.28\%$ at $\sigma=0$ to $71.60\%$ at $\sigma=0.20$. Across those settings, oracle HNP recovers $100/100$ keys, while CNN-to-HNP recovery falls from $69/100$ to $0/100$. This comparison separates the lattice stage with correct prefixes from errors introduced by CNN predictions.
 
-For $m=20$, no private-key recovery was observed in the tested configurations. For $m=40$ and $\ell=8$, no recovery was observed either with oracle prefixes or with CNN-derived prefixes. These results are measurements over the tested synthetic configurations and do not establish a general recovery threshold.
+For $m=40$ and $\ell=8$, the sweep records no recovery with either oracle or CNN-derived prefixes. For $\ell\in\{10,12,14\}$, oracle recovery is $100/100$, while CNN-to-HNP recovery varies with noise. These measurements apply to the tested synthetic configurations and do not establish a general recovery threshold.
 
 This dependence is consistent with the role of additional constraints discussed in [5]. Remark 5.4 of the companion work identifies a limitation of the current framework: for simultaneous approximation with $k>3$ families, and for $m>2$ signatures in the HNP formulation, there is not yet an exponent-transfer result with the same precision as the scalar theorem. Such a result would provide a mathematical estimate of the minimum number of signatures as a function of $\ell$ and the noise level $\sigma$.
 

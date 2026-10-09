@@ -6,7 +6,7 @@
   "trace_length": 256,
   "noise_sigma": 0.15,
   "leakage_model": "HW",
-  "seed": 20260919,
+  "seed": "20260919",
   "synthetic": true,
   "public_file": "public_dataset.json",
   "oracle_file": "oracle_dataset.json",

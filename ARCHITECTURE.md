@@ -58,7 +58,7 @@
 │   │   ├── 📄 export_weights.py
 │   │   ├── 📄 model.py
 │   │   ├── 📄 train.py
-│   │   ├── 📄 model_weights.py
+│   │   ├── 📦 model_weights.pth
 │   │   └── 📄 utils.py
 │   │
 │   ├── 📁 dataset/
@@ -144,8 +144,11 @@
 │   ├── 📁 figures/
 │   │   └── 🖼️ ...
 │   │
+│   ├── 📄 README.md
 │   ├── 📁 tables/
-│   |   ├── 📄 cnn-hnp-baseline.csv
+│   │   ├── 📄 cnn-hnp-baseline.csv
+│   │   ├── 📄 cnn-hnp-parameter-sweep.csv
+│   │   ├── 📄 cnn-hnp-parameter-sweep-summary.csv
 │   |   ├── 📄 final-results.csv
 │   |   ├── 📄 hnp-oracle-thresholds.csv
 │   |   └── trace-validation-100.csv

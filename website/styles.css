@@ -489,7 +489,7 @@ a { color: inherit; }
   filter: drop-shadow(0 0 7px rgba(215,208,195,.18));
 }
 
-/* Dataset — a structured signal field instead of a stack of tiny identical rows. */
+/* Dataset - a structured signal field instead of a stack of tiny identical rows. */
 .dataset-layout { grid-template-columns: .62fr 1.38fr; }
 .dataset-signal-board {
   min-width: 0;
@@ -540,7 +540,7 @@ a { color: inherit; }
 .dataset-band--attack { background: linear-gradient(90deg, transparent, rgba(215,208,195,.025), transparent); }
 .dataset-axis { margin: 7px 0 0 98px; padding-top: 6px; border-top: 1px solid var(--line-soft); }
 
-/* LLL — two clean states, not a cloud of random perspective lines. */
+/* LLL - two clean states, not a cloud of random perspective lines. */
 .lattice-grid path { fill:none; stroke:rgba(214,206,193,.055); stroke-width:1; }
 .lattice-vector--raw { stroke:rgba(214,206,193,.23); stroke-width:1.15; }
 .lattice-vector--reduced { stroke:rgba(214,206,193,.42); stroke-width:1.35; }
@@ -553,7 +553,7 @@ a { color: inherit; }
 .lattice-transfer text { fill:var(--paper-2); font:8px var(--mono); letter-spacing:.15em; }
 .lattice-candidate-label { fill:var(--paper-2); }
 
-/* CNN — explicit stages, one directional flow, no tangled all-to-all web. */
+/* CNN - explicit stages, one directional flow, no tangled all-to-all web. */
 .cnn-figure { min-height: clamp(290px, 42vh, 390px); }
 .cnn-label { fill:var(--faint); font:8px var(--mono); letter-spacing:.11em; }
 .cnn-sub { fill:var(--muted); font:8px var(--mono); letter-spacing:.06em; }
@@ -600,7 +600,7 @@ a { color: inherit; }
 }
 
 
-/* FINAL POLISH — remove visual collisions and keep the reel itself dominant */
+/* FINAL POLISH - remove visual collisions and keep the reel itself dominant */
 .chain-line { display: none !important; }
 
 .scene-note {
@@ -653,7 +653,7 @@ a { color: inherit; }
   .scope-zoom { margin-left: 8%; }
 }
 
-/* v10 — final spacing corrections */
+/* v10 - final spacing corrections */
 .scene--cnn .scene-note { display: none !important; }
 .scene--cnn .cnn-figure {
   min-height: 0;
@@ -681,7 +681,7 @@ a { color: inherit; }
 }
 
 
-/* v11 — normal webpage viewport scale
+/* v11 - normal webpage viewport scale
    Keep fullscreen cinematic sizing intact, but make the embedded reel breathe
    inside the regular page viewport. */
 @media (min-width: 781px) {

@@ -2,11 +2,11 @@
 
 ## Partea matematică
 
-Artefactele curente raportează toate verificările numerice ca `PASS`. Valorile provin din `informatica/artifacts/bridge_results.json` și `informatica/artifacts/diophantine_results.json`.
+Artefactele curente raportează verificările numerice ca `PASS`. Valorile provin din `informatica/artifacts/bridge_results.json` și `informatica/artifacts/diophantine_results.json`.
 
 | verificare | rezultat observat | valoare de referință |
 | --- | ---: | ---: |
-| Asimptotic constant, `sqrt(2)` | `0.2513000154` | `0.25` |
+| Asymptotic constant, `sqrt(2)` | `0.2513000154` | `0.25` |
 | Asymptotic constant, `phi` | `0.3665687179` | `0.3618033989` |
 | Exponent transfer | `mu_geo = 1.9982985127`, `R^2 = 0.9799496319` | `mu = 2` |
 | Steinhaus-Sos, `N=1000,5000,20000` | 3 gap-uri la fiecare scară | `<= 3` |
@@ -17,13 +17,11 @@ Artefactele curente raportează toate verificările numerice ca `PASS`. Valorile
 | Diophantine module 4 | 25,346 păstrate, 24,654 eliminate, 25,186 pozitive | test implementat |
 | Diophantine module 5 | `k3=321`, `k4_engineered=71`, `k4_unrelated=9` | test implementat |
 
-Aceste rezultate validează experimentele matematice existente. Ele nu demonstrează extensia teoretică completă la aproximarea simultană pentru `k > 3`.
+Aceste rezultate validează experimentele numerice în domeniul testat. Ele nu reprezintă o demonstrație completă pentru aproximarea simultană în cazul general `k > 3`.
 
 ## Partea informatică
 
-Datasetul executabil are 160 de semnături, `ell = 12`, traces sintetice și split fix de 96 train, 24 validation și 40 test/attack. CNN-ul și HNP primesc aceleași 40 de ID-uri pentru etapa de atac.
-
-Rularea de referință cu 100 de epoci și backend `fpylll` a produs:
+Rularea de referință a pipeline-ului folosește backendul `fpylll`. Pentru configurația de bază sunt raportate 160 de semnături sintetice, cu split fix de 96 train, 24 validation și 40 test/attack.
 
 | metrică | rezultat |
 | --- | ---: |
@@ -31,36 +29,21 @@ Rularea de referință cu 100 de epoci și backend `fpylll` a produs:
 | validation prefix accuracy | `95.83%` |
 | test bit accuracy | `100.00%` |
 | test prefix accuracy | `100.00%` (`40/40`) |
-| HNP oracle, `ell=12, m=40` | cheie recuperată |
-| CNN -> HNP, `ell=12, m=40` | cheie recuperată |
+| HNP oracle, `ell=12, m=40` | `PASS`, cheia de test recuperată și validată |
+| CNN to HNP, `ell=12, m=40` | `PASS`, cheia de test recuperată și validată |
 | backend de referință | `fpylll` |
+| pipeline complet | `PASS` |
 
-Aceste rezultate provin din instanța sintetică de bază. Cheia privată nu este inclusă în artefactele publice.
+Rezultatele de referință sunt în `results/tables/final-results.csv`, iar starea detaliată este în `informatica/artifacts/pipeline_results.json` și `informatica/artifacts/hnp_result.json`. Cheia privată este redactată în artefactele publice.
 
-Tabelul de bază este în `results/tables/cnn-hnp-baseline.csv`.
+## Sweep cantitativ
 
-## Analiza în `(ell, sigma, m)`
+`results/tables/cnn-hnp-baseline.csv` păstrează tabelul baseline din arhiva existentă. Sweep-ul regenerat conține 2.000 de rulări în `results/tables/cnn-hnp-parameter-sweep.csv`, cu 100 de seed-uri pentru fiecare configurație din `ell = {8, 10, 12, 14}` și `sigma = {0, 0.05, 0.10, 0.15, 0.20}`. Fiecare rulare folosește 100 de epoci. Rezumatul agregat cu 20 de configurații este în `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
-Codul pentru analiza cantitativă este `informatica/experiments/benchmark_cnn_hnp_surface.py`. Pentru fiecare combinație măsoară separat:
+Tabelul `results/tables/hnp-oracle-thresholds.csv` conține rezultatele oracle pentru praguri diferite. Valorile cheii recuperate sunt redactate.
 
-- acuratețea CNN pe bit și pe prefix;
-- recuperarea HNP cu prefixe oracle;
-- recuperarea HNP cu prefixe produse de CNN;
-- backendul LLL și timpul de rulare.
-
-Configurația folosește `ell ∈ {8,10,12,14}`, `sigma ∈ {0.10,0.15,0.20}` și `m = 40`, cu 100 de seed-uri: `1000`-`1099`. Benchmarkul rulează 100 de epoci și folosește `fpylll`.
-
-Rezultatele complete sunt păstrate în:
-
-- `results/tables/cnn-hnp-parameter-sweep.csv`;
-- `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
-
-Pentru `m = 40` și `ell = 12`, benchmarkul este evaluat pe 100 de seed-uri, de la `1000` la `1099`. Rezultatele sunt raportate ca agregări pe cele 100 de rulări, separat pentru cazul oracle și pentru cazul CNN → HNP.
-
-Pentru `ell = 8` și `m = 40`, rezultatul oracle este `0/100`. Pentru `ell = 10` și `ell = 14`, rezultatele sunt raportate separat pentru fiecare valoare de `sigma`.
-
-Pentru `m = 20`, configurația trebuie raportată numai dacă rezultatele corespunzătoare sunt prezente în benchmarkul utilizat pentru versiunea curentă a proiectului.
+`PASS` pentru pipeline și teste confirmă că execuția a funcționat conform criteriului definit. Rata de recuperare poate fi mai mică pentru anumite configurații, de exemplu când numărul de biți scurși este redus sau zgomotul este mare. Aceste valori rămân rezultate experimentale și nu sunt schimbate artificial în succese.
 
 ## Hardware
 
-Etapa hardware nu este inclusă în rezultatele curente.
+Rezultatele raportate aici provin din dataseturi sintetice. Etapa ESP32 este păstrată în proiect, dar acest raport nu revendică măsurători fizice care nu sunt incluse în artefactele curente.

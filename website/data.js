@@ -2,7 +2,7 @@ window.ROSEF_DATA = {
   "meta": {
     "siteTitle": "Signal → Learning → Recovery",
     "project": "RoSEF26–27",
-    "paperTitle": "Neural Classification for ECDSA Private-Key Recovery",
+    "paperTitle": "ECDSA Private-Key Recovery from Partial Nonce Leakage",
     "repoUrl": "https://github.com/Vendetaaaa/RoSEF26-27",
     "dataset": 160,
     "traceLength": 256,
@@ -13,7 +13,7 @@ window.ROSEF_DATA = {
     "test": 40,
     "curve": "secp256k1",
     "leakageModel": "HW",
-    "seed": 20260919,
+    "seed": "20260919",
     "synthetic": true,
     "cnn": {
       "inChannels": 2,
@@ -24,36 +24,36 @@ window.ROSEF_DATA = {
       "sequenceLength": 12
     },
     "pipelineArchive": {
-      "dataset": "PASS",
-      "leakage": "PASS",
-      "cnn": "PASS",
-      "hnp": "PASS_DEVELOPMENT",
-      "hnp_backend": "sympy",
-      "hnp_key_recovered": true,
-      "oracle_hnp": {
+    "dataset": "PASS",
+    "leakage": "PASS",
+    "cnn": "PASS",
+    "hnp": "PASS",
+    "hnp_backend": "fpylll",
+    "hnp_key_recovered": true,
+    "oracle_hnp": {
         "relation_ok": true,
-        "backend": "sympy",
+        "backend": "fpylll",
         "key_recovered": true,
         "reduction_error": null
-      },
-      "math": "PASS",
-      "fully_executed": false,
-      "fpylll_available": false,
-      "fpylll_required": false
     },
+    "math": "PASS",
+    "fully_executed": true,
+    "fpylll_available": true,
+    "fpylll_required": true
+},
     "hnpArchive": {
-      "source": "cnn",
-      "samples": 40,
-      "leaked_bits": 12,
-      "reduction_backend": "sympy",
-      "backend_policy": "auto",
-      "fpylll_available": false,
-      "reduction_executed": true,
-      "key_recovered": true,
-      "recovered_private_key": "<REDACTED_PRIVATE_KEY>",
-      "validated": true,
-      "reduction_error": null
-    },
+    "source": "cnn",
+    "samples": 40,
+    "leaked_bits": 12,
+    "reduction_backend": "fpylll",
+    "backend_policy": "require_fpylll",
+    "fpylll_available": true,
+    "reduction_executed": true,
+    "key_recovered": true,
+    "recovered_private_key": "<REDACTED_PRIVATE_KEY>",
+    "validated": true,
+    "reduction_error": null
+},
     "metrics": {
       "valBit": 99.6528,
       "valPrefix": 95.8333,
@@ -61,70 +61,166 @@ window.ROSEF_DATA = {
       "testPrefix": 100
     },
   "paperSweep": [
-  {
-    "ell": 8,
-    "sigma": 0.1,
-    "bit": 99.79,
-    "prefix": 98.33,
-    "oracle": "0/100",
-    "cnn": "0/3"
-  },
-  {
-    "ell": 8,
-    "sigma": 0.15,
-    "bit": 99.27,
-    "prefix": 94.17,
-    "oracle": "0/100",
-    "cnn": "0/3"
-  },
-  {
-    "ell": 8,
-    "sigma": 0.2,
-    "bit": 96.88,
-    "prefix": 78.33,
-    "oracle": "0/100",
-    "cnn": "0/3"
-  },
-  {
-    "ell": 8,
-    "sigma": 0.25,
-    "bit": 93.23,
-    "prefix": 62.5,
-    "oracle": "0/100",
-    "cnn": "0/3"
-  },
-  {
-    "ell": 12,
-    "sigma": 0.1,
-    "bit": 99.93,
-    "prefix": 99.17,
-    "oracle": "100/100",
-    "cnn": "2/3"
-  },
-  {
-    "ell": 12,
-    "sigma": 0.15,
-    "bit": 99.37,
-    "prefix": 94.17,
-    "oracle": "100/100",
-    "cnn": "1/3"
-  },
-  {
-    "ell": 12,
-    "sigma": 0.2,
-    "bit": 97.29,
-    "prefix": 71.67,
-    "oracle": "100/100",
-    "cnn": "0/3"
-  },
-  {
-    "ell": 12,
-    "sigma": 0.25,
-    "bit": 93.61,
-    "prefix": 52.5,
-    "oracle": "100/100",
-    "cnn": "0/3"
-  }
+    {
+        "ell": 8,
+        "sigma": 0.0,
+        "bit": 99.8,
+        "prefix": 98.45,
+        "oracle": "0/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 8,
+        "sigma": 0.05,
+        "bit": 99.71,
+        "prefix": 97.7,
+        "oracle": "0/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 8,
+        "sigma": 0.1,
+        "bit": 99.59,
+        "prefix": 96.75,
+        "oracle": "0/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 8,
+        "sigma": 0.15,
+        "bit": 98.98,
+        "prefix": 92.45,
+        "oracle": "0/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 8,
+        "sigma": 0.2,
+        "bit": 97.03,
+        "prefix": 79.6,
+        "oracle": "0/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 10,
+        "sigma": 0.0,
+        "bit": 99.78,
+        "prefix": 97.88,
+        "oracle": "100/100",
+        "cnn": "61/100"
+    },
+    {
+        "ell": 10,
+        "sigma": 0.05,
+        "bit": 99.74,
+        "prefix": 97.5,
+        "oracle": "100/100",
+        "cnn": "51/100"
+    },
+    {
+        "ell": 10,
+        "sigma": 0.1,
+        "bit": 99.66,
+        "prefix": 96.7,
+        "oracle": "100/100",
+        "cnn": "47/100"
+    },
+    {
+        "ell": 10,
+        "sigma": 0.15,
+        "bit": 99.02,
+        "prefix": 90.8,
+        "oracle": "100/100",
+        "cnn": "6/100"
+    },
+    {
+        "ell": 10,
+        "sigma": 0.2,
+        "bit": 97.13,
+        "prefix": 76.4,
+        "oracle": "100/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 12,
+        "sigma": 0.0,
+        "bit": 99.85,
+        "prefix": 98.28,
+        "oracle": "100/100",
+        "cnn": "69/100"
+    },
+    {
+        "ell": 12,
+        "sigma": 0.05,
+        "bit": 99.75,
+        "prefix": 97.0,
+        "oracle": "100/100",
+        "cnn": "44/100"
+    },
+    {
+        "ell": 12,
+        "sigma": 0.1,
+        "bit": 99.7,
+        "prefix": 96.5,
+        "oracle": "100/100",
+        "cnn": "33/100"
+    },
+    {
+        "ell": 12,
+        "sigma": 0.15,
+        "bit": 99.08,
+        "prefix": 90.0,
+        "oracle": "100/100",
+        "cnn": "4/100"
+    },
+    {
+        "ell": 12,
+        "sigma": 0.2,
+        "bit": 97.06,
+        "prefix": 71.6,
+        "oracle": "100/100",
+        "cnn": "0/100"
+    },
+    {
+        "ell": 14,
+        "sigma": 0.0,
+        "bit": 99.87,
+        "prefix": 98.35,
+        "oracle": "100/100",
+        "cnn": "70/100"
+    },
+    {
+        "ell": 14,
+        "sigma": 0.05,
+        "bit": 99.8,
+        "prefix": 97.23,
+        "oracle": "100/100",
+        "cnn": "49/100"
+    },
+    {
+        "ell": 14,
+        "sigma": 0.1,
+        "bit": 99.69,
+        "prefix": 95.7,
+        "oracle": "100/100",
+        "cnn": "40/100"
+    },
+    {
+        "ell": 14,
+        "sigma": 0.15,
+        "bit": 99.14,
+        "prefix": 88.98,
+        "oracle": "100/100",
+        "cnn": "3/100"
+    },
+    {
+        "ell": 14,
+        "sigma": 0.2,
+        "bit": 96.98,
+        "prefix": 67.82,
+        "oracle": "100/100",
+        "cnn": "0/100"
+    }
 ],
     "traceSampleId": 0,
     "trace": [
@@ -671,8 +767,8 @@ window.ROSEF_DATA = {
     { id:"cnn", number:"05", kicker:"05 · CNN 1D", title:"CNN-ul caută tiparul în trace.", shortTitle:"CNN 1D", duration:12, infoTitle:"NonceBitCNN: mic, dar specializat pentru secvențe.", infoCopy:"Două canale intră în Conv1D → ReLU → Conv1D 1×1. Ieșirea este clasificare binară la nivel de bit.", factStatus:"DEEP LEARNING" },
     { id:"inference", number:"06", kicker:"06 · INFERENȚĂ", title:"Din semnal apar 12 biți.", shortTitle:"12-bit infer", duration:10, infoTitle:"Rețeaua nu găsește cheia. Găsește informație parțială.", infoCopy:"Cele 40 de prefixe din test sunt exact inputul următoarei etape: formularea constrângerilor HNP.", factStatus:"12-BIT PREFIX" },
     { id:"hnp", number:"07", kicker:"07 · HNP", title:"Prefixele devin constrângeri matematice.", shortTitle:"HNP", duration:12, infoTitle:"CNN → HNP: informația discretă devine ecuație.", infoCopy:"Pentru fiecare semnătură se construiesc tᵢ, uᵢ și aᵢ; necunoscuta d rămâne comună tuturor ecuațiilor.", factStatus:"HIDDEN NUMBER" },
-    { id:"lll", number:"08", kicker:"08 · LLL", title:"Rețeaua lattice caută soluția scurtă.", shortTitle:"LLL", duration:12, infoTitle:"Kannan embedding + LLL.", infoCopy:"Baza lattice este redusă, apoi vectorii compatibili sunt verificați. În snapshot-ul arhivei, execuția HNP folosea backendul SymPy.", factStatus:"PASS_DEVELOPMENT" },
-    { id:"validation", number:"09", kicker:"09 · VALIDARE", title:"Și aici separăm ce știm de ce vrem să demonstrăm.", shortTitle:"Validare", duration:11, infoTitle:"Rezultatul trebuie citit cu limitele lui.", infoCopy:"CNN-ul a atins 99.65% bit accuracy pe validation și 100% pe test în snapshot. Pipeline-ul HNP din arhivă este development, iar ESP32 rămâne etapa hardware.", factStatus:"VALIDATE · THEN EXTEND" }
+    { id:"lll", number:"08", kicker:"08 · LLL", title:"Rețeaua lattice caută soluția scurtă.", shortTitle:"LLL", duration:12, infoTitle:"Kannan embedding + LLL.", infoCopy:"Baza lattice este redusă cu backendul fpylll, apoi vectorii compatibili sunt verificați.", factStatus:"PASS" },
+    { id:"validation", number:"09", kicker:"09 · VALIDARE", title:"Și aici separăm ce știm de ce vrem să demonstrăm.", shortTitle:"Validare", duration:11, infoTitle:"Rezultatul trebuie citit cu limitele lui.", infoCopy:"CNN-ul a atins 99.65% bit accuracy pe validation și 100% pe test în rularea de referință. Pipeline-ul HNP de referință folosește fpylll. ESP32 rămâne etapa hardware distinctă.", factStatus:"VALIDATE · THEN EXTEND" }
   ],
   "sourceMap": [
     [
@@ -721,7 +817,7 @@ window.ROSEF_DATA = {
   "notes": {
     "cnnTruth": "The checked-in implementation is genuinely one-dimensional: torch.nn.Conv1d. It uses 2 input channels (raw trace + first difference), 8 hidden channels, kernel size 3, ReLU, then a 1×1 Conv1d to 2 classes. The config truncates the 256-sample trace to the first 12 positions for the base training run.",
     "paperRepoMismatch": "The PDF code listing in §4 shows older default constructor values (1 channel, 16 hidden channels, kernel 9). The website follows the checked-in repository configuration and implementation, while using the paper for conceptual description and section references.",
-    "statusTruth": "The supplied archive stores HNP as PASS_DEVELOPMENT with SymPy and fully_executed=false. The paper describes the reference path with fpylll. The site must not silently turn the archive snapshot into a physical or reference hardware result.",
+    "statusTruth": "The recorded reference run reports HNP as PASS with fpylll and validates the recovered key against the synthetic ground truth. The public oracle redacts the private key, so Notebook 04 reports NOT EXECUTED for a live replay until a local ground-truth key and fpylll are available. Synthetic traces are not physical ESP32 measurements.",
     "hardwareTruth": "ESP32 firmware/protocol exist in the repository, but the current dataset_metadata.json marks the profile as synthetic=true; physical traces are a future validation step."
   }
 };

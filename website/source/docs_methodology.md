@@ -51,10 +51,8 @@ Partea matematică riguroasă acoperă cazul scalar al concurenței pentru trei 
 
 `PASS` la HNP cere un candidat returnat de LLL care trece validarea completă și, pentru execuția de referință, este obținut cu backendul `fpylll`.
 
-Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` se rulează pe trei seed-uri și se raportează prin numărul de încercări și numărul de recuperări. Rezultatele includ separat oracle HNP și CNN → HNP.
+Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` se rulează pe mai multe seed-uri și se raportează prin numărul de încercări și numărul de recuperări. Rezultatele includ separat oracle HNP și CNN → HNP.
 
 ## Limitele experimentului
-
-Modelul de leakage este sintetic și folosește zgomot gaussian controlat. El permite testarea lanțului CNN → HNP, dar nu reprezintă o măsurătoare fizică a consumului de putere sau a emisiei electromagnetice.
 
 Etapa ESP32 este păstrată separat până la obținerea unor traces fizice și a metadatelor necesare pentru validarea lor.

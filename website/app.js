@@ -331,8 +331,8 @@
         <div class="bit-bridge">
           ${row('GROUND TRUTH', bits, `test sample ${D.meta.testExample.sampleId} / first 12`)}
           <div class="bit-separator"></div>
-          ${row('MODEL OUTPUT', bits, 'CNN prediction / exact prefix in archive snapshot')}
-          <div class="inference-foot"><span>MODEL → PREFIX</span><span><strong>40 / 40</strong> test prefixes exact în snapshot</span></div>
+          ${row('MODEL OUTPUT', bits, 'CNN prediction / exact prefix in the recorded reference run')}
+          <div class="inference-foot"><span>MODEL → PREFIX</span><span><strong>40 / 40</strong> test prefixes exact în rularea de referință</span></div>
         </div>
       </div>
       <div class="scene-note"><span>BIT CLASSIFICATION ≠ KEY RECOVERY</span><strong>Prefixele devin apoi valori āᵢ în instanța HNP.</strong></div>
@@ -412,7 +412,7 @@
         </div>
         <div class="lattice-scene">${latticeSvg()}<div class="lll-status"><span>BEFORE <strong>many directions</strong></span><span>AFTER <strong>shorter / structured vectors</strong></span></div></div>
       </div>
-      <div class="scene-note"><span>ARCHIVE SNAPSHOT = PASS_DEVELOPMENT / SYMPY</span><strong>Lucrarea descrie calea de referință cu fpylll; site-ul nu confundă cele două contexte.</strong></div>
+      <div class="scene-note"><span>REFERENCE RUN = ${D.meta.pipelineArchive.hnp} / ${D.meta.pipelineArchive.hnp_backend.toUpperCase()}</span><strong>Artefactele de referință înregistrează recuperarea și validarea cheii sintetice cu fpylll.</strong></div>
     `);
   }
 
@@ -422,12 +422,12 @@
       <div class="validation-layout">
         <div class="validation-lead">
           <div class="scene-header"><div><div class="scene-code">09 · VALIDARE</div><div class="validation-title">Rezultatul contează.<br><em>Limita lui la fel.</em></div></div><div class="scene-source">PAPER · §6–§9<br>TABLE 2</div></div>
-          <div class="validation-summary">În snapshot-ul din arhivă, CNN-ul arată ${D.meta.metrics.testBit.toFixed(0)}% test bit accuracy și ${D.meta.metrics.testPrefix.toFixed(0)}% test prefix accuracy pe setul de 40. HNP-ul este etichetat development-level în artefacte.</div>
+          <div class="validation-summary">Rularea de referință înregistrează ${D.meta.metrics.testBit.toFixed(0)}% test bit accuracy și ${D.meta.metrics.testPrefix.toFixed(0)}% test prefix accuracy pe cele 40 de eșantioane. Pipeline-ul HNP are status ${D.meta.pipelineArchive.hnp} cu backend ${D.meta.pipelineArchive.hnp_backend}.</div>
           <div class="validation-state"><i></i><span>SOFTWARE CHAIN = TRACE → CNN → HNP → LLL</span></div>
           <div class="validation-state"><i></i><span>HARDWARE = ESP32 / NEXT EXPERIMENT</span></div>
         </div>
         <div class="results-table-wrap">
-         <div class="results-head"><strong>Paper sweep · ℓ = 12 · m = 40</strong><span>Oracle: 100 seeds · CNN→HNP: 3 seeds / configuration</span></div>
+         <div class="results-head"><strong>Paper sweep · ℓ = 12 · m = 40</strong><span>Oracle: 100 seeds · CNN→HNP: 100 seeds / configuration</span></div>
           <table class="results-table"><thead><tr><th>setting</th><th>bit acc.</th><th>prefix acc.</th><th>oracle</th><th>CNN→HNP</th></tr></thead><tbody>${rows}</tbody></table>
           <div class="boundary-note"><strong>Ce arată tabelul:</strong> pe măsură ce σ crește, acuratețea prefixului scade; lucrarea separă astfel robustețea lattice-ului de erorile introduse de predicțiile CNN. Pentru hardware real, protocolul cere traces și metadata fizice verificabile.</div>
         </div>
@@ -458,8 +458,8 @@
     sceneContext.cnnSub.textContent = `${D.meta.cnn.inChannels} → ${D.meta.cnn.outChannels} → ${D.meta.cnn.classes}`;
     sceneContext.hnp.textContent = `ℓ = ${D.meta.leakedBits}`;
     sceneContext.status.textContent = scene.factStatus;
-    const statusMap = { 'PASS_DEVELOPMENT':'archive · development', 'VALIDATE · THEN EXTEND':'archive · bounded claim' };
-    sceneContext.statusSub.textContent = statusMap[scene.factStatus] || 'archive snapshot';
+    const statusMap = { 'PASS':'reference run · fpylll', 'VALIDATE · THEN EXTEND':'synthetic scope · bounded claim' };
+    sceneContext.statusSub.textContent = statusMap[scene.factStatus] || 'recorded reference run';
     chapterTrack.querySelectorAll('.chapter-chip').forEach((el,i)=>el.classList.toggle('is-active',i===sceneIndex));
     updatePaperRail(scene);
   }
@@ -576,7 +576,7 @@
 
   function openSources() {
     const items = D.sourceMap.map(([label,path,extra,ref])=>`<div class="source-item"><div><strong>${esc(label)}</strong><code>${esc(path)}${extra ? `\n${esc(extra)}`:''}\n${esc(ref)}</code></div><a href="${esc(path)}" target="_blank" rel="noreferrer">OPEN ↗</a></div>`).join('');
-    dialogBody.innerHTML = `<p class="source-warning"><strong>Reconciliare importantă:</strong> PDF-ul descrie CNN-ul ca one-dimensional. Implementarea actuală din repository folosește explicit <code>torch.nn.Conv1d</code> și config-ul <code>2 → 8 → 2, kernel 3</code>. PDF-ul păstrează în secțiunea 4 un listing cu default-uri mai vechi (1 channel, 16 hidden, kernel 9); animația urmează codul verificat din arhivă.</p>${items}<p class="source-warning"><strong>HNP:</strong> artefactele furnizate în arhivă sunt <code>PASS_DEVELOPMENT</code> cu backend SymPy; lucrarea descrie calea de referință cu fpylll. Nu le-am fuzionat într-un singur status.</p>`;
+    dialogBody.innerHTML = `<p class="source-warning"><strong>Model:</strong> constructorul CNN păstrează valori implicite generice. Rularea de referință le suprascrie prin <code>informatica/cnn/config.yaml</code> la <code>in_channels=2</code>, <code>out_channels=8</code>, <code>kernel_size=3</code> și <code>num_classes=2</code>.</p>${items}<p class="source-warning"><strong>HNP:</strong> artefactele de referință înregistrează <code>PASS</code>, backend <code>fpylll</code>, reducere executată și cheie sintetică validată. Sweep-ul agregă 100 de seed-uri pe configurație. Cheia oracle este redactată în arhiva publică, astfel că reluarea locală cere cheia ground-truth și <code>fpylll</code>. Urmele sunt sintetice; nu se declară o măsurătoare fizică ESP32.</p>`;
     if (!dialog.open) dialog.showModal();
   }
 

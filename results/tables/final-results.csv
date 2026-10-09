@@ -11,14 +11,14 @@ cnn,PASS,test_predictions,40,40
 cnn,PASS,test_bit_accuracy,1.0,measured
 cnn,PASS,test_prefix_accuracy,1.0,measured
 hnp_oracle,PASS,samples,40,oracle validation
-hnp_oracle,PASS,reduction_backend,sympy,development environment
+hnp_oracle,PASS,reduction_backend,fpylll,reference run
 hnp_oracle,PASS,reduction_executed,True,LLL executed
-hnp_oracle,PASS,key_recovered,True,"measured for ell=12,m=40"
+hnp_oracle,PASS,key_recovered,True,verified against ground truth in reference run
 hnp_cnn,PASS,samples,40,CNN attack instance
-hnp_cnn,PASS,reduction_backend,sympy,development environment
+hnp_cnn,PASS,reduction_backend,fpylll,reference run
 hnp_cnn,PASS,reduction_executed,True,LLL executed
-hnp_cnn,PASS,key_recovered,True,"measured for ell=12,m=40"
+hnp_cnn,PASS,key_recovered,True,verified against ground truth in reference run
 math,PASS,bridge_modules_passed,4,4
 math,PASS,diophantine_modules_passed,5,5
-pipeline,PASS,fully_executed,True,fpylll ran in ubuntu
-environment,INFO,fpylll_available,True,fpylll fully done
+pipeline,PASS,fully_executed,True,fpylll reference run
+environment,PASS,fpylll_available,True,fpylll used by the reference run
