@@ -3,7 +3,7 @@
   "samples": 40,
   "leaked_bits": 12,
   "reduction_backend": "fpylll",
-  "backend_policy": "auto",
+  "backend_policy": "require_fpylll",
   "fpylll_available": true,
   "reduction_executed": true,
   "key_recovered": true,

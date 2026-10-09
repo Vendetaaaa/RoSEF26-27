@@ -31,7 +31,7 @@
   },
   "formula": "T[t] = A * L[t - tau] + B[t] + U[t] + epsilon[t]",
   "outputs": {
-    "table": "/mnt/data/rosef/RoSEF26-27/results/tables/trace-validation-100.csv",
-    "raw": "/mnt/data/rosef/RoSEF26-27/results/raw/trace-validation-100.npz"
+    "table": "results/tables/trace-validation-100.csv",
+    "raw": "results/raw/trace-validation-100.npz"
   }
 }
