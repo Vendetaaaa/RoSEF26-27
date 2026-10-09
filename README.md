@@ -8,6 +8,8 @@
 
 ### [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
 
+### [Showroom LEAKON](https://leakon.tech/)
+
 </div>
 
 </br>
