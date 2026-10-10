@@ -14,7 +14,7 @@ struct Ina219Reading {
 };
 
 void ina219Begin();
-void ina219FindBlocking();
+bool ina219FindOnce();
 bool ina219Available();
 Ina219Reading ina219Read();
 uint8_t ina219Address();

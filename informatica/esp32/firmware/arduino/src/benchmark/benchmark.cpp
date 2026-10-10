@@ -1,6 +1,6 @@
 #include "benchmark.h"
 #include "../experiment/experiment.h"
-#include <Arduino.h> // Adăugat pentru a putea folosi pinMode și digitalWrite
+#include <Arduino.h> // pinMode și digitalWrite
 
 namespace rosef {
 
@@ -36,8 +36,6 @@ bool benchmarkRun(
   for (uint32_t i = 0; i < count; ++i) {
     SignResult sign_result;
 
-    // experimentSignDigest() owns the Logic Analyzer trigger.
-    // The trigger stays HIGH at idle and goes LOW only during ECDSA.
     if (!experimentSignDigest(
             digest,
             nonce,

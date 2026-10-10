@@ -5,6 +5,7 @@
 #include "esp_random.h"
 #include "mbedtls/bignum.h"
 #include "mbedtls/ecp.h"
+#include "mbedtls/ecdsa.h"
 
 namespace rosef {
 
@@ -268,6 +269,77 @@ int ecdsa_sign_fixed_k(
   mbedtls_mpi_free(&d);
 
   return rc;
+}
+
+bool ecdsa_verify_with_private_key(
+    const uint8_t private_key[32],
+    const uint8_t digest[32],
+    const uint8_t r_in[32],
+    const uint8_t s_in[32]) {
+
+  if (private_key == nullptr || digest == nullptr ||
+      r_in == nullptr || s_in == nullptr) {
+    return false;
+  }
+
+  bool verified = false;
+  mbedtls_ecp_group group;
+  mbedtls_ecp_point public_point;
+  mbedtls_mpi d;
+  mbedtls_mpi r;
+  mbedtls_mpi s;
+
+  mbedtls_ecp_group_init(&group);
+  mbedtls_ecp_point_init(&public_point);
+  mbedtls_mpi_init(&d);
+  mbedtls_mpi_init(&r);
+  mbedtls_mpi_init(&s);
+
+  do {
+    if (mbedtls_ecp_group_load(
+            &group,
+            MBEDTLS_ECP_DP_SECP256K1) != 0) {
+      break;
+    }
+
+    if (mbedtls_mpi_read_binary(&d, private_key, 32) != 0 ||
+        mbedtls_mpi_read_binary(&r, r_in, 32) != 0 ||
+        mbedtls_mpi_read_binary(&s, s_in, 32) != 0) {
+      break;
+    }
+
+    if (!scalarInRange(&d, &group.N) ||
+        !scalarInRange(&r, &group.N) ||
+        !scalarInRange(&s, &group.N)) {
+      break;
+    }
+
+    if (mbedtls_ecp_mul(
+            &group,
+            &public_point,
+            &d,
+            &group.G,
+            ecpRngCallback,
+            nullptr) != 0) {
+      break;
+    }
+
+    verified = mbedtls_ecdsa_verify(
+        &group,
+        digest,
+        32,
+        &public_point,
+        &r,
+        &s) == 0;
+
+  } while (false);
+
+  mbedtls_mpi_free(&s);
+  mbedtls_mpi_free(&r);
+  mbedtls_mpi_free(&d);
+  mbedtls_ecp_point_free(&public_point);
+  mbedtls_ecp_group_free(&group);
+  return verified;
 }
 
 void bytesToHex(

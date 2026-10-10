@@ -8,6 +8,8 @@ struct SignResult {
   uint8_t r[32];
   uint8_t s[32];
   uint32_t elapsed_us;
+  uint32_t trigger_start_us;
+  uint32_t trigger_end_us;
 };
 
 void experimentBegin();
@@ -20,6 +22,10 @@ bool experimentSignDigest(
     const uint8_t digest[32],
     const uint8_t nonce[32],
     SignResult &result);
+
+bool experimentVerifyDigest(
+    const uint8_t digest[32],
+    const SignResult &result);
 
 bool experimentSignMessage(
     const char *message,

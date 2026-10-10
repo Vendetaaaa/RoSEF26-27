@@ -132,4 +132,4 @@ bool batchRun(
   return true;
 }
 
-}  // namespace rosef
+}

@@ -13,9 +13,6 @@ constexpr uint8_t INA219_SDA_GPIO = 21;
 constexpr uint8_t INA219_SCL_GPIO = 22;
 constexpr uint8_t INA219_I2C_ADDRESS = 0x40;
 
-// GPIO used by the Logic Analyzer / BUFA connection.
-// The trigger is active-LOW so the pin stays HIGH at idle,
-// which keeps an active-HIGH buffer input asserted when connected.
 constexpr uint8_t TRIGGER_IDLE_LEVEL = HIGH;
 constexpr uint8_t TRIGGER_ACTIVE_LEVEL = LOW;
 
