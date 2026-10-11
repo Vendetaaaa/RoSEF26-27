@@ -234,9 +234,12 @@ def ecdsa_verify_with_known_nonce(curve: Curve, private_key: int, z: int, r: int
     return not R.is_infinity and R.x % n == r
 
 
-def public_dataset_as_dicts(public_samples: list[PublicSample]) -> list[dict]:
-    return [
-        {
+def public_dataset_as_dicts(
+    public_samples: list[PublicSample], public_key: Point | None = None
+) -> list[dict]:
+    records = []
+    for sample in public_samples:
+        record = {
             "sample_id": sample.sample_id,
             "message": sample.message.decode("utf-8"),
             "z": sample.z,
@@ -244,8 +247,14 @@ def public_dataset_as_dicts(public_samples: list[PublicSample]) -> list[dict]:
             "s": sample.s,
             "leaked_bits": sample.leaked_bits,
         }
-        for sample in public_samples
-    ]
+        if public_key is not None:
+            record["public_key"] = {
+                "curve": "secp256k1",
+                "x": f"{int(public_key.x):064x}",
+                "y": f"{int(public_key.y):064x}",
+            }
+        records.append(record)
+    return records
 
 
 def ground_truth_as_dict(ground_truth: GroundTruth) -> dict:
@@ -254,7 +263,7 @@ def ground_truth_as_dict(ground_truth: GroundTruth) -> dict:
         "samples": {
             str(sample.sample_id): {
                 "nonce_k": sample.nonce_k,
-                "leaked_nonce_prefix": sample.leaked_nonce_prefix,
+               "leaked_nonce_prefix": sample.leaked_nonce_prefix,
             }
             for sample in ground_truth.samples
         },
@@ -263,8 +272,13 @@ def ground_truth_as_dict(ground_truth: GroundTruth) -> dict:
 
 def save_dataset(public_samples: list[PublicSample], ground_truth: GroundTruth) -> None:
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    public_key = scalar_mult(CURVE, ground_truth.private_key, CURVE.G)
+    if public_key.is_infinity:
+        raise ValueError("Generated public key cannot be the point at infinity.")
+
     PUBLIC_DATASET_PATH.write_text(
-        json.dumps(public_dataset_as_dicts(public_samples), indent=2), encoding="utf-8"
+        json.dumps(public_dataset_as_dicts(public_samples, public_key), indent=2),
+        encoding="utf-8",
     )
     ORACLE_DATASET_PATH.write_text(
         json.dumps(ground_truth_as_dict(ground_truth), indent=2), encoding="utf-8"
