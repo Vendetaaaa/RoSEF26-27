@@ -47,3 +47,7 @@ Tabelul `results/tables/hnp-oracle-thresholds.csv` conține rezultatele oracle p
 ## Hardware
 
 Rezultatele raportate aici provin din dataseturi sintetice. Etapa ESP32 este păstrată în proiect, dar acest raport nu revendică măsurători fizice care nu sunt incluse în artefactele curente.
+
+## Notă de protocol pentru sweep-ul arhivat
+
+Tabelul a fost generat cu o versiune anterioară a orchestratorului care verifica compatibilitatea cheii sintetice înainte de LLL. Codul curent rulează solverul înainte de verificarea post-hoc. Numărătorile de recuperare păstrate descriu reușitele și eșecurile observate pe setul sintetic; timpii din rândurile sărite de versiunea veche sunt condiționali, nu timpi end-to-end. Regenerează sweep-ul cu scriptul curent înainte de a raporta timpi agregați.
