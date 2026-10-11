@@ -172,8 +172,6 @@ def generate_dataset(
 ) -> tuple[list[PublicSample], GroundTruth]:
     if sample_count <= 0:
         raise ValueError("sample_count must be positive.")
-    # This benchmark simulates a deterministic leakage experiment; it is intentionally not a
-    # cryptographic RNG, so a fixed seed must reproduce the sample set exactly.
     rng = random.Random(seed)
     n = curve.n
     private_key = rng.randrange(1, n)
