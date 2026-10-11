@@ -1,11 +1,11 @@
-name: Parameter Benchmark
+name: Quick Parameter Benchmark (12 seeds; exploratory)
 
 on:
   workflow_dispatch:
 
 jobs:
   sweep:
-    name: CNN + HNP parameter sweep
+    name: Exploratory CNN + HNP sweep (12 seeds)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,16 +30,16 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/informatica/ECDSA:${{ github.workspace }}/informatica/cnn
         run: |
           python informatica/experiments/benchmark_cnn_hnp_surface.py \
-            --leaked-bits 8 12 \
+            --leaked-bits 8 10 12 14 \
             --sigmas 0.10 0.15 0.20 0.25 \
-            --sample-counts 20 40 \
-            --seeds 20260919 20260920 20260921 \
-            --epochs 100
+            --sample-counts 20 40 60 80 \
+            --seeds 20260919 20260920 20260921 20260922 20260923 20260924 20260925 20260926 20260927 20260928 20260929 20260930 \
+            --epochs 160
 
       - name: Upload benchmark table
         uses: actions/upload-artifact@v4
         with:
-          name: cnn-hnp-parameter-sweep
+          name: cnn-hnp-quick-sweep-12-seeds
           path: |
             results/tables/cnn-hnp-parameter-sweep.csv
             results/tables/cnn-hnp-parameter-sweep-summary.csv
