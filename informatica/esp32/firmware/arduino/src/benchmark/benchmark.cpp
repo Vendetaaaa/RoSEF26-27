@@ -1,6 +1,6 @@
 #include "benchmark.h"
 #include "../experiment/experiment.h"
-#include <Arduino.h> // pinMode și digitalWrite
+#include <Arduino.h>
 
 namespace rosef {
 

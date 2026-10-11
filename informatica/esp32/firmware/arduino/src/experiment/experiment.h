@@ -10,9 +10,14 @@ struct SignResult {
   uint32_t elapsed_us;
   uint32_t trigger_start_us;
   uint32_t trigger_end_us;
+  bool trigger_enabled;
+  bool trigger_low_readback_ok;
+  bool trigger_high_readback_ok;
 };
 
 void experimentBegin();
+
+void experimentSetTriggerEnabled(bool enabled);
 
 bool experimentSha256(
     const char *message,

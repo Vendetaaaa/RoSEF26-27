@@ -45,8 +45,31 @@ bool detectIna219() {
       continue;
     }
 
-    candidate->setCalibration_32V_2A();
 
+
+
+    candidate->setCalibration_32V_1A();
+
+
+
+
+    delay(10);
+    (void)candidate->getBusVoltage_V();
+    if (!candidate->success()) {
+      delete candidate;
+      continue;
+    }
+    (void)candidate->getShuntVoltage_mV();
+    if (!candidate->success()) {
+      delete candidate;
+      continue;
+    }
+    (void)candidate->getCurrent_mA();
+    if (!candidate->success()) {
+      delete candidate;
+      continue;
+    }
+    (void)candidate->getPower_mW();
     if (!candidate->success()) {
       delete candidate;
       continue;
@@ -77,6 +100,8 @@ void ina219Begin() {
     delete g_ina219;
     g_ina219 = nullptr;
   }
+
+
 
   g_wire_ready = false;
   startWire();
@@ -135,8 +160,11 @@ Ina219Reading ina219Read() {
     return Ina219Reading{};
   }
 
+
+
+  reading.calculated_power_mw = reading.bus_voltage_v * reading.current_ma;
   reading.valid = true;
   return reading;
 }
 
-} 
+}

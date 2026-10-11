@@ -146,7 +146,7 @@ bool testSha256() {
       TEST_HELLO_SHA256) == 0;
 }
 
-}  // namespace
+}
 
 bool selfTestRun() {
   if (!testSha256()) {
@@ -169,4 +169,4 @@ bool selfTestRun() {
 }
 
 
-}  // namespace rosef
+}

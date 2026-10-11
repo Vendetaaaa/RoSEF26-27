@@ -28,7 +28,7 @@ int hexValue(char c) {
 }
 
 int ecpRngCallback(
-    void * /*p_rng*/,
+    void *,
     unsigned char *output,
     size_t output_len) {
 
@@ -101,10 +101,10 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-    /*
-     *   1 <= d < n
-     *   1 <= k < n
-     */
+
+
+
+
     if (!scalarInRange(&d, &group.N)) {
       break;
     }
@@ -113,9 +113,9 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-    /*
-     * R = kG
-    */
+
+
+
     if (mbedtls_ecp_mul(
             &group,
             &point,
@@ -143,9 +143,9 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-    /*
-     * X coordinate.
-     */
+
+
+
     if (mbedtls_mpi_read_binary(
             &x,
             &point_binary[1],
@@ -153,9 +153,9 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-    /*
-     * r = X mod n
-     */
+
+
+
     if (mbedtls_mpi_mod_mpi(
             &r,
             &x,
@@ -167,9 +167,9 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-    /*
-     * s = k^(-1) * (z + r*d) mod n
-     */
+
+
+
     mbedtls_mpi rd;
     mbedtls_mpi numerator;
     mbedtls_mpi k_inv;
