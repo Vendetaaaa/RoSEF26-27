@@ -92,39 +92,32 @@ def solve_hnp(
 ) -> dict:
     t_list, u_list, a_list = build_hnp_inputs(public_by_id, prefixes, sample_ids, leaked_bits)
     solver = HNPLatticeSolver(HNPConfig(leaked_bits=leaked_bits, num_samples=len(sample_ids)))
-    try:
-        relation_ok = solver.verify_expected_vector(private_key, t_list, u_list, a_list)
-    except ValueError:
-        relation_ok = False
-    if not relation_ok:
-        return {
-            "relation_ok": False,
-            "key_recovered": False,
-            "backend": None,
-            "runtime_seconds": None,
-            "error": "expected HNP vector failed embedding validation",
-        }
 
     start = time.perf_counter()
+    recovered = None
+    backend = "unavailable"
+    solve_error = None
     try:
         recovered, backend = solver.solve(
             t_list, u_list, a_list, require_fpylll=require_fpylll
         )
-        elapsed = time.perf_counter() - start
     except RuntimeError as exc:
-        return {
-            "relation_ok": True,
-            "key_recovered": False,
-            "backend": "unavailable",
-            "runtime_seconds": time.perf_counter() - start,
-            "error": str(exc),
-        }
+        solve_error = str(exc)
+    elapsed = time.perf_counter() - start
+
+    try:
+        relation_ok = solver.verify_expected_vector(
+            private_key, t_list, u_list, a_list
+        )
+    except ValueError:
+        relation_ok = False
+
     return {
-        "relation_ok": True,
-        "key_recovered": recovered == private_key,
+        "relation_ok": relation_ok,
+        "key_recovered": solve_error is None and recovered == private_key,
         "backend": backend,
         "runtime_seconds": elapsed,
-        "error": None,
+        "error": solve_error or (None if recovered is not None else "no candidate recovered"),
     }
 
 
