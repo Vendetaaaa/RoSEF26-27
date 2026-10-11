@@ -34,7 +34,7 @@ Această comandă trebuie să ruleze cu backendul `fpylll` și să verifice lan�
 
 `hnp_attack1.py` scrie în `hnp_result.json` backendul efectiv, politica de backend și starea validării. Astfel, o verificare algebrică realizată cu SymPy nu poate fi prezentată accidental drept execuție de referință cu `fpylll`.
 
-În arhiva publică, `informatica/artifacts/oracle_dataset.json` păstrează nonce-urile de test, dar cheia privată de ground truth este redactată. De aceea, Notebook 04 raportează separat `PASS` pentru rularea de referință înregistrată și `NOT EXECUTED` pentru reluarea locală atunci când cheia de ground truth sau `fpylll` nu este disponibilă. Pentru o reluare completă, rulează `python informatica/ECDSA/main.py --require-fpylll` într-un mediu local controlat. Nu publica fișierul oracle rezultat din această rulare.
+În arhiva publică, `informatica/artifacts/oracle_dataset.json` păstrează nonce-urile complete de test, iar câmpul explicit al cheii private este redactat. Nonce-urile complete împreună cu semnăturile permit derivarea cheii sintetice, deci acest fișier este ground truth pentru evaluare, nu date de intrare pentru un atac orb. Codul de atac trebuie să consume datasetul public și prefixele prezise; cheia sintetică se folosește numai după execuția solverului, la evaluare. Notebook 04 raportează separat starea rulării de referință înregistrate și `NOT EXECUTED` pentru reluarea locală atunci când datele necesare nu sunt disponibile. Pentru o reluare completă, rulează `python informatica/ECDSA/main.py --require-fpylll` într-un mediu local controlat și nu publica fișierele oracle generate local cu secrete explicite.
 
 ## Date și split
 
@@ -48,7 +48,7 @@ Fișierul `informatica/artifacts/dataset_split.json` este sursa explicită pentr
 
 ## Benchmarkul cantitativ
 
-Sweep-ul regenerat folosește 100 de seed-uri, de la `1000` la `1099`, 100 de epoci, `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`.
+Sweep-ul înregistrat folosește 100 de seed-uri, de la `1000` la `1099`, 100 de epoci, `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`. CSV-urile existente sunt rezultate istorice: versiunea anterioară a orchestratorului făcea un test de compatibilitate cu cheia de ground truth înainte de LLL, iar timpii pentru acele instanțe nu sunt end-to-end. Codul curent nu mai folosește cheia secretă pentru a decide dacă rulează solverul. Înainte de a cita timpi pentru întregul sweep, regenerează CSV-urile cu versiunea curentă a scriptului.
 
 Pentru a reproduce configurațiile salvate, rulează din rădăcina repository-ului:
 
@@ -70,7 +70,7 @@ Execuția de referință cere `fpylll`. Comanda scrie `results/tables/cnn-hnp-pa
 
 `.github/workflows/tests.yml` verifică importul `fpylll`, rulează pipeline-ul complet cu `--require-fpylll` și cere `hnp = PASS`, `hnp_backend = fpylll`, `fully_executed = true` și recuperarea validată în lanțul CNN către HNP.
 
-`.github/workflows/reproducibility.yml` repetă verificarea de referință. `.github/workflows/benchmark.yml` rulează matricea cantitativă și păstrează rezultatele benchmarkului ca artefact GitHub Actions.
+`.github/workflows/reproducibility.yml` repetă verificarea de referință. `.github/workflows/benchmark.yml` rulează un sweep exploratoriu scurt, cu trei seed-uri, și păstrează rezultatele ca artefact GitHub Actions; nu înlocuiește reproducerea completă pe 100 de seed-uri descrisă mai sus.
 
 ## Verificarea locală
 
