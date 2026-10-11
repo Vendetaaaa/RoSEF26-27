@@ -415,3 +415,6 @@ TODO-private.md
 rosef_tmp/
 rosef_cache/
 *.rosef.tmp
+
+# Local experiment diagnostics and backups
+local_diagnostics/
