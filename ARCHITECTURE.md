@@ -1,16 +1,14 @@
-# Arhitectura proiectului:
+# Arhitectura proiectului
 
-```
+```text
 📁 RoSEF26-27/
 │
 ├── 📁 .github/
-│   ├── 📁 workflows/
-│   │   ├── 📄 benchmark.yml
-│   │   ├── 📄 pages.yml
-│   │   ├── 📄 reproducibility.yml
-│   │   └── 📄 tests.yml
-│   │
-│   └── 📄 pull_request_template.md
+│   └── 📁 workflows/
+│       ├── 📄 benchmark.yml
+│       ├── 📄 pages.yml
+│       ├── 📄 reproducibility.yml
+│       └── 📄 tests.yml
 │
 ├── 📁 docs/
 │   ├── 📄 ethics.md
@@ -24,7 +22,8 @@
 │   └── 📄 research-question.md
 │
 ├── 📁 informatica/
-│   │
+│   ├── 📄 README.md
+│   ├── 📄 __init__.py
 │   ├── 📁 ECDSA/
 │   │   ├── 📄 Lattice_key6.py
 │   │   ├── 📄 cnn_nonce_analysis5.py
@@ -34,67 +33,91 @@
 │   │   ├── 📄 ecdsa_simulator2.py
 │   │   ├── 📄 hnp_attack1.py
 │   │   ├── 📄 hnp_utils.py
+│   │   ├── 📄 independent_verification.py
 │   │   ├── 📄 main.py
 │   │   └── 📄 theory_to_experiment_bridge8.py
 │   │
 │   ├── 📁 artifacts/
+│   │   ├── 📄 README.txt
 │   │   ├── 📄 bridge_results.json
 │   │   ├── 📄 cnn_predictions.json
+│   │   ├── 📄 dataset_metadata.json
+│   │   ├── 📄 dataset_split.json
+│   │   ├── 📄 diophantine_bridge_verification.png
 │   │   ├── 📄 diophantine_results.json
 │   │   ├── 📄 hnp_result.json
 │   │   ├── 📄 oracle_dataset.json
 │   │   ├── 📄 pipeline_results.json
-│   │   ├── 📄 dataset_metadata.json
-│   │   ├── 📄 dataset_split.json
 │   │   ├── 📄 profile_dataset.json
 │   │   ├── 📄 public_dataset.json
-│   │   ├── 🖼️ diophantine_bridge_verification.png
-│   │   ├── 📄 trace_validation_metadata.json
-│   │   └── 📄 README.txt
+│   │   └── 📄 trace_validation_metadata.json
 │   │
 │   ├── 📁 cnn/
 │   │   ├── 📄 config.yaml
 │   │   ├── 📄 evaluate.py
 │   │   ├── 📄 export_weights.py
 │   │   ├── 📄 model.py
+│   │   ├── 📄 model_weights.pth
 │   │   ├── 📄 train.py
-│   │   ├── 📦 model_weights.pth
 │   │   └── 📄 utils.py
 │   │
 │   ├── 📁 dataset/
-│   │   ├── 📁 sample/
-│   │   │   ├── 📄 public_dataset.json
-│   │   │   ├── 📄 profile_dataset.json
-│   │   │   ├── 📄 dataset_metadata.json
-│   │   │   └── 📄 dataset_split.json
-│   │   │
 │   │   ├── 📄 README.md
+│   │   ├── 📄 capture_esp32.py
 │   │   ├── 📄 generate.py
-│   │   └── 📄 capture_esp32.py
+│   │   └── 📁 sample/
+│   │       ├── 📄 dataset_metadata.json
+│   │       ├── 📄 dataset_split.json
+│   │       ├── 📄 profile_dataset.json
+│   │       └── 📄 public_dataset.json
 │   │
 │   ├── 📁 esp32/
-│   │   ├── 📁 firmware/
-│   │   │   ├── 📄 CMakeLists.txt
-│   │   │   ├── 📄 sdkconfig.defaults
-│   │   │   │
-│   │   │   └── 📁 main/
-│   │   │       ├── 📄 CMakeLists.txt
-│   │   │       ├── 📄 main.c
-│   │   │       ├── 📄 ecdsa_exp.c
-│   │   │       └── 📄 ecdsa_exp.h
-│   │   │
-│   │   ├── 📄 README.md
-│   │   └── 📄 protocol.md
+│   │   └── 📁 firmware/
+│   │       └── 📁 arduino/
+│   │           ├── 📄 README.md
+│   │           ├── 📄 main.ino
+│   │           └── 📁 src/
+│   │               ├── 📁 batch/
+│   │               │   ├── 📄 batch.cpp
+│   │               │   └── 📄 batch.h
+│   │               ├── 📁 benchmark/
+│   │               │   ├── 📄 benchmark.cpp
+│   │               │   └── 📄 benchmark.h
+│   │               ├── 📁 button/
+│   │               │   ├── 📄 button.cpp
+│   │               │   └── 📄 button.h
+│   │               ├── 📁 core/
+│   │               │   └── 📄 config.h
+│   │               ├── 📁 crypto/
+│   │               │   ├── 📄 ecdsa_exp.cpp
+│   │               │   └── 📄 ecdsa_exp.h
+│   │               ├── 📁 experiment/
+│   │               │   ├── 📄 experiment.cpp
+│   │               │   └── 📄 experiment.h
+│   │               ├── 📁 ina219/
+│   │               │   ├── 📄 ina219.cpp
+│   │               │   └── 📄 ina219.h
+│   │               ├── 📁 protocol/
+│   │               │   ├── 📄 protocol.cpp
+│   │               │   └── 📄 protocol.h
+│   │               ├── 📁 selftest/
+│   │               │   ├── 📄 selftest.cpp
+│   │               │   └── 📄 selftest.h
+│   │               ├── 📁 test_vectors/
+│   │               │   ├── 📄 test_vectors.cpp
+│   │               │   └── 📄 test_vectors.h
+│   │               └── 📁 ...
 │   │
 │   ├── 📁 experiments/
+│   │   ├── 📄 benchmark_cnn_hnp_ensemble.py
 │   │   ├── 📄 benchmark_cnn_hnp_surface.py
 │   │   ├── 📄 benchmark_hnp_thresholds.py
 │   │   └── 📄 run_experiments.py
 │   │
 │   ├── 📁 lattice/
 │   │   ├── 📄 README.md
-│   │   ├── 📄 solver.py
-│   │   └── 📄 __init__.py
+│   │   ├── 📄 __init__.py
+│   │   └── 📄 solver.py
 │   │
 │   └── 📁 simulator/
 │       ├── 📄 cli.py
@@ -103,25 +126,31 @@
 │       └── 📄 noise.py
 │
 ├── 📁 matematica/
-│   │
+│   ├── 📄 README.md
+│   ├── 📄 k4-k5-verification.md
 │   └── 📁 experiments/
-│       │
-│       ├── 📁 conurenta/
+│       ├── 📁 concurenta/
 │       │   ├── 📁 figs_con/
 │       │   │   └── 🖼️ ...
-│       │   └── 🖼️ ...
+│       │   ├── 📄 01_concurenta_exacta.py
+│       │   ├── 📄 02_near-concurenta.py
+│       │   └── 📄 03_cocurenta-aprox.py
 │       │
-│       ├── 📁 graficele_matematice/
-│       │   ├── 📁 figs_cert/
-│       │   │   └── 🖼️ ...
-│       │   └── 🖼️ ...
-│       │
-│       │
-│       ├── 📄 k4-k5-verification.md
-│       └── 📄 README.md
+│       └── 📁 graficele_matematica/
+│           ├── 📁 figs_cert/
+│           │   └── 🖼️ ...
+│           ├── 📄 01_plan_Vk_retea_rezonanta.py
+│           ├── 📄 02_deltaM_sqrt2.py
+│           ├── 📄 03_deltaM_phi.py
+│           ├── 📄 04_tranzitie_rationala_zero_defect.py
+│           ├── 📄 05_defect_simultan_k4.py
+│           └── ...
 │
 ├── 📁 misc/
-│   └── 🖼️ ...
+│   ├── 🖼️ Echipa.png
+│   ├── 🖼️ LEAKON.png
+│   ├── 🖼️ Team2.jpg
+│   └── 🖼️ qrcode.png
 │
 ├── 📁 notebooks/
 │   ├── 📓 01_data-generation.ipynb
@@ -130,74 +159,82 @@
 │   ├── 📓 04_final-results.ipynb
 │   └── 📓 05_trace-validation.ipynb
 │
-|
 ├── 📁 papers/
-│   ├── 📁 source/
-│   │   ├── 📄 Recovery_of_private_keys.tex
-│   │   ├── 📄 README.md
-|   |   └── 📄 arithmetic_concurrence.tex
-│   │
 │   ├── 📄 Recovery_of_private_keys.pdf
-│   └── 📄 arithmetic_concurrence.pdf
-|
+│   ├── 📄 arithmetic_concurrence.pdf
+│   └── 📁 source/
+│       ├── 📄 README.md
+│       ├── 📄 Recovery_of_private_keys.tex
+│       └── 📄 arithmetic_concurrence.tex
+│
 ├── 📁 results/
+│   ├── 📄 README.md
 │   ├── 📁 figures/
 │   │   └── 🖼️ ...
-│   │
-│   ├── 📄 README.md
+│   ├── 📁 raw/
+│   │   └── 📄 trace-validation-100.npz
 │   ├── 📁 tables/
 │   │   ├── 📄 cnn-hnp-baseline.csv
 │   │   ├── 📄 cnn-hnp-parameter-sweep.csv
 │   │   ├── 📄 cnn-hnp-parameter-sweep-summary.csv
-│   |   ├── 📄 final-results.csv
-│   |   ├── 📄 hnp-oracle-thresholds.csv
-│   |   └── trace-validation-100.csv
-|   |
-│   ├── 📁 raw/
-│       └── 📄 trace-validation-100.npz
-│ 
+│   │   ├── 📄 final-results.csv
+│   │   ├── 📄 hnp-oracle-thresholds.csv
+│   │   └── 📄 trace-validation-100.csv
+│   └── 📁 validation/
+│       └── 📁 ensemble-robust-100-seeds/
+│           ├── 📄 rosef-comparison-100-seeds-summary.csv
+│           └── 📄 rosef-comparison-100-seeds.csv
+│
 ├── 📁 tests/
+│   ├── 📄 test_benchmark_hnp_surface.py
 │   ├── 📄 test_ecdsa.py
 │   ├── 📄 test_hnp.py
+│   ├── 📄 test_hnp_regressions.py
+│   ├── 📄 test_independent_verification.py
 │   ├── 📄 test_math.py
 │   ├── 📄 test_model.py
+│   ├── 📄 test_reference_artifacts.py
 │   ├── 📄 test_simulator.py
 │   └── 📄 test_smoke.py
 │
 ├── 📁 website/
-│   ├── 📄 index.html
 │   ├── 📄 app.js
-│   ├── 📄 styles.css
 │   ├── 📄 data.js
+│   ├── 📄 index.html
+│   ├── 📄 styles.css
 │   ├── 📄 README.md
 │   ├── 📄 DESIGN-HANDOFF.md
-│   │
-│   ├── 📁 paper/ (*)
+│   ├── 📁 paper/
 │   │   └── 📄 Recovery_of_private_keys.pdf
-│   │
 │   └── 📁 source/
-│       ├── 📁 informatica/ (*)
-│       │   ├── 📄 hnp_attack1.py
-│       │   ├── 📄 ecdsa_leakage_model4.py
-│       │   ├── 📄 cnn_utils.py
-│       │   ├── 📄 cnn_model.py
-│       │   ├── 📄 dataset_generator3.py
+│       ├── 📁 informatica/
+│       │   ├── 📄 Lattice_key6.py
 │       │   ├── 📄 cnn_config.yaml
-│       │   └── 📄 Lattice_key6.py
-│       │
-│       └── 📁 results/ (*)
-│           ├── 📄 hnp_result.json
-│           ├── 📄 pipeline_results.json
-│           ├── 📄 dataset_metadata.json
-│           └── 📄 final-results.csv
+│       │   ├── 📄 cnn_model.py
+│       │   ├── 📄 cnn_utils.py
+│       │   ├── 📄 dataset_generator3.py
+│       │   ├── 📄 ecdsa_leakage_model4.py
+│       │   └── 📄 hnp_attack1.py
+│       ├── 📁 results/
+│       │   ├── 📄 dataset_metadata.json
+│       │   ├── 📄 final-results.csv
+│       │   ├── 📄 hnp_result.json
+│       │   └── 📄 pipeline_results.json
+│       ├── 📄 docs_experimental-protocol.md
+│       ├── 📄 docs_methodology.md
+│       ├── 📄 docs_project-overview.md
+│       ├── 📄 docs_project-summary.md
+│       └── 📄 docs_reproducibility.md
+│
 ├── 📄 .gitignore
 ├── 📄 ARCHITECTURE.md
 ├── 📄 CITATION.cff
+├── 📄 CLEANUP_CHANGELOG.md
 ├── 📄 LICENSE
 ├── 📄 Q&A.txt
 ├── 📄 README.md
-└── 📄 requirements.txt
+├── 📄 requirements.txt
+└── 📄 ...
 ```
 
-> Structura se va modifica în timp dacă este necesară
-(*) Este preluat doar ce este nevoie din sistemul deja existent.
+> Structura este actualizată conform repo-ului curent și include fișierele și directoarele existente în acest proiect.
