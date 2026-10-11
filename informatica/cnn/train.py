@@ -56,7 +56,7 @@ def fit_model(
         shuffle=False,
     )
 
-    best_val_bit_accuracy = -1.0
+    best_val_prefix_accuracy = -1.0
     best_state = None
     epochs = int(config["training"]["epochs"])
     for epoch in range(1, epochs + 1):
@@ -87,14 +87,31 @@ def fit_model(
                 val_total += batch_y.numel()
 
         val_bit_accuracy = val_correct / val_total
-        if val_bit_accuracy > best_val_bit_accuracy:
-            best_val_bit_accuracy = val_bit_accuracy
-            best_state = {key: value.detach().clone() for key, value in model.state_dict().items()}
+
+        with torch.no_grad():
+            prefix_predictions = []
+            for vx, vy in val_loader:
+                vlogits = model(vx)
+                prefix_predictions.append(vlogits.argmax(dim=1) == vy)
+
+            prefix_predictions = torch.cat(prefix_predictions)
+            val_prefix_accuracy = float(
+                prefix_predictions.all(dim=1).float().mean().item()
+            )
+
+        if val_prefix_accuracy > best_val_prefix_accuracy:
+            best_val_prefix_accuracy = val_prefix_accuracy
+            best_state = {
+                key: value.detach().clone()
+                for key, value in model.state_dict().items()
+            }
 
         print(
             f"Epoch {epoch:03d}: train_loss={train_loss/train_total:.4f} "
             f"train_acc={100*train_correct/train_total:.2f}% "
-            f"val_loss={val_loss/val_total:.4f} val_acc={100*val_bit_accuracy:.2f}%"
+            f"val_loss={val_loss/val_total:.4f} "
+            f"val_acc={100*val_bit_accuracy:.2f}% "
+            f"prefix_acc={100*val_prefix_accuracy:.2f}%"
         )
 
     if best_state is not None:
