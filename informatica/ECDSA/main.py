@@ -9,6 +9,7 @@ import dataset_generator3
 import ecdsa_leakage_model4
 import diophantine_experiments7
 import hnp_attack1
+import independent_verification
 import theory_to_experiment_bridge8
 from Lattice_key6 import FPYLLL_AVAILABLE, HNPConfig, HNPLatticeSolver
 
@@ -22,16 +23,19 @@ def evaluate_hnp_status(
     private_key: int,
     backend: str | None = None,
     require_fpylll: bool = False,
+    public_key_ok: bool | None = None,
 ) -> str:
-    key_ok = recovered_key is not None and recovered_key == private_key
-    if key_ok and backend == "fpylll":
-        return "PASS"
-    if key_ok:
-        return "PASS_DEVELOPMENT"
+    if recovered_key is not None and public_key_ok is True:
+        if backend == "fpylll":
+            return "PASS"
+        if not require_fpylll:
+            return "PASS_DEVELOPMENT"
+        return "FAIL"
+
     if relation_ok:
         return "VALIDATED"
-    return "FAIL"
 
+    return "FAIL"
 
 def is_hnp_pipeline_pass(results: dict) -> bool:
     return (
@@ -122,12 +126,24 @@ def main(argv: list[str] | None = None) -> int:
         cnn_recovery = hnp_attack1.run_hnp("cnn", 40, require_fpylll=args.require_fpylll)
         hnp_result = json.loads((ARTIFACTS_DIR / "hnp_result.json").read_text(encoding="utf-8"))
 
+    public_key_ok = False
+    if cnn_recovery is not None:
+        public_records = dataset_generator3.load_public_dataset()
+        public_key_ok = independent_verification.verify_candidate(
+            cnn_recovery, public_records
+        )
+        if public_key_ok:
+            print("[PASS] CNN -> HNP candidate independently matches the public key.")
+        else:
+            print("[FAIL] CNN -> HNP candidate does not match the public key.")
+
     hnp_status = evaluate_hnp_status(
         cnn_recovery,
         bool(oracle_hnp["relation_ok"]),
         private_key,
         hnp_result.get("reduction_backend") if hnp_result else None,
         require_fpylll=args.require_fpylll,
+        public_key_ok=public_key_ok,
     )
 
     theory_to_experiment_bridge8.main()
@@ -143,6 +159,7 @@ def main(argv: list[str] | None = None) -> int:
         "hnp": hnp_status,
         "hnp_backend": hnp_result.get("reduction_backend") if hnp_result else None,
         "hnp_key_recovered": bool(cnn_recovery is not None),
+        "hnp_public_key_verified": bool(public_key_ok),
         "oracle_hnp": oracle_hnp,
         "math": math_status,
         "fully_executed": bool(cnn_ran and hnp_status == "PASS"),
@@ -159,6 +176,7 @@ def main(argv: list[str] | None = None) -> int:
         and results["math"] == "PASS"
         and results["hnp"] == "PASS_DEVELOPMENT"
         and results["hnp_key_recovered"]
+        and results["hnp_public_key_verified"]
     )
     print("=" * 80)
     status = "PASS" if required_pass else ("PASS_DEVELOPMENT" if development_pass else "FAIL")
