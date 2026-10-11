@@ -42,3 +42,16 @@ PulseView; firmware cannot determine whether a Logic Analyzer is attached.
 
 The nominal 330-ohm current model is a comparison estimate only, not a calibration.
 The legacy `BATCH <count>` and `BATCH INA219 <count>` commands are unchanged.
+
+## GPIO4-only pulse train
+
+The serial command `SBATCH [count]` generates a GPIO4-only pulse
+train for checking the Logic Analyzer / BUFA trigger path.
+
+- `SBATCH` uses the firmware's default pulse count.
+- `SBATCH 10` requests 10 pulses.
+- The command toggles GPIO 4 only; it does not run ECDSA
+  or read INA219.
+- GPIO 4 is HIGH at idle and returns HIGH after the pulse train.
+- Firmware readback confirms the pin state, not the presence
+  of an externally connected logic analyzer.
