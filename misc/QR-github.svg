@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="512" height="512" viewBox="0 0 512 512" xml:space="preserve">
+<desc>Created with Fabric.js 5.5.2</desc>
+<defs>
+</defs>
+<rect x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+<g clip-path="url(#CLIPPATH_209)"  >
+<g transform="matrix(1 0 0 1 256 256)"  >
+<clipPath id="CLIPPATH_209" >
+		<path transform="matrix(1 0 0 1 256 256) translate(-256, -256)" d="M 56 52.5 C 56 32.34 72.34 16 92.5 16 L 419.5 16 C 439.66 16 456 32.34 456 52.5 L 456 459.5 C 456 479.66 439.66 496 419.5 496 L 92.5 496 C 72.34 496 56 479.66 56 459.5 Z" stroke-linecap="round" />
+</clipPath>
+<g style=""   >
+		<g transform="matrix(1 0 0 1 0 -40)"  >
+<rect style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"  x="-196.5" y="-196.5" rx="33" ry="33" width="393" height="393" />
+</g>
+		<g transform="matrix(1 0 0 1 0 -40)"  >
+<g style=""   >
+		<g transform="matrix(1 0 0 1 0 0)" clip-path="url(#CLIPPATH_201)"  >
+<clipPath id="CLIPPATH_201" >
+	<rect transform="matrix(1 0 0 1 0 0)" id="clip-path-background-color-205" x="-187.5" y="-187.5" rx="0" ry="0" width="375" height="375" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"  x="-187.5" y="-187.5" rx="0" ry="0" width="375" height="375" />
+</g>
+		<g transform="matrix(1 0 0 1 0 0)" clip-path="url(#CLIPPATH_202)"  >
+<clipPath id="CLIPPATH_202" >
+		<rect transform="matrix(1 0 0 1 -60.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 -168.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -156.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -144.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -132.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 -132.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -132.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -132.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -132.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -120.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -120.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -120.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -120.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 -108.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -96.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 -84.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -84.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -84.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -84.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -84.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -108.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 -72.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -108.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 -60.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -108.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -84.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 -48.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 -36.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -84.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 -24.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 -12.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 -0.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -108.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 11.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -84.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 23.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -156.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -84.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 35.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -132.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -12.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 47.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -108.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -84.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 59.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -168.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -144.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -120.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -96.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 71.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 83.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 95.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -36.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 107.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 119.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 131.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -0.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 143.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 167.5 143.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -60.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 23.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 59.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 155.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -72.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -48.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 -24.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 11.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 35.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 47.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 71.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 83.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 95.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 107.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 119.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 131.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 155.5 167.5)" id="clip-path-dot-color-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-187.5" y="-187.5" rx="0" ry="0" width="375" height="375" />
+</g>
+		<g transform="matrix(1 0 0 1 -132.5 -132.5)" clip-path="url(#CLIPPATH_203)"  >
+<clipPath id="CLIPPATH_203" >
+	<path transform="matrix(1 0 0 1 0 0) translate(-55, -55)" id="clip-path-corners-square-color-0-0-205" d="M 13 43 L 13 67 C 13 83.5685424949238 26.431457505076196 97 43 97 L 67 97 C 83.5685424949238 97 97 83.5685424949238 97 67 L 97 43 C 97 26.431457505076196 83.5685424949238 13 67 13 L 43 13 C 26.431457505076196 13 13 26.431457505076196 13 43 M 43 25 L 67 25 C 76.94112549695429 25 85 33.058874503045715 85 43 L 85 67 C 85 76.94112549695429 76.94112549695429 85 67 85 L 43 85 C 33.058874503045715 85 25 76.94112549695429 25 67 L 25 43 C 25 33.058874503045715 33.058874503045715 25 43 25" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-42" y="-42" rx="0" ry="0" width="84" height="84" />
+</g>
+		<g transform="matrix(1 0 0 1 -132.5 -132.5)" clip-path="url(#CLIPPATH_204)"  >
+<clipPath id="CLIPPATH_204" >
+		<path transform="matrix(0 -1 1 0 -12 -12) translate(-43, -43)" id="clip-path-corners-dot-color-0-0-205" d="M 37 37 L 37 49 L 49 49 C 49 42.37258300203048 43.62741699796952 37 37 37" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 -12)" id="clip-path-corners-dot-color-0-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(1 0 0 1 12 -12) translate(-67, -43)" id="clip-path-corners-dot-color-0-0-205" d="M 61 37 L 61 49 L 73 49 C 73 42.37258300203048 67.62741699796952 37 61 37" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 -12 0)" id="clip-path-corners-dot-color-0-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 0 0)" id="clip-path-corners-dot-color-0-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 12 0)" id="clip-path-corners-dot-color-0-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(-1 0 0 -1 -12 12) translate(-43, -67)" id="clip-path-corners-dot-color-0-0-205" d="M 37 61 L 37 73 L 49 73 C 49 66.37258300203048 43.62741699796952 61 37 61" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 12)" id="clip-path-corners-dot-color-0-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(0 1 -1 0 12 12) translate(-67, -67)" id="clip-path-corners-dot-color-0-0-205" d="M 61 61 L 61 73 L 73 73 C 73 66.37258300203048 67.62741699796952 61 61 61" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-18" y="-18" rx="0" ry="0" width="36" height="36" />
+</g>
+		<g transform="matrix(1 0 0 1 131.5 -132.5)" clip-path="url(#CLIPPATH_205)"  >
+<clipPath id="CLIPPATH_205" >
+	<path transform="matrix(0 1 -1 0 0 0) translate(-319, -55)" id="clip-path-corners-square-color-1-0-205" d="M 277 43 L 277 67 C 277 83.5685424949238 290.4314575050762 97 307 97 L 331 97 C 347.5685424949238 97 361 83.5685424949238 361 67 L 361 43 C 361 26.431457505076196 347.5685424949238 13 331 13 L 307 13 C 290.4314575050762 13 277 26.431457505076196 277 43 M 307 25 L 331 25 C 340.94112549695427 25 349 33.058874503045715 349 43 L 349 67 C 349 76.94112549695429 340.94112549695427 85 331 85 L 307 85 C 297.05887450304573 85 289 76.94112549695429 289 67 L 289 43 C 289 33.058874503045715 297.05887450304573 25 307 25" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-42" y="-42" rx="0" ry="0" width="84" height="84" />
+</g>
+		<g transform="matrix(1 0 0 1 131.5 -132.5)" clip-path="url(#CLIPPATH_206)"  >
+<clipPath id="CLIPPATH_206" >
+		<path transform="matrix(0 -1 1 0 -12 -12) translate(-307, -43)" id="clip-path-corners-dot-color-1-0-205" d="M 301 37 L 301 49 L 313 49 C 313 42.37258300203048 307.62741699796953 37 301 37" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 -12)" id="clip-path-corners-dot-color-1-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(1 0 0 1 12 -12) translate(-331, -43)" id="clip-path-corners-dot-color-1-0-205" d="M 325 37 L 325 49 L 337 49 C 337 42.37258300203048 331.62741699796953 37 325 37" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 -12 0)" id="clip-path-corners-dot-color-1-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 0 0)" id="clip-path-corners-dot-color-1-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 12 0)" id="clip-path-corners-dot-color-1-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(-1 0 0 -1 -12 12) translate(-307, -67)" id="clip-path-corners-dot-color-1-0-205" d="M 301 61 L 301 73 L 313 73 C 313 66.37258300203048 307.62741699796953 61 301 61" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 12)" id="clip-path-corners-dot-color-1-0-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(0 1 -1 0 12 12) translate(-331, -67)" id="clip-path-corners-dot-color-1-0-205" d="M 325 61 L 325 73 L 337 73 C 337 66.37258300203048 331.62741699796953 61 325 61" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-18" y="-18" rx="0" ry="0" width="36" height="36" />
+</g>
+		<g transform="matrix(1 0 0 1 -132.5 131.5)" clip-path="url(#CLIPPATH_207)"  >
+<clipPath id="CLIPPATH_207" >
+	<path transform="matrix(0 -1 1 0 0 0) translate(-55, -319)" id="clip-path-corners-square-color-0-1-205" d="M 13 307 L 13 331 C 13 347.5685424949238 26.431457505076196 361 43 361 L 67 361 C 83.5685424949238 361 97 347.5685424949238 97 331 L 97 307 C 97 290.4314575050762 83.5685424949238 277 67 277 L 43 277 C 26.431457505076196 277 13 290.4314575050762 13 307 M 43 289 L 67 289 C 76.94112549695429 289 85 297.05887450304573 85 307 L 85 331 C 85 340.94112549695427 76.94112549695429 349 67 349 L 43 349 C 33.058874503045715 349 25 340.94112549695427 25 331 L 25 307 C 25 297.05887450304573 33.058874503045715 289 43 289" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-42" y="-42" rx="0" ry="0" width="84" height="84" />
+</g>
+		<g transform="matrix(1 0 0 1 -132.5 131.5)" clip-path="url(#CLIPPATH_208)"  >
+<clipPath id="CLIPPATH_208" >
+		<path transform="matrix(0 -1 1 0 -12 -12) translate(-43, -307)" id="clip-path-corners-dot-color-0-1-205" d="M 37 301 L 37 313 L 49 313 C 49 306.37258300203047 43.62741699796952 301 37 301" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 -12)" id="clip-path-corners-dot-color-0-1-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(1 0 0 1 12 -12) translate(-67, -307)" id="clip-path-corners-dot-color-0-1-205" d="M 61 301 L 61 313 L 73 313 C 73 306.37258300203047 67.62741699796952 301 61 301" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 -12 0)" id="clip-path-corners-dot-color-0-1-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 0 0)" id="clip-path-corners-dot-color-0-1-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<rect transform="matrix(1 0 0 1 12 0)" id="clip-path-corners-dot-color-0-1-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(-1 0 0 -1 -12 12) translate(-43, -331)" id="clip-path-corners-dot-color-0-1-205" d="M 37 325 L 37 337 L 49 337 C 49 330.37258300203047 43.62741699796952 325 37 325" stroke-linecap="round" />
+		<rect transform="matrix(1 0 0 1 0 12)" id="clip-path-corners-dot-color-0-1-205" x="-6" y="-6" rx="0" ry="0" width="12" height="12" />
+		<path transform="matrix(0 1 -1 0 12 12) translate(-67, -331)" id="clip-path-corners-dot-color-0-1-205" d="M 61 325 L 61 337 L 73 337 C 73 330.37258300203047 67.62741699796952 325 61 325" stroke-linecap="round" />
+</clipPath>
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: nonzero; opacity: 1;"  x="-18" y="-18" rx="0" ry="0" width="36" height="36" />
+</g>
+</g>
+</g>
+		<g transform="matrix(1 0 0 1 0 0)"  >
+<g style=""   >
+		<g transform="matrix(1 0 0 1 0 0)"  >
+<path style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(127,29,29); fill-rule: evenodd; opacity: 1;"  transform=" translate(-256, -256)" d="M 56 52.5 C 56 32.34 72.34 16 92.5 16 L 419.5 16 C 439.66 16 456 32.34 456 52.5 L 456 459.5 C 456 479.66 439.66 496 419.5 496 L 92.5 496 C 72.34 496 56 479.66 56 459.5 Z M 63 52.5 C 63 36.21 76.21 23 92.5 23 L 419.5 23 C 435.79 23 449 36.21 449 52.5 L 449 379.5 C 449 395.79 435.79 409 419.5 409 L 92.5 409 C 76.21 409 63 395.79 63 379.5 Z" stroke-linecap="round" />
+</g>
+		<g transform="matrix(1 0 0 1 0 196.5)" style=""  >
+		<text xml:space="preserve" font-family="Arial, Helvetica, sans-serif" font-size="48" font-style="normal" font-weight="bold" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-91.99" y="15.08" >GITHUB</tspan></text>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>
