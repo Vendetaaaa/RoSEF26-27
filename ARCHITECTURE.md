@@ -149,8 +149,10 @@
 ├── 📁 misc/
 │   ├── 🖼️ Echipa.png
 │   ├── 🖼️ LEAKON.png
-│   ├── 🖼️ Team2.jpg
-│   └── 🖼️ qrcode.png
+|   ├── 🖼️ QR-github.svg
+|   ├── 🖼️ QR-leakon.svg
+│   └── 🖼️ Team2.jpg
+│ 
 │
 ├── 📁 notebooks/
 │   ├── 📓 01_data-generation.ipynb
