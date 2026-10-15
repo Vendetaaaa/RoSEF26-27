@@ -21,3 +21,12 @@ Pentru partea CNN, benchmarkul variază `ell`, `sigma` și `m` și separă acura
 Partea matematică are o limită explicită. Rezultatul riguros este formulat pentru cazul scalar cu trei familii și transferul exponentului asociat. Extinderea la aproximarea simultană pentru mai mult de trei familii rămâne neacoperită de demonstrația actuală.
 
 Etapa hardware rămâne separată de rezultatele curente. Repository-ul păstrează firmware-ul și protocolul ESP32, dar proiectul nu prezintă măsurători fizice până când acestea nu există.
+
+
+## Model de scurgere și stare curentă
+
+Modelul implicit din `ecdsa_leakage_model4.py` este acum un model temporal sintetic cu memorie de două poziții, nu modelul HW pe prefix care permitea identitatea exactă `HW(prefix_t) - HW(prefix_{t-1}) = b_t`. Modelul temporal este o abstracție de cercetare, nu un model validat al consumului ESP32. Diferențele dintre eșantioane pot conține în continuare informație despre etichetă; de aceea trebuie raportate baseline-uri simple și evaluare pe date independente.
+
+Rezultatele istorice generate cu modelul HW sunt păstrate pentru trasabilitate, dar nu trebuie citate drept rezultate ale configurației implicite actuale. Regenerați datasetul de profil, antrenarea CNN, predicțiile și toate benchmarkurile înainte de a raporta metrici noi.
+
+Contribuția informatică evaluată aici este una experimentală: comparația dintre un model temporal sintetic, clasificarea biților/prefixelor și rezolvarea HNP/LLL în condiții controlate. Nu se afirmă recuperarea unei chei dintr-o urmă fizică ESP32 până când urmele analogice brute și rezultatele end-to-end nu sunt incluse și verificate.
