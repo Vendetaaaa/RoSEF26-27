@@ -51,3 +51,5 @@ Rezultatele raportate aici provin din dataseturi sintetice. Etapa ESP32 este pă
 ## Notă de protocol pentru sweep-ul arhivat
 
 Tabelul a fost generat cu o versiune anterioară a orchestratorului care verifica compatibilitatea cheii sintetice înainte de LLL. Codul curent rulează solverul înainte de verificarea post-hoc. Numărătorile de recuperare păstrate descriu reușitele și eșecurile observate pe setul sintetic; timpii din rândurile sărite de versiunea veche sunt condiționali, nu timpi end-to-end. Regenerează sweep-ul cu scriptul curent înainte de a raporta timpi agregați.
+
+> **Stare metodologică (revizia curentă):** tabelele numerice de mai jos sunt artefacte istorice generate cu modelul sintetic anterior. Modelul implicit din cod a fost schimbat la un model temporal sintetic; aceste cifre nu au fost încă regenerate cu noua configurație și nu trebuie citate drept performanța curentă. Ele sunt păstrate pentru trasabilitate. Niciunul dintre aceste rezultate nu reprezintă recuperare validată din urme fizice ESP32.
