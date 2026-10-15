@@ -29,7 +29,7 @@ Lattice-ul are dimensiunea `m + 2`. `HNPLatticeSolver` construiește embeddingul
 
 ## CNN
 
-`NonceBitCNN` primește două canale pentru trace-ul brut și diferența dintre eșantioane. Pentru configurația de bază, rețeaua prezice cei 12 biți ai prefixului MSB al nonce-ului.
+`NonceBitCNN` primește două canale pentru trace-ul brut și diferența dintre eșantioane. Modelul implicit de generare a urmei este temporal și sintetic: fiecare eșantion combină bitul curent cu doi biți anteriori și zgomot Gaussian. Nu este o simulare fizică validată a ESP32. Modelul HW pe prefix rămâne disponibil numai pentru comparații istorice; în acel model diferențierea urmei ar putea dezvălui direct bitul și, prin urmare, nu trebuie folosită pentru a susține concluzii despre generalizarea side-channel. Pentru configurația de bază, rețeaua prezice cei 12 biți ai prefixului MSB al nonce-ului.
 
 Splitul explicit face ca notebook-urile și scripturile de producție să folosească aceleași ID-uri pentru train, validation și test. Cele 40 de ID-uri din test sunt apoi transmise etapei HNP.
 
@@ -52,7 +52,3 @@ Partea matematică riguroasă acoperă cazul scalar al concurenței pentru trei 
 `PASS` la HNP cere un candidat returnat de LLL care trece validarea completă și, pentru execuția de referință, este obținut cu backendul `fpylll`.
 
 Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` se rulează pe mai multe seed-uri și se raportează prin numărul de încercări și numărul de recuperări. Rezultatele includ separat oracle HNP și CNN → HNP.
-
-## Limitele experimentului
-
-Etapa ESP32 este păstrată separat până la obținerea unor traces fizice și a metadatelor necesare pentru validarea lor.
