@@ -1,3 +1,5 @@
+> **Stare metodologică (revizia curentă):** tabelele numerice de mai jos sunt artefacte istorice generate cu modelul sintetic anterior. Modelul implicit din cod a fost schimbat la un model temporal sintetic; aceste cifre nu au fost încă regenerate cu noua configurație și nu trebuie citate drept performanța curentă. Ele sunt păstrate pentru trasabilitate. Niciunul dintre aceste rezultate nu reprezintă recuperare validată din urme fizice ESP32.
+
 # Rezumatul proiectului
 
 Proiectul nostru urmărește recuperarea informației parțiale despre
@@ -156,3 +158,46 @@ prefixe greșite. Verificarea prin cheia publică reutilizează
 implementarea aritmeticii eliptice din proiect; aceasta nu
 reprezintă o verificare printr-o bibliotecă criptografică
 independentă.
+
+## Validare suplimentară: model temporal și sensibilitatea HNP
+
+Modelul temporal sintetic folosește relația:
+L_i = 0.2*b_i + 0.6*b_(i-1) + 0.2*b_(i-2) + epsilon_i,
+cu zgomot gaussian de deviație standard 0.15.
+
+Benchmarkul folosește 160 de exemple ECDSA, împărțite în
+96 train, 24 validation și 40 test. Cele 100 de seed-uri
+(1400–1499) modifică zgomotul și inițializarea CNN, nu cheia
+privată sau împărțirea datasetului.
+
+### Comparația metodelor
+
+| Metodă | Acuratețe biți | Prefixe exacte |
+|---|---:|---:|
+| Threshold | 54.41% | 0.00% |
+| Viterbi | 93.95% | 56.55% |
+| CNN raw | 85.66% | 12.85% |
+| CNN diff | 69.49% | 2.02% |
+| CNN both | 88.86% | 24.95% |
+
+Viterbi utilizează coeficienții cunoscuți ai modelului
+temporal, reprezentând un baseline informat despre canal.
+
+### Sensibilitatea HNP la erori
+
+În experimentul cu 40 de semnături și 12 biți MSB:
+- 0 prefixe greșite: standard 10/10, robust 10/10;
+- 1 prefix greșit: standard 0/10, robust 10/10;
+- 2 sau mai multe prefixe greșite: ambele metode 0/10
+  în configurațiile testate.
+
+### Selecția după încrederea CNN
+
+Pentru 20 de semnături, selecția după încredere a obținut
+35.30% prefixe exacte, comparativ cu 23.80% pentru
+selecția aleatoare. Îmbunătățirea nu a fost suficientă
+pentru recuperarea cheii în configurația temporală evaluată.
+
+Aceste rezultate sunt distincte de experimentul cu
+ensemble CNN și HNP robust pe modelul cumulativ,
+unde recuperarea cheii a reușit în 90/100 cazuri.

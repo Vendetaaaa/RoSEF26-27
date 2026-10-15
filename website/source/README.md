@@ -1,0 +1,112 @@
+<div align="center">
+
+# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
+
+<p align="center">
+    <img src="misc/LEAKON.png" height="250" alt="LEAKON" />
+</p>
+
+### [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
+
+### [Showroom LEAKON](https://leakon.tech/)
+
+</div>
+
+</br>
+
+## Structura proiectului:
+
+### Pentru a vedea structura completă accesează: [ARCHITECTURE.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/ARCHITECTURE.md)
+
+```text
+📁 RoSEF26-27/
+├── 📁 .github/
+├── 📁 docs/
+├── 📁 informatica/
+├── 📁 matematica/
+├── 📁 misc/
+├── 📁 notebooks/
+├── 📁 papers/
+├── 📁 results/
+├── 📁 tests/
+├── 📁 website/
+├── 📄 .gitignore
+├── 📄 ARCHITECTURE.md
+├── 📄 CITATION.cff
+├── 📄 LICENSE (MIT)
+├── 📄 README.md - YOU ARE HERE 🙌
+├── 📄 Q&A.txt
+└── 📄 requirements.txt
+
+Pentru mai multe informații accesați README.md din fiecare folder
+```
+
+### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
+
+---
+
+# Ideea centrală
+
+Proiectul de cercetare "arithmetic_concurrence" din [papers/arithmetic_concurrence.pdf](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/papers/arithmetic_concurrence.pdf) demonstrează două teoreme exacte despre concurența a k
+familii de drepte generate de parametri mărginiți: concurența apare doar când există o relație rațională forțată între pante (1), iar pentru k familii generice, condiția devine tot mai rigidă și mai improbabilă pe măsură ce k crește (2).
+
+Această problemă se aseamănă foarte mult cu cea din atacurile asupra semnăturii criptografice [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm): HNP ( [Hidden Number Problem](https://github.com/kelbyludwig/notebooks/blob/master/The%20Hidden%20Number%20Problem.ipynb) ) folosit pentru a ataca și recupera sute de chei private reale Bitcoin, Ethereum și SSH prin scurgerile minore de informație de nonce (Breitner și Heninger, 2019, „Biased Nonce Sense”).
+
+Așadar noi urmărim:
+
+```mermaid
+flowchart LR
+    A["① Teoria aritmetică<br/><br/>Concurență exactă → defect →<br/>aproximare diofantică<br/><br/>Condițiile problemei"]
+    --> B["② Modelul de scurgere<br/><br/>Urme sintetice cu zgomot<br/>și model de scurgere controlat"]
+    --> C["③ Rețeaua neuronală<br/><br/>CNN 1D mic → estimează<br/>informație discretă din<br/>urme zgomotoase"]
+    --> D["④ HNP + lattice<br/><br/>Informația estimată → HNP<br/>→ reducere LLL<br/>→ test de recuperare pe<br/>chei generate de echipă"]
+    --> E["⑤ Validare și interpretare<br/><br/>Variază numărul de semnături,<br/>acuratețea CNN și nivelul de zgomot<br/>→ compară cu literatura relevantă"]
+
+    classDef step fill:#eef5fb,stroke:#174d7a,stroke-width:2px,color:#102b43;
+    classDef final fill:#e8f1f8,stroke:#174d7a,stroke-width:2px,color:#102b43;
+
+    class A,B,C,D step;
+    class E final;
+```
+
+# Transpunerea din software în hardware
+
+Rularea curentă folosește traces sintetice generate în Python. Etapa următoare este capturarea unor traces fizice pe ESP32 și evaluarea lor cu același CNN.
+
+```text
+În software noi vom:
+    1. genera cheia și nonce-ul
+    2. executare ECDSA
+    3. calcularea modelului HW/HD
+    4. adăugarea zgomotului artificial
+Pentru etapa hardware planificată:
+    1. cheia & nonce-ul este procesat de microcontroler
+    2. implementare ECDSA
+    3. măsurarea consumului electric sau semnal EM ( sau ambele )
+    4. obținere de trace real
+    5. trace-ul devine input pentru CNN
+```
+
+Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
+
+<div align="center">
+
+### Code. Collaborate. Enjoy!
+
+### #HappyCoding
+
+</div>
+
+---
+
+**Vrei să ne susții? Ai mai multe opțiuni!**
+1. "Star" sau "Watch" acest proiect!
+2. Follow [Vendeta](https://github.com/Vendetaaaa) și [RaresInsine](https://github.com/RaresInsine)
+3. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
+4. Partajează codurile QR!
+
+<p align="center">
+    <img src="misc/QR-github.svg" width="25%" alt="CodeQR1" />
+    <img src="misc/Team2.jpg" width="38%" alt="TEAM" />
+    <img src="misc/QR-leakon.svg" width="25%" alt="CodeQR2" />
+</p>
