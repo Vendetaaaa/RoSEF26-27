@@ -8,3 +8,5 @@ pyyaml>=6.0,<7
 sympy>=1.12,<2
 cysignals>=1.11,<2
 fpylll>=0.6.4,<0.7
+cryptography>=42,<47
+pyserial>=3.5,<4
