@@ -13,7 +13,7 @@ from dataset_generator3 import CURVE, load_ground_truth, load_public_dataset
 ARTIFACTS_DIR = Path(__file__).resolve().parents[1] / "artifacts"
 PROFILE_DATASET_PATH = ARTIFACTS_DIR / "profile_dataset.json"
 
-LEAKAGE_MODE = "HW"
+LEAKAGE_MODE = "TEMPORAL"
 LEAKAGE_ALPHA = 1.0
 NOISE_SIGMA = 0.50
 PROFILE_NOISE_SIGMA = 0.15
@@ -38,18 +38,22 @@ def integer_to_bits(value: int, width: int) -> List[int]:
 
 def generate_clean_leakage(nonce_k: int, width: int, mode: str = LEAKAGE_MODE, alpha: float = LEAKAGE_ALPHA) -> List[float]:
     mode = mode.upper()
-    if mode not in {"HW", "HD"}:
-        raise ValueError("mode must be HW or HD.")
+    if mode not in {"HW", "HD", "TEMPORAL"}:
+        raise ValueError("mode must be HW, HD, or TEMPORAL.")
     bits = integer_to_bits(nonce_k, width)
     trace: List[float] = []
     prefix = 0
     previous_prefix = 0
-    for bit in bits:
+    for index, bit in enumerate(bits):
         prefix = (prefix << 1) | bit
         if mode == "HW":
             leakage = alpha * hamming_weight(prefix)
-        else:
+        elif mode == "HD":
             leakage = alpha * hamming_distance(previous_prefix, prefix)
+        else:
+            previous = bits[index - 1] if index >= 1 else 0
+            previous_two = bits[index - 2] if index >= 2 else 0
+            leakage = alpha * (0.2 * bit + 0.6 * previous + 0.2 * previous_two)
         trace.append(float(leakage))
         previous_prefix = prefix
     return trace
@@ -73,6 +77,21 @@ def estimate_snr_db(clean_trace: List[float], sigma: float) -> float:
 
 def classify_bits(noisy_trace: List[float], width: int, mode: str = LEAKAGE_MODE, alpha: float = LEAKAGE_ALPHA) -> List[Tuple[int, float]]:
     mode = mode.upper()
+    if mode == "TEMPORAL":
+        states: dict[tuple[int, int], tuple[float, list[int]]] = {(0, 0): (0.0, [])}
+        for observed in noisy_trace[:width]:
+            next_states: dict[tuple[int, int], tuple[float, list[int]]] = {}
+            for (previous, previous_two), (cost, bits_so_far) in states.items():
+                for bit in (0, 1):
+                    expected = alpha * (0.2 * bit + 0.6 * previous + 0.2 * previous_two)
+                    candidate_cost = cost + (observed - expected) ** 2
+                    state = (bit, previous)
+                    if state not in next_states or candidate_cost < next_states[state][0]:
+                        next_states[state] = (candidate_cost, bits_so_far + [bit])
+            states = next_states
+        best_bits = min(states.values(), key=lambda item: item[0])[1]
+        return [(bit, 0.0) for bit in best_bits]
+
     guessed_prefix = 0
     previous_prefix = 0
     results: List[Tuple[int, float]] = []

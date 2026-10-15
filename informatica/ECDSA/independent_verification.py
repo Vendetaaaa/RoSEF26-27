@@ -1,29 +1,47 @@
-from dataset_generator3 import CURVE, Point, is_on_curve, scalar_mult
+from __future__ import annotations
+
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import ec, utils
+
+from dataset_generator3 import CURVE
 
 
 def verify_candidate(candidate_private_key: int, public_records: list[dict]) -> bool:
-    """Return True only if candidate * G matches the dataset's public key."""
     if isinstance(candidate_private_key, bool) or not isinstance(candidate_private_key, int):
         return False
     if not 1 <= candidate_private_key < CURVE.n or not public_records:
         return False
 
     try:
-        public_keys = []
+        candidate = ec.derive_private_key(candidate_private_key, ec.SECP256K1())
+        candidate_numbers = candidate.public_key().public_numbers()
+        first_key = public_records[0]["public_key"]
+        if not isinstance(first_key, dict) or first_key.get("curve") != "secp256k1":
+            return False
+        expected_x, expected_y = int(first_key["x"], 16), int(first_key["y"], 16)
+        if (candidate_numbers.x, candidate_numbers.y) != (expected_x, expected_y):
+            return False
+        public_key = ec.EllipticCurvePublicNumbers(
+            expected_x, expected_y, ec.SECP256K1()
+        ).public_key()
+
         for record in public_records:
-            key = record["public_key"]
+            key = record.get("public_key")
             if not isinstance(key, dict) or key.get("curve") != "secp256k1":
                 return False
-            point = Point(int(key["x"], 16), int(key["y"], 16))
-            if not is_on_curve(CURVE, point) or point.is_infinity:
+            if (int(key["x"], 16), int(key["y"], 16)) != (expected_x, expected_y):
                 return False
-            public_keys.append(point)
-    except (AttributeError, KeyError, TypeError, ValueError):
+            r, s = int(record["r"]), int(record["s"])
+            if not (1 <= r < CURVE.n and 1 <= s < CURVE.n):
+                return False
+            message = record["message"]
+            if isinstance(message, str):
+                message = message.encode("utf-8")
+            if not isinstance(message, bytes):
+                return False
+            der_signature = utils.encode_dss_signature(r, s)
+            public_key.verify(der_signature, message, ec.ECDSA(hashes.SHA256()))
+        return True
+    except (InvalidSignature, ValueError, TypeError, KeyError, AttributeError, OverflowError):
         return False
-
-    expected_public_key = public_keys[0]
-    if any(point != expected_public_key for point in public_keys[1:]):
-        return False
-
-    candidate_public_key = scalar_mult(CURVE, candidate_private_key, CURVE.G)
-    return candidate_public_key == expected_public_key
