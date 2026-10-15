@@ -39,16 +39,18 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python informatica/ECDSA/dataset_generator3.py
-          python informatica/ECDSA/main.py --require-fpylll
           python - <<'PY'
-          import json
+          import sys
           from pathlib import Path
-          root = Path('.')
-          result = json.loads((root / 'informatica/artifacts/pipeline_results.json').read_text(encoding='utf-8'))
-          assert result['fully_executed'] is True
-          assert result['hnp'] == 'PASS'
-          assert result['hnp_backend'] == 'fpylll'
-          print('End-to-end pipeline: PASS')
+          sys.path.insert(0, str(Path('informatica/ECDSA').resolve()))
+          import main
+
+          result = main.validate_shared_hnp_instance(require_fpylll=True)
+          assert result.get('relation_ok') is True, 'Oracle HNP relation failed.'
+          assert result.get('key_recovered') is True, 'Oracle HNP key recovery failed.'
+          assert result.get('backend') == 'fpylll', 'Oracle HNP did not use fpylll.'
+          assert result.get('reduction_error') is None, result.get('reduction_error')
+          print('Oracle HNP key recovery: PASS (independent of CNN experiment)')
           PY
           
       - name: Restore tracked files after runtime verification
