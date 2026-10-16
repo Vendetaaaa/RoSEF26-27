@@ -51,6 +51,7 @@ Tabelul a fost generat cu o versiune anterioară a orchestratorului care verific
 ## Partea publicului
 
 Acest proiect a fost copiat "git clone" de 1500 în ultimile 2 săptămâni ( ceea ce adaugă aproximativ 6.3k )
+
 De asemenea a fost vizionat de 650 tot în ultimile 2 săptămâni ( echivalent la 2.8k personae unice )
 
-Vă Mulțumim! <3333333
+# Vă Mulțumim! <3333333
