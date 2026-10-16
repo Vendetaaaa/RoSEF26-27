@@ -1,4 +1,4 @@
-# Etica și utilizarea responsabilă a codurilor
+# Etica și utilizarea responsabilă a codurilor - preluat din ethics.md
 
 ## Scopul principal al acestui proiect:
 
