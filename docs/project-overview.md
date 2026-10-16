@@ -27,7 +27,3 @@ Tabelul detaliat este `results/tables/cnn-hnp-parameter-sweep.csv`, rezumatul ag
 ## Limita matematică
 
 Partea matematică riguroasă acoperă cazul scalar cu trei familii și transferul exponentului asociat. Codul conține experimente pentru familii suplimentare, dar acestea nu trebuie prezentate ca o demonstrație riguroasă a cazului general de aproximare simultană pentru `k > 3`.
-
-## Etapa hardware
-
-Firmware-ul și protocolul ESP32 sunt păstrate în repository, dar etapa hardware nu face parte din rezultatele curente.
