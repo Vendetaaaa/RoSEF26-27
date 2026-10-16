@@ -52,7 +52,3 @@ Partea matematică riguroasă acoperă cazul scalar al concurenței pentru trei 
 `PASS` la HNP cere un candidat returnat de LLL care trece validarea completă și, pentru execuția de referință, este obținut cu backendul `fpylll`.
 
 Pentru benchmarkuri, o singură rulare nu este suficientă pentru o rată de succes. Matricea `(ell, sigma, m)` se rulează pe mai multe seed-uri și se raportează prin numărul de încercări și numărul de recuperări. Rezultatele includ separat oracle HNP și CNN → HNP.
-
-## Limitele experimentului
-
-Etapa ESP32 este păstrată separat până la obținerea unor traces fizice și a metadatelor necesare pentru validarea lor. Captura serială `SCOPECAP` salvează metadate și nu înlocuiește fișierul de formă de undă produs de osciloscop/DAQ. Niciun rezultat CNN→HNP nu trebuie etichetat hardware-validat până când capturile fizice nu sunt sincronizate, preprocesate și evaluate pe un set de test separat.
