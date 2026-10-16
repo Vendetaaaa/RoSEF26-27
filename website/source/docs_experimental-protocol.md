@@ -41,7 +41,3 @@ Fișierul `informatica/experiments/benchmark_cnn_hnp_surface.py` a produs sweep-
 Rezultatele detaliate sunt în `results/tables/cnn-hnp-parameter-sweep.csv`, iar agregările pe cele 20 de configurații sunt în `results/tables/cnn-hnp-parameter-sweep-summary.csv`. Rezultatele oracle sunt în `results/tables/hnp-oracle-thresholds.csv`, fără valori de chei private publicate.
 
 Ratele de recuperare diferă între configurații. Un rezultat de recuperare fals înseamnă că acea configurație nu a recuperat cheia, nu că testul software al pipeline-ului a eșuat.
-
-## Hardware
-
-Etapa hardware rămâne neexecutată până când există traces fizice și metadata verificabile. Niciun rezultat din partea sintetică nu este prezentat drept măsurătoare ESP32.
