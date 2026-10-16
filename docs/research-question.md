@@ -29,4 +29,4 @@ Modelul implicit din `ecdsa_leakage_model4.py` este acum un model temporal sinte
 
 Rezultatele istorice generate cu modelul HW sunt păstrate pentru trasabilitate, dar nu trebuie citate drept rezultate ale configurației implicite actuale. Regenerați datasetul de profil, antrenarea CNN, predicțiile și toate benchmarkurile înainte de a raporta metrici noi.
 
-Contribuția informatică evaluată aici este una experimentală: comparația dintre un model temporal sintetic, clasificarea biților/prefixelor și rezolvarea HNP/LLL în condiții controlate. Nu se afirmă recuperarea unei chei dintr-o urmă fizică ESP32 până când urmele analogice brute și rezultatele end-to-end nu sunt incluse și verificate.
+Contribuția informatică evaluată aici este una experimentală: comparația dintre un model temporal sintetic, clasificarea biților/prefixelor și rezolvarea HNP/LLL în condiții controlate.
