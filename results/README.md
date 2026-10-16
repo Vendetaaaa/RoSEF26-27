@@ -47,3 +47,10 @@ Tabelul `results/tables/hnp-oracle-thresholds.csv` conține rezultatele oracle p
 ## Notă de protocol pentru sweep-ul arhivat
 
 Tabelul a fost generat cu o versiune anterioară a orchestratorului care verifica compatibilitatea cheii sintetice înainte de LLL. Codul curent rulează solverul înainte de verificarea post-hoc. Numărătorile de recuperare păstrate descriu reușitele și eșecurile observate pe setul sintetic; timpii din rândurile sărite de versiunea veche sunt condiționali, nu timpi end-to-end. Regenerează sweep-ul cu scriptul curent înainte de a raporta timpi agregați.
+
+## Partea publicului
+
+Acest proiect a fost copiat "git clone" de 1500 în ultimile 2 săptămâni ( ceea ce adaugă aproximativ 6.3k )
+De asemenea a fost vizionat de 650 tot în ultimile 2 săptămâni ( echivalent la 2.8k personae unice )
+
+Vă Mulțumim! <3333333
