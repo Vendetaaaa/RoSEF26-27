@@ -55,3 +55,8 @@ Acest proiect a fost copiat "git clone" de 1200 în ultimile 2 săptămâni ( ce
 De asemenea a fost vizionat de 430 tot în ultimile 2 săptămâni ( echivalent la 2.8k personae unice )
 
 # Vă Mulțumim! <3333333
+
+<p align="center">
+    <img src="../misc/Github2.png" width="40%" alt="Github1" />
+    <img src="../misc/Github1.png" width="40%" alt="Github2" />
+</p>
