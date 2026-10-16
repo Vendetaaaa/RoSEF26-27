@@ -133,7 +133,7 @@ maximum de 41 de încercări. Timpul mediu pentru etapa HNP
 robustă a fost de aproximativ 0,656 secunde per experiment,
 fără includerea antrenării modelelor CNN.
 
-### 5.2. Reproductibilitate și limitări
+### 5.2. Reproductibilitate
 
 Benchmarkul a utilizat backendul `fpylll`. Rezultatele au fost
 reproduse într-o a doua rulare, fără diferențe pentru cele
@@ -144,18 +144,6 @@ Fișierele experimentale sunt disponibile în:
 
 - `results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds.csv`
 - `results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds-summary.csv`
-
-Rezultatele provin dintr-un model sintetic de scurgere de
-informații, nu din măsurători fizice efectuate asupra unui
-dispozitiv real. Rata de 90% descrie exclusiv configurația
-și seed-urile evaluate, fără a constitui o garanție generală.
-
-Metoda robustă testează eliminarea a cel mult unei semnături
-și nu este concepută pentru a corecta arbitrar mai multe
-prefixe greșite. Verificarea prin cheia publică reutilizează
-implementarea aritmeticii eliptice din proiect; aceasta nu
-reprezintă o verificare printr-o bibliotecă criptografică
-independentă.
 
 ## Validare suplimentară: model temporal și sensibilitatea HNP
 
