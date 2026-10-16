@@ -12,11 +12,14 @@ namespace rosef {
 
 namespace {
 
+ 
+
+
 uint8_t g_private_key[32];
 uint8_t g_default_nonce[32];
 bool g_trigger_enabled = true;
 
-}
+}   
 
 void experimentBegin() {
   memcpy(g_private_key, TEST_PRIVATE_KEY, sizeof(g_private_key));
@@ -29,6 +32,8 @@ void experimentBegin() {
 
 void experimentSetTriggerEnabled(bool enabled) {
   g_trigger_enabled = enabled;
+   
+   
   pinMode(TRIGGER_GPIO, OUTPUT);
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
 }
@@ -63,6 +68,10 @@ bool experimentSignDigest(
 
   const uint32_t start_us = micros();
 
+   
+   
+   
+   
   const bool trigger_enabled = g_trigger_enabled;
   result.trigger_enabled = trigger_enabled;
   if (trigger_enabled) {
@@ -81,6 +90,7 @@ bool experimentSignDigest(
       result.r,
       result.s);
 
+   
   if (trigger_enabled) {
     digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
     result.trigger_high_readback_ok =

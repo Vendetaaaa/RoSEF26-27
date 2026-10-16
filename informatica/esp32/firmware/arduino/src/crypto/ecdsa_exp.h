@@ -4,6 +4,14 @@
 
 namespace rosef {
 
+ 
+
+
+
+
+
+
+
 int ecdsa_sign_fixed_k(
     const uint8_t private_key[32],
     const uint8_t nonce[32],
@@ -11,6 +19,8 @@ int ecdsa_sign_fixed_k(
     uint8_t r_out[32],
     uint8_t s_out[32]);
 
+ 
+ 
 bool ecdsa_verify_with_private_key(
     const uint8_t private_key[32],
     const uint8_t digest[32],

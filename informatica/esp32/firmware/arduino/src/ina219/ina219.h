@@ -9,9 +9,9 @@ struct Ina219Reading {
   float bus_voltage_v = 0.0f;
   float shunt_voltage_mv = 0.0f;
   float current_ma = 0.0f;
-
+   
   float power_mw = 0.0f;
-
+   
   float calculated_power_mw = 0.0f;
   bool valid = false;
 };

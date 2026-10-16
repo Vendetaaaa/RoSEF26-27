@@ -45,14 +45,14 @@ bool detectIna219() {
       continue;
     }
 
-
-
-
+     
+     
+     
     candidate->setCalibration_32V_1A();
 
-
-
-
+     
+     
+     
     delay(10);
     (void)candidate->getBusVoltage_V();
     if (!candidate->success()) {
@@ -101,8 +101,8 @@ void ina219Begin() {
     g_ina219 = nullptr;
   }
 
-
-
+   
+   
   g_wire_ready = false;
   startWire();
   detectIna219();
@@ -160,11 +160,11 @@ Ina219Reading ina219Read() {
     return Ina219Reading{};
   }
 
-
-
+   
+   
   reading.calculated_power_mw = reading.bus_voltage_v * reading.current_ma;
   reading.valid = true;
   return reading;
 }
 
-}
+}   

@@ -17,6 +17,7 @@
 #include "../selftest/selftest.h"
 #include "../batch/batch.h"
 #include "../button/button.h"
+#include "../rgbled/rgbled.h"
 #include "../test_vectors/test_vectors.h"
 
 namespace rosef {
@@ -27,18 +28,112 @@ char line[MAX_SERIAL_LINE];
 size_t line_length = 0;
 bool discarding_overlong_line = false;
 
+ 
+ 
+ 
+bool g_command_failed = false;
+bool g_showing_command_result = false;
+uint32_t g_command_result_until_ms = 0;
+uint32_t g_last_rgb_health_check_ms = 0;
+uint32_t g_last_red_blink_ms = 0;
+bool g_rgb_hardware_ready = false;
+bool g_red_blink_on = false;
+constexpr uint32_t RGB_RESULT_DISPLAY_MS = 1400;
+constexpr uint32_t RGB_HEALTH_CHECK_MS = 2500;
+constexpr uint32_t RGB_RED_BLINK_MS = 250;
 
+void commandFailureLine(const __FlashStringHelper *message) {
+  g_command_failed = true;
+  Serial.println(message);
+}
 
+void commandFailurePrefix(const __FlashStringHelper *message) {
+  g_command_failed = true;
+  Serial.print(message);
+}
 
+void finishCommandRgbStatus() {
+  if (g_command_failed) {
+    rgbLedSetFail();
+  } else {
+    rgbLedSetPass();
+  }
+  g_showing_command_result = true;
+  g_command_result_until_ms = millis() + RGB_RESULT_DISPLAY_MS;
+}
 
+bool checkRgbHardwareReady() {
+   
+   
+  pinMode(TRIGGER_GPIO, OUTPUT);
+  digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
+  bool ina_ok = false;
+  if (!ina219Available()) {
+    if (ina219FindOnce()) {
+      ina_ok = ina219Read().valid;
+    }
+  } else {
+    ina_ok = ina219Read().valid;
+    if (!ina_ok && ina219FindOnce()) {
+      ina_ok = ina219Read().valid;
+    }
+  }
+  const bool trigger_ok = digitalRead(TRIGGER_GPIO) == TRIGGER_IDLE_LEVEL;
+   
+   
+  g_rgb_hardware_ready = ina_ok || trigger_ok;
+  return g_rgb_hardware_ready;
+}
 
+void updateIdleRgbStatus() {
+  if (g_showing_command_result) {
+    if (static_cast<int32_t>(millis() - g_command_result_until_ms) < 0) {
+      return;
+    }
+    g_showing_command_result = false;
+     
+    g_last_rgb_health_check_ms = 0;
+  }
 
+  const uint32_t now = millis();
+  if (g_last_rgb_health_check_ms == 0 ||
+      static_cast<uint32_t>(now - g_last_rgb_health_check_ms) >= RGB_HEALTH_CHECK_MS) {
+    g_last_rgb_health_check_ms = now;
+    if (checkRgbHardwareReady()) {
+      g_red_blink_on = false;
+      rgbLedSetIdle();
+    } else {
+       
+      g_red_blink_on = true;
+      g_last_red_blink_ms = now;
+      rgbLedSetFail();
+    }
+  }
 
+  if (!g_rgb_hardware_ready &&
+      static_cast<uint32_t>(now - g_last_red_blink_ms) >= RGB_RED_BLINK_MS) {
+    g_last_red_blink_ms = now;
+    g_red_blink_on = !g_red_blink_on;
+    if (g_red_blink_on) {
+      rgbLedSetFail();
+    } else {
+      rgbLedSetOff();
+    }
+  }
+}
 
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 constexpr uint8_t TEST_PINS[] = {
   4,
@@ -62,11 +157,11 @@ void handleTestPR() {
 
     pinMode(pin, OUTPUT);
 
-
+     
     digitalWrite(pin, LOW);
     delay(100);
 
-
+     
     Serial.print(F("TEST GPIO="));
     Serial.print(pin);
     Serial.println(F(" HIGH"));
@@ -74,7 +169,7 @@ void handleTestPR() {
     digitalWrite(pin, HIGH);
     delay(1000);
 
-
+     
     digitalWrite(pin, LOW);
 
     Serial.print(F("TEST GPIO="));
@@ -84,21 +179,21 @@ void handleTestPR() {
     delay(500);
   }
 
-
-
+   
+   
   pinMode(TRIGGER_GPIO, OUTPUT);
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
   buttonBegin();
 
-  Serial.println(F("TESTPR END (GPIO4=IDLE_HIGH GPIO18=INPUT_PULLUP)"));
+  Serial.println(F("TESTPR END (GPIO4=IDLE_HIGH GPIO27=INPUT_PULLUP)"));
 }
 
 constexpr uint32_t MAX_PULSE_US = 1000000;
 
 void printIntro() {
-
-
-
+   
+   
+   
   Serial.println();
   Serial.println(F("+==========================================================================+"));
   Serial.println(F("|                    ROSEF ESP32 - COMMAND CONSOLE                         |"));
@@ -119,7 +214,7 @@ void printIntro() {
   Serial.println(F("  FINAL                               Capture ONE test-key ECDSA operation + INA219 samples"));
   Serial.println(F("  SELFTEST                            Run ECDSA/self-test checks (no trigger pulses)"));
   Serial.println(F("  TESTPR                              Toggle diagnostic GPIOs; restores GPIO4 and button"));
-  Serial.println(F("  BUTTON                              Read GPIO18 button state"));
+  Serial.println(F("  BUTTON                              Read GPIO27 button state"));
   Serial.println(F("  BUTTON_EVENT                        Read and clear latched button-press event"));
   Serial.println();
 
@@ -321,6 +416,10 @@ void printSignResult(
 
   Serial.print(F(" DT_US="));
   Serial.print(result.elapsed_us);
+  if (result.trigger_enabled &&
+      (!result.trigger_low_readback_ok || !result.trigger_high_readback_ok)) {
+    g_command_failed = true;
+  }
   if (!result.trigger_enabled) {
     Serial.println(F(" TRIGGER=SUPPRESSED"));
   } else {
@@ -334,11 +433,11 @@ void printSignResult(
 void signWithDigest(const uint8_t digest[32], const uint8_t nonce[32]) {
   SignResult result{};
   if (!experimentSignDigest(digest, nonce, result)) {
-    Serial.println(F("ERR SIGN_FAILED"));
+    commandFailureLine(F("ERR SIGN_FAILED"));
     return;
   }
   if (!experimentVerifyDigest(digest, result)) {
-    Serial.println(F("ERR SIGN_VERIFY_FAILED"));
+    commandFailureLine(F("ERR SIGN_VERIFY_FAILED"));
     return;
   }
   printSignResult(result);
@@ -346,21 +445,21 @@ void signWithDigest(const uint8_t digest[32], const uint8_t nonce[32]) {
 
 void handleSignMessage(const char *message, const uint8_t nonce[32]) {
   if (message == nullptr || *message == '\0') {
-    Serial.println(F("ERR EMPTY_MESSAGE"));
+    commandFailureLine(F("ERR EMPTY_MESSAGE"));
     return;
   }
   uint8_t digest[32];
   if (!experimentSha256(message, digest)) {
-    Serial.println(F("ERR SHA256_FAILED"));
+    commandFailureLine(F("ERR SHA256_FAILED"));
     return;
   }
   SignResult result{};
   if (!experimentSignDigest(digest, nonce, result)) {
-    Serial.println(F("ERR SIGN_FAILED"));
+    commandFailureLine(F("ERR SIGN_FAILED"));
     return;
   }
   if (!experimentVerifyDigest(digest, result)) {
-    Serial.println(F("ERR SIGN_VERIFY_FAILED"));
+    commandFailureLine(F("ERR SIGN_VERIFY_FAILED"));
     return;
   }
   printSignResult(result);
@@ -370,7 +469,7 @@ void handleSetK(const char *hex) {
   uint8_t candidate[32];
   if (!hexToBytes(hex, candidate, sizeof(candidate)) ||
       !scalarIsInSecp256k1Range(candidate)) {
-    Serial.println(F("ERR BAD_K (requires exactly 64 hex chars and 1 <= K < curve order)"));
+    commandFailureLine(F("ERR BAD_K (requires exactly 64 hex chars and 1 <= K < curve order)"));
     return;
   }
   memcpy(experimentDefaultNonce(), candidate, sizeof(candidate));
@@ -381,7 +480,7 @@ void handleSetD(const char *hex) {
   uint8_t candidate[32];
   if (!hexToBytes(hex, candidate, sizeof(candidate)) ||
       !scalarIsInSecp256k1Range(candidate)) {
-    Serial.println(F("ERR BAD_D (requires exactly 64 hex chars and 1 <= D < curve order)"));
+    commandFailureLine(F("ERR BAD_D (requires exactly 64 hex chars and 1 <= D < curve order)"));
     return;
   }
   memcpy(experimentPrivateKey(), candidate, sizeof(candidate));
@@ -397,7 +496,7 @@ void handleSignHex(
           hex,
           digest,
           sizeof(digest))) {
-    Serial.println(F("ERR BAD_DIGEST"));
+    commandFailureLine(F("ERR BAD_DIGEST"));
     return;
   }
 
@@ -418,17 +517,17 @@ void handleSignK(
     char *payload) {
 
   if (payload == nullptr) {
-    Serial.println(F("ERR BAD_SIGNK"));
+    commandFailureLine(F("ERR BAD_SIGNK"));
     return;
   }
 
   if (strlen(payload) < 66) {
-    Serial.println(F("ERR BAD_SIGNK"));
+    commandFailureLine(F("ERR BAD_SIGNK"));
     return;
   }
 
   if (payload[64] != ' ') {
-    Serial.println(F("ERR BAD_SIGNK"));
+    commandFailureLine(F("ERR BAD_SIGNK"));
     return;
   }
 
@@ -444,7 +543,7 @@ void handleSignK(
   uint8_t nonce[32];
 
   if (!parseNonce(k_hex, nonce) || !scalarIsInSecp256k1Range(nonce)) {
-    Serial.println(F("ERR BAD_K"));
+    commandFailureLine(F("ERR BAD_K"));
     return;
   }
 
@@ -460,17 +559,17 @@ void handleSignHexK(
     char *payload) {
 
   if (payload == nullptr) {
-    Serial.println(F("ERR BAD_SIGNHEXK"));
+    commandFailureLine(F("ERR BAD_SIGNHEXK"));
     return;
   }
 
   if (strlen(payload) != 129) {
-    Serial.println(F("ERR BAD_SIGNHEXK"));
+    commandFailureLine(F("ERR BAD_SIGNHEXK"));
     return;
   }
 
   if (payload[64] != ' ') {
-    Serial.println(F("ERR BAD_SIGNHEXK"));
+    commandFailureLine(F("ERR BAD_SIGNHEXK"));
     return;
   }
 
@@ -495,7 +594,7 @@ void handleSignHexK(
   uint8_t digest[32];
 
   if (!parseNonce(k_hex, nonce) || !scalarIsInSecp256k1Range(nonce)) {
-    Serial.println(F("ERR BAD_K"));
+    commandFailureLine(F("ERR BAD_K"));
     return;
   }
 
@@ -503,7 +602,7 @@ void handleSignHexK(
           digest_hex,
           digest,
           sizeof(digest))) {
-    Serial.println(F("ERR BAD_DIGEST"));
+    commandFailureLine(F("ERR BAD_DIGEST"));
     return;
   }
 
@@ -525,15 +624,15 @@ void handlePulse(
             argument,
             width_us,
             MAX_PULSE_US)) {
-      Serial.println(F("ERR BAD_PULSE"));
+      commandFailureLine(F("ERR BAD_PULSE"));
       return;
     }
   }
 
-
-
-
-
+   
+   
+   
+   
   pinMode(TRIGGER_GPIO, OUTPUT);
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
   delayMicroseconds(5);
@@ -545,6 +644,7 @@ void handlePulse(
 
   const uint32_t elapsed_us = micros() - start_us;
   const int final_level = digitalRead(TRIGGER_GPIO);
+  if (final_level != TRIGGER_IDLE_LEVEL) g_command_failed = true;
 
   Serial.print(F("OK PULSE WIDTH_US="));
   Serial.print(elapsed_us);
@@ -557,15 +657,15 @@ void handlePulse(
 constexpr uint32_t DEFAULT_TRIGGER_TEST_PULSES = 8;
 constexpr uint32_t MAX_TRIGGER_TEST_PULSES = 12;
 
-
-
-
-
+ 
+ 
+ 
+ 
 void handleTriggerTest(const char *argument) {
   uint32_t count = DEFAULT_TRIGGER_TEST_PULSES;
   if (argument != nullptr && *argument != '\0' &&
       !parseUnsigned(argument, count, MAX_TRIGGER_TEST_PULSES)) {
-    Serial.println(F("ERR BAD_TRIGTEST_COUNT (use 1..12)"));
+    commandFailureLine(F("ERR BAD_TRIGTEST_COUNT (use 1..12)"));
     return;
   }
 
@@ -600,6 +700,7 @@ void handleTriggerTest(const char *argument) {
   }
 
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
+  if (!readback_ok) g_command_failed = true;
   Serial.println(readback_ok ? F("END TRIGTEST=PASS") : F("END TRIGTEST=FAIL"));
 }
 
@@ -612,7 +713,7 @@ void handleBenchmark(
           argument,
           count,
           MAX_BENCH_COUNT)) {
-    Serial.println(F("ERR BAD_BENCH_COUNT"));
+    commandFailureLine(F("ERR BAD_BENCH_COUNT"));
     return;
   }
 
@@ -621,7 +722,7 @@ void handleBenchmark(
   if (!benchmarkRun(
           count,
           result)) {
-    Serial.println(F("ERR BENCH_FAILED"));
+    commandFailureLine(F("ERR BENCH_FAILED"));
     return;
   }
 
@@ -654,7 +755,7 @@ void handleBatch(
           argument,
           count,
           MAX_BATCH_COUNT)) {
-    Serial.println(F("ERR BAD_BATCH_COUNT"));
+    commandFailureLine(F("ERR BAD_BATCH_COUNT"));
     return;
   }
 
@@ -664,16 +765,16 @@ void handleBatch(
   config.message = "rosef-batch";
 
   if (!batchRun(config)) {
-    Serial.println(F("ERR BATCH_FAILED"));
+    commandFailureLine(F("ERR BATCH_FAILED"));
     return;
   }
 
   Serial.println(F("OK BATCH=PASS"));
 }
 
-
-
-
+ 
+ 
+ 
 void handleSbatch(const char *argument) {
   constexpr uint32_t DEFAULT_SBATCH_COUNT = 10;
   constexpr uint32_t SBATCH_LOW_MS = 250;
@@ -686,7 +787,7 @@ void handleSbatch(const char *argument) {
   }
   if (cursor != nullptr && *cursor != '\0') {
     if (!parseUnsigned(cursor, count, MAX_BATCH_COUNT)) {
-      Serial.println(F("ERR BAD_SBATCH_COUNT (use SBATCH [count], 1..1000)"));
+      commandFailureLine(F("ERR BAD_SBATCH_COUNT (use SBATCH [count], 1..1000)"));
       return;
     }
   }
@@ -715,7 +816,7 @@ void handleSbatch(const char *argument) {
     delay(SBATCH_HIGH_MS);
   }
 
-
+   
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
   Serial.print(F("END SBATCH PULSES="));
   Serial.print(count);
@@ -726,21 +827,21 @@ void handleSbatch(const char *argument) {
   if (readback_pass_count == count) {
     Serial.println(F("OK SBATCH=PASS"));
   } else {
-    Serial.println(F("ERR SBATCH_GPIO_READBACK"));
+    commandFailureLine(F("ERR SBATCH_GPIO_READBACK"));
   }
 }
 
-void handleFinal();
+void handleFinal();   
 
 void handleIna219() {
   if (!ina219Available() && !ina219FindOnce()) {
-    Serial.println(F("ERR INA219_UNAVAILABLE"));
+    commandFailureLine(F("ERR INA219_UNAVAILABLE"));
     return;
   }
 
   const Ina219Reading reading = ina219Read();
   if (!reading.valid) {
-    Serial.println(F("ERR INA219_UNAVAILABLE"));
+    commandFailureLine(F("ERR INA219_UNAVAILABLE"));
     return;
   }
 
@@ -765,14 +866,14 @@ void handleIna219() {
 void handleBatchIna219(const char *argument) {
   uint32_t count = 0;
   if (!parseUnsigned(argument, count, MAX_BATCH_COUNT)) {
-    Serial.println(F("ERR BAD_BATCH_COUNT"));
+    commandFailureLine(F("ERR BAD_BATCH_COUNT"));
     return;
   }
 
-
-
+   
+   
   if (!ina219Available() && !ina219FindOnce()) {
-    Serial.println(F("ERR INA219_UNAVAILABLE"));
+    commandFailureLine(F("ERR INA219_UNAVAILABLE"));
     return;
   }
 
@@ -783,7 +884,7 @@ void handleBatchIna219(const char *argument) {
   for (uint32_t i = 0; i < count; ++i) {
     const Ina219Reading reading = ina219Read();
     if (!reading.valid) {
-      Serial.print(F("ERR INA219_READ ID="));
+      commandFailurePrefix(F("ERR INA219_READ ID="));
       Serial.println(i);
       Serial.println(F("END BATCH INA219"));
       return;
@@ -808,13 +909,14 @@ void handleBatchIna219(const char *argument) {
   Serial.println(F("OK BATCH INA219=PASS"));
 }
 
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 constexpr uint32_t FULLIMP_BATCH_COUNT = 160;
+bool g_fullimp_last_pass = false;
 constexpr float FULLIMP_NOMINAL_LOAD_OHMS = 330.0f;
 constexpr uint32_t FULLIMP_MAX_SAMPLES = 2048;
 constexpr uint32_t FULLIMP_IDLE_TARGET = 20;
@@ -827,15 +929,15 @@ constexpr uint8_t FULLIMP_PHASE_ECDSA = 2;
 constexpr uint8_t FULLIMP_PHASE_BATCH_UNCLASSIFIED = 3;
 
 struct FullImpSample {
-
-
-
-  uint32_t read_begin_us;
-  uint32_t read_end_us;
+   
+   
+   
+  uint32_t read_begin_us;       
+  uint32_t read_end_us;         
   float voltage_v;
   float current_ma;
   float power_mw;
-  uint16_t operation;
+  uint16_t operation;           
   uint8_t phase;
 };
 
@@ -853,7 +955,7 @@ struct FullImpOpStats {
   bool verify_ok;
   bool trigger_low_readback_ok;
   bool trigger_high_readback_ok;
-  uint8_t nonce[32];
+  uint8_t nonce[32];   
   uint8_t r[32];
   uint8_t s[32];
   double current_sum;
@@ -884,7 +986,7 @@ static volatile bool g_fullimp_sampler_running = false;
 static volatile bool g_fullimp_sampler_stop = false;
 static uint32_t g_fullimp_capture_start_us = 0;
 
-void fullImpSamplerTask(void *             ) {
+void fullImpSamplerTask(void *  ) {
   g_fullimp_sampler_running = true;
   TickType_t sample_delay = pdMS_TO_TICKS(FULLIMP_SAMPLE_PERIOD_MS);
   if (sample_delay == 0) sample_delay = 1;
@@ -895,10 +997,10 @@ void fullImpSamplerTask(void *             ) {
     if (capture_mode != FULLIMP_CAPTURE_NONE) {
       const uint16_t operation = capture_mode == FULLIMP_CAPTURE_BATCH
           ? g_fullimp_current_operation : 0;
-
-
-
-
+       
+       
+       
+       
       const uint32_t read_begin_us = micros() - g_fullimp_capture_start_us;
       const Ina219Reading reading = ina219Read();
       const uint32_t read_end_us = micros() - g_fullimp_capture_start_us;
@@ -936,7 +1038,7 @@ void fullImpSamplerTask(void *             ) {
     vTaskDelayUntil(&last_wake_time, sample_delay);
   }
 
-
+   
   g_fullimp_sampler_running = false;
   vTaskDelete(nullptr);
 }
@@ -964,8 +1066,8 @@ bool isValidSecp256k1Nonce(const uint8_t nonce[32]) {
 }
 
 void generateRandomTestNonce(uint8_t nonce[32], uint32_t previous_count) {
-
-
+   
+   
   bool duplicate = false;
   do {
     esp_fill_random(nonce, 32);
@@ -981,11 +1083,11 @@ void generateRandomTestNonce(uint8_t nonce[32], uint32_t previous_count) {
   } while (!isValidSecp256k1Nonce(nonce) || duplicate);
 }
 
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
 constexpr uint32_t FINAL_BASELINE_SAMPLES = 5;
 constexpr uint32_t FINAL_SAMPLE_TIMEOUT_MS = 2000;
 
@@ -995,16 +1097,17 @@ void handleFinal() {
   Serial.println(F("MODE=ONE_SIGNING_OPERATION_TEST_KEY_ONLY"));
   Serial.println(F("BATCH_MODE=DISABLED OPERATION_COUNT=1"));
 
-
-
+   
+   
   const bool test_key_ok =
       memcmp(experimentPrivateKey(), TEST_PRIVATE_KEY, sizeof(TEST_PRIVATE_KEY)) == 0;
+  if (!test_key_ok) g_command_failed = true;
   Serial.println(test_key_ok
       ? F("CHECK TEST_KEY=PASS SOURCE=COMPILED_TEST_VECTOR")
       : F("CHECK TEST_KEY=FAIL FINAL_IS_TEST_VECTOR_ONLY"));
   if (!test_key_ok) {
     Serial.println(F("KEY_RECOVERY=NOT_RUN_NON_TEST_KEY_ACTIVE"));
-    Serial.println(F("FINAL_RESULT=REFUSED_NON_TEST_KEY"));
+    commandFailureLine(F("FINAL_RESULT=REFUSED_NON_TEST_KEY"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
     return;
   }
@@ -1012,18 +1115,18 @@ void handleFinal() {
   const bool ina_ok = ina219Available() || ina219FindOnce();
   if (!ina_ok) {
     Serial.println(F("CHECK INA219=FAIL REASON=NOT_DETECTED"));
-    Serial.println(F("FINAL_RESULT=FAIL_NO_SENSOR"));
+    commandFailureLine(F("FINAL_RESULT=FAIL_NO_SENSOR"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
     return;
   }
-
-
-
+   
+   
+   
   for (uint8_t warmup = 0; warmup < 2; ++warmup) {
     const Ina219Reading discard = ina219Read();
     if (!discard.valid) {
       Serial.println(F("CHECK INA219=FAIL REASON=WARMUP_READ_ERROR"));
-      Serial.println(F("FINAL_RESULT=FAIL_SENSOR_WARMUP"));
+      commandFailureLine(F("FINAL_RESULT=FAIL_SENSOR_WARMUP"));
       Serial.println(F("END FINAL ONE_SHOT REPORT"));
       return;
     }
@@ -1043,7 +1146,7 @@ void handleFinal() {
     const Ina219Reading baseline = ina219Read();
     if (!baseline.valid) {
       Serial.println(F("CHECK INA219=FAIL REASON=BASELINE_READ_ERROR"));
-      Serial.println(F("FINAL_RESULT=FAIL_SENSOR_BASELINE"));
+      commandFailureLine(F("FINAL_RESULT=FAIL_SENSOR_BASELINE"));
       Serial.println(F("END FINAL ONE_SHOT REPORT"));
       return;
     }
@@ -1083,13 +1186,13 @@ void handleFinal() {
   uint8_t digest[32];
   if (!experimentSha256("ROSEF-FINAL-ONE-SHOT-TEST", digest)) {
     Serial.println(F("CHECK SHA256=FAIL"));
-    Serial.println(F("FINAL_RESULT=FAIL_DIGEST"));
+    commandFailureLine(F("FINAL_RESULT=FAIL_DIGEST"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
     return;
   }
 
-
-
+   
+   
   uint8_t nonce[32];
   generateRandomTestNonce(nonce, 0);
   memset(g_fullimp_samples, 0, sizeof(g_fullimp_samples));
@@ -1103,8 +1206,8 @@ void handleFinal() {
   g_fullimp_sampler_running = false;
   g_fullimp_capture_start_us = micros();
 
-
-
+   
+   
   experimentSetTriggerEnabled(false);
   pinMode(TRIGGER_GPIO, OUTPUT);
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
@@ -1121,7 +1224,7 @@ void handleFinal() {
   if (sampler_created != pdPASS) {
     experimentSetTriggerEnabled(true);
     Serial.println(F("CHECK INA219_SAMPLER=FAIL TASK_CREATE"));
-    Serial.println(F("FINAL_RESULT=FAIL_SAMPLER_CREATE"));
+    commandFailureLine(F("FINAL_RESULT=FAIL_SAMPLER_CREATE"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
     return;
   }
@@ -1135,12 +1238,12 @@ void handleFinal() {
     g_fullimp_sampler_stop = true;
     experimentSetTriggerEnabled(true);
     Serial.println(F("CHECK INA219_SAMPLER=FAIL START_TIMEOUT"));
-    Serial.println(F("FINAL_RESULT=FAIL_SAMPLER_START"));
+    commandFailureLine(F("FINAL_RESULT=FAIL_SAMPLER_START"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
     return;
   }
 
-
+   
   g_fullimp_capture_mode = FULLIMP_CAPTURE_IDLE;
   const uint32_t baseline_wait_start = millis();
   while (g_fullimp_idle_sample_count < FINAL_BASELINE_SAMPLES &&
@@ -1153,7 +1256,8 @@ void handleFinal() {
     experimentSetTriggerEnabled(true);
     Serial.println(F("CHECK INA219_SAMPLER=FAIL BASELINE_TIMEOUT"));
     Serial.print(F("SAMPLES_OBTAINED=")); Serial.println(g_fullimp_sample_count);
-    Serial.println(stopped
+    if (!stopped) g_command_failed = true;
+    commandFailureLine(stopped
         ? F("FINAL_RESULT=FAIL_BASELINE_CAPTURE")
         : F("FINAL_RESULT=FAIL_SAMPLER_STOP"));
     Serial.println(F("END FINAL ONE_SHOT REPORT"));
@@ -1169,7 +1273,7 @@ void handleFinal() {
   SignResult sign_result{};
   const bool sign_ok = experimentSignDigest(digest, nonce, sign_result);
 
-
+   
   digitalWrite(TRIGGER_GPIO, TRIGGER_IDLE_LEVEL);
   const uint32_t trigger_end_abs = micros();
   const bool high_readback_ok = digitalRead(TRIGGER_GPIO) == TRIGGER_IDLE_LEVEL;
@@ -1179,8 +1283,8 @@ void handleFinal() {
   const uint32_t trigger_end_rel = trigger_end_abs - g_fullimp_capture_start_us;
   const uint32_t sign_window_us = trigger_end_abs - trigger_start_abs_before;
 
-
-
+   
+   
   const uint32_t post_target = g_fullimp_sample_count + FINAL_BASELINE_SAMPLES;
   const uint32_t post_wait_start = millis();
   while (g_fullimp_sample_count < post_target &&
@@ -1302,9 +1406,12 @@ void handleFinal() {
   Serial.print(F("CHECK SAMPLER_STOP=")); Serial.println(sampler_stopped ? F("PASS") : F("FAIL"));
   const bool capture_ok = sign_ok && verify_ok && low_readback_ok && high_readback_ok &&
       sampler_stopped && post_samples_ok && overlap_count > 0;
-  Serial.println(capture_ok
-      ? F("FINAL_RESULT=ONE_SHOT_TRACE_CAPTURED_KEY_NOT_RECOVERED")
-      : F("FINAL_RESULT=FAIL_ONE_SHOT_CAPTURE_OR_NO_SAMPLE_OVERLAP"));
+  if (!capture_ok) g_command_failed = true;
+  if (capture_ok) {
+    Serial.println(F("FINAL_RESULT=ONE_SHOT_TRACE_CAPTURED_KEY_NOT_RECOVERED"));
+  } else {
+    commandFailureLine(F("FINAL_RESULT=FAIL_ONE_SHOT_CAPTURE_OR_NO_SAMPLE_OVERLAP"));
+  }
   Serial.println(F("END FINAL ONE_SHOT REPORT"));
 }
 
@@ -1326,13 +1433,14 @@ float medianOfSorted(const float *values, uint32_t count) {
   return (values[count / 2 - 1] + values[count / 2]) / 2.0f;
 }
 
-void handleFullImp() {
+void handleFullImpImpl() {
+  g_fullimp_last_pass = false;
   bool all_ok = true;
   Serial.println(F("BEGIN FULLIMP V3"));
   Serial.println(F("MODE=TEST_VECTORS_ONLY NONCE_POLICY=RANDOM_TEST_NONCES_GROUND_TRUTH_SIDECAR"));
 
-
-
+   
+   
   const bool test_vectors_ok =
       memcmp(experimentPrivateKey(), TEST_PRIVATE_KEY, 32) == 0 &&
       memcmp(experimentDefaultNonce(), TEST_DEFAULT_NONCE, 32) == 0;
@@ -1341,12 +1449,12 @@ void handleFullImp() {
       : F("CHECK TEST_VECTORS=FAIL (FULLIMP is test-only; restore test vectors first)"));
   if (!test_vectors_ok) {
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=TEST_VECTORS_REQUIRED"));
+    commandFailureLine(F("ERR FULLIMP=TEST_VECTORS_REQUIRED"));
     return;
   }
 
-
-
+   
+   
   experimentSetTriggerEnabled(false);
   const bool crypto_selftest_ok = selfTestRun();
   Serial.println(crypto_selftest_ok
@@ -1402,16 +1510,16 @@ void handleFullImp() {
     experimentSetTriggerEnabled(true);
     Serial.println(F("BATCH SKIPPED: required pre-check failed"));
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=FAIL"));
+    commandFailureLine(F("ERR FULLIMP=FAIL"));
     return;
   }
 
   uint8_t digest[32];
   if (!experimentSha256("FULLIMP-BATCH-160-V3", digest)) {
     experimentSetTriggerEnabled(true);
-    Serial.println(F("ERR FULLIMP_DIGEST"));
+    commandFailureLine(F("ERR FULLIMP_DIGEST"));
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=FAIL"));
+    commandFailureLine(F("ERR FULLIMP=FAIL"));
     return;
   }
 
@@ -1440,7 +1548,7 @@ void handleFullImp() {
     experimentSetTriggerEnabled(true);
     Serial.println(F("CHECK INA219_SAMPLER=FAIL TASK_CREATE"));
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=FAIL"));
+    commandFailureLine(F("ERR FULLIMP=FAIL"));
     return;
   }
 
@@ -1454,11 +1562,11 @@ void handleFullImp() {
     experimentSetTriggerEnabled(true);
     Serial.println(F("CHECK INA219_SAMPLER=FAIL TASK_START_TIMEOUT"));
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=FAIL"));
+    commandFailureLine(F("ERR FULLIMP=FAIL"));
     return;
   }
 
-
+   
   g_fullimp_capture_mode = FULLIMP_CAPTURE_IDLE;
   const uint32_t idle_wait_start = millis();
   while (g_fullimp_idle_sample_count < FULLIMP_IDLE_TARGET &&
@@ -1478,7 +1586,7 @@ void handleFullImp() {
     (void)stopped;
     experimentSetTriggerEnabled(true);
     Serial.println(F("END FULLIMP"));
-    Serial.println(F("ERR FULLIMP=FAIL"));
+    commandFailureLine(F("ERR FULLIMP=FAIL"));
     return;
   }
 
@@ -1503,9 +1611,9 @@ void handleFullImp() {
     memcpy(op_stats.nonce, nonce, sizeof(op_stats.nonce));
 
     SignResult sign_result{};
-
-
-
+     
+     
+     
     g_fullimp_capture_mode = FULLIMP_CAPTURE_BATCH;
     const bool sign_ok = experimentSignDigest(digest, nonce, sign_result);
     g_fullimp_capture_mode = FULLIMP_CAPTURE_NONE;
@@ -1546,9 +1654,9 @@ void handleFullImp() {
     all_ok = false;
   }
 
-
-
-
+   
+   
+   
   for (uint32_t sample_index = 0; sample_index < g_fullimp_sample_count; ++sample_index) {
     FullImpSample &sample = g_fullimp_samples[sample_index];
     if (sample.phase != FULLIMP_PHASE_BATCH_UNCLASSIFIED) continue;
@@ -1562,7 +1670,7 @@ void handleFullImp() {
       }
     }
     if (sample.phase == FULLIMP_PHASE_BATCH_UNCLASSIFIED) {
-
+       
       sample.phase = 0;
       sample.operation = 0;
     }
@@ -1622,15 +1730,15 @@ void handleFullImp() {
     all_ok = false;
   }
 
-
+   
   float median_active_current = 0.0f;
   if (active_sample_count > 0) {
     sortFloatValues(g_fullimp_sorted_values, active_sample_count);
     median_active_current = medianOfSorted(g_fullimp_sorted_values, active_sample_count);
   }
 
-
-
+   
+   
   uint32_t theory_count = 0;
   double theory_sum = 0.0;
   for (uint32_t i = 0; i < g_fullimp_sample_count; ++i) {
@@ -1685,8 +1793,8 @@ void handleFullImp() {
         ? op.voltage_sum / op.sample_count : 0.0;
     const double op_avg_power = op.sample_count
         ? op.power_sum / op.sample_count : 0.0;
-
-
+     
+     
     const double op_avg_calculated_power = op_avg_voltage * op_avg_current;
 
     Serial.print(F("BATCH ")); Serial.print(i + 1);
@@ -1763,15 +1871,30 @@ void handleFullImp() {
   Serial.println(F("NOTE: 330-ohm theory is an estimate; physical Logic Analyzer capture must be validated in PulseView."));
 
   Serial.println(F("END FULLIMP"));
-  Serial.println(all_ok && completed == FULLIMP_BATCH_COUNT &&
-          idle_sample_count >= FULLIMP_IDLE_TARGET
+  g_fullimp_last_pass = all_ok && completed == FULLIMP_BATCH_COUNT &&
+      idle_sample_count >= FULLIMP_IDLE_TARGET;
+  Serial.println(g_fullimp_last_pass
       ? F("OK FULLIMP=PASS") : F("ERR FULLIMP=FAIL"));
 }
 
+ 
+ 
+void handleFullImp() {
+  g_fullimp_last_pass = false;
+  rgbLedSetRunning();
+  handleFullImpImpl();
+  if (g_fullimp_last_pass) {
+    rgbLedSetPass();
+  } else {
+    g_command_failed = true;
+    rgbLedSetFail();
+  }
+}
 
-
-
-
+ 
+ 
+ 
+ 
 void handleScopeCapture() {
   bool all_ok = true;
   Serial.println(F("BEGIN SCOPECAP V1"));
@@ -1785,12 +1908,12 @@ void handleScopeCapture() {
       : F("CHECK TEST_VECTORS=FAIL (SCOPECAP is test-only; restore test vectors first)"));
   if (!test_vectors_ok) {
     Serial.println(F("END SCOPECAP"));
-    Serial.println(F("ERR SCOPECAP=TEST_VECTORS_REQUIRED"));
+    commandFailureLine(F("ERR SCOPECAP=TEST_VECTORS_REQUIRED"));
     return;
   }
 
-
-
+   
+   
   experimentSetTriggerEnabled(false);
   const bool crypto_selftest_ok = selfTestRun();
   Serial.println(crypto_selftest_ok
@@ -1820,7 +1943,7 @@ void handleScopeCapture() {
     experimentSetTriggerEnabled(true);
     Serial.println(F("BATCH SKIPPED: required pre-check failed"));
     Serial.println(F("END SCOPECAP"));
-    Serial.println(F("ERR SCOPECAP=FAIL"));
+    commandFailureLine(F("ERR SCOPECAP=FAIL"));
     return;
   }
 
@@ -1865,7 +1988,7 @@ void handleScopeCapture() {
     delay(1);
   }
   experimentSetTriggerEnabled(false);
-  experimentSetTriggerEnabled(true);
+  experimentSetTriggerEnabled(true);   
 
   Serial.println(F("END SCOPECAP BATCH"));
   Serial.println(F("BEGIN SCOPECAP OPMETA TEST_VECTOR_ONLY"));
@@ -1888,6 +2011,7 @@ void handleScopeCapture() {
   Serial.print(F(" VERIFY_PASS_COUNT=")); Serial.println(verify_pass_count);
   Serial.println(F("END SCOPECAP"));
   const bool pass = all_ok && completed == FULLIMP_BATCH_COUNT && verify_pass_count == completed;
+  if (!pass) g_command_failed = true;
   Serial.println(pass ? F("OK SCOPECAP=PASS") : F("ERR SCOPECAP=FAIL"));
 }
 
@@ -1909,13 +2033,13 @@ void handleButtonEvent() {
           : F("NONE"));
 }
 
-void handleLine(
+void dispatchLine(
     char *command) {
 
   if (command == nullptr) return;
 
-
-
+   
+   
   while (*command == ' ' || *command == '\t') ++command;
   if (*command == '\0') return;
   char *first_end = command;
@@ -1981,6 +2105,7 @@ void handleLine(
     experimentSetTriggerEnabled(false);
     const bool passed = selfTestRun();
     experimentSetTriggerEnabled(true);
+    if (!passed) g_command_failed = true;
     Serial.println(passed ? F("OK SELFTEST=PASS") : F("ERR SELFTEST=FAIL"));
     return;
   }
@@ -1993,9 +2118,9 @@ void handleLine(
     return;
   }
 
-
-
-
+   
+   
+   
   if (strcmp(
           command,
           "TESTPR") == 0) {
@@ -2123,8 +2248,8 @@ void handleLine(
     return;
   }
 
-
-
+   
+   
   if ((strncmp(command, "SBATCH", 6) == 0 &&
        (command[6] == '\0' || command[6] == ' ' || command[6] == '\t')) ||
       (strncmp(command, "SBTACH", 6) == 0 &&
@@ -2133,8 +2258,8 @@ void handleLine(
     return;
   }
 
-
-
+   
+   
   if (strcmp(command, "BATCH INA219") == 0) {
     handleBatchIna219("");
     return;
@@ -2156,22 +2281,39 @@ void handleLine(
   }
 
   if (*command != '\0') {
-    Serial.println(F("ERR UNKNOWN_COMMAND"));
+    commandFailureLine(F("ERR UNKNOWN_COMMAND"));
     Serial.println(F("Type HELP, MENU or ? to list valid commands."));
   }
+}
+
+ 
+ 
+void handleLine(char *command) {
+  if (command == nullptr) return;
+  const char *cursor = command;
+  while (*cursor == ' ' || *cursor == '\t') ++cursor;
+  if (*cursor == '\0') return;
+
+  g_command_failed = false;
+  rgbLedSetCommandRunning();   
+  dispatchLine(command);
+  finishCommandRgbStatus();
 }
 
 }
 
 void protocolBegin() {
   Serial.begin(SERIAL_BAUD);
+  rgbLedBegin();
 
-
+   
   experimentBegin();
   buttonBegin();
+  g_last_rgb_health_check_ms = 0;
+  updateIdleRgbStatus();
 
-
-
+   
+   
   delay(1000);
 
   printIntro();
@@ -2183,7 +2325,19 @@ void protocolBegin() {
 }
 
 void protocolLoop() {
-  buttonIsPressed();
+  static bool button_was_down = false;
+  const bool button_down = buttonIsPressed();
+
+   
+   
+  if (button_down && !button_was_down) {
+    g_command_failed = false;
+    Serial.println(F("BUTTON_EVENT=FULLIMP_START"));
+    handleFullImp();
+    Serial.println(F("BUTTON_EVENT=FULLIMP_END"));
+    finishCommandRgbStatus();
+  }
+  button_was_down = button_down;
 
   while (Serial.available() > 0) {
     const int value =
@@ -2200,7 +2354,8 @@ void protocolLoop() {
       if (discarding_overlong_line) {
         discarding_overlong_line = false;
         line_length = 0;
-        Serial.println(F("ERR LINE_TOO_LONG"));
+        commandFailureLine(F("ERR LINE_TOO_LONG"));
+        finishCommandRgbStatus();
         continue;
       }
       if (line_length == 0) continue;
@@ -2212,14 +2367,15 @@ void protocolLoop() {
 
     if (discarding_overlong_line) continue;
     if (line_length + 1 >= sizeof(line)) {
-
-
+       
+       
       discarding_overlong_line = true;
       line_length = 0;
       continue;
     }
     line[line_length++] = c;
   }
+  updateIdleRgbStatus();
 }
 
 }

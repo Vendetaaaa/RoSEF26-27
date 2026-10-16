@@ -7,12 +7,22 @@ namespace rosef {
 constexpr uint32_t SERIAL_BAUD = 115200;
 
 constexpr uint8_t TRIGGER_GPIO = 4;
-constexpr uint8_t BUTTON_GPIO = 18;
+constexpr uint8_t BUTTON_GPIO = 27;
+
+ 
+constexpr uint8_t RGB_LED_R_GPIO = 25;
+constexpr uint8_t RGB_LED_G_GPIO = 26;
+constexpr uint8_t RGB_LED_B_GPIO = 32;
+ 
+constexpr bool RGB_LED_COMMON_ANODE = true;
 
 constexpr uint8_t INA219_SDA_GPIO = 21;
 constexpr uint8_t INA219_SCL_GPIO = 22;
 constexpr uint8_t INA219_I2C_ADDRESS = 0x40;
 
+ 
+ 
+ 
 constexpr uint8_t TRIGGER_IDLE_LEVEL = HIGH;
 constexpr uint8_t TRIGGER_ACTIVE_LEVEL = LOW;
 

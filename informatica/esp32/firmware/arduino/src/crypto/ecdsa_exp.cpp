@@ -28,7 +28,7 @@ int hexValue(char c) {
 }
 
 int ecpRngCallback(
-    void *,
+    void *  ,
     unsigned char *output,
     size_t output_len) {
 
@@ -101,7 +101,7 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-
+     
 
 
 
@@ -113,7 +113,7 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-
+     
 
 
     if (mbedtls_ecp_mul(
@@ -143,7 +143,7 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-
+     
 
 
     if (mbedtls_mpi_read_binary(
@@ -153,7 +153,7 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-
+     
 
 
     if (mbedtls_mpi_mod_mpi(
@@ -167,7 +167,7 @@ int ecdsa_sign_fixed_k(
       break;
     }
 
-
+     
 
 
     mbedtls_mpi rd;
@@ -314,6 +314,7 @@ bool ecdsa_verify_with_private_key(
       break;
     }
 
+     
     if (mbedtls_ecp_mul(
             &group,
             &public_point,

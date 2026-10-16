@@ -26,6 +26,8 @@ void incrementNonce(uint8_t nonce[32]) {
     ++nonce[i];
     if (nonce[i] != 0) break;
   }
+   
+   
   if (!scalarIsInSecp256k1Range(nonce)) {
     memset(nonce, 0, 32);
     nonce[31] = 1;
@@ -81,6 +83,7 @@ bool batchRun(
     return false;
   }
 
+   
   experimentSetTriggerEnabled(true);
 
   Serial.println(F("BEGIN BATCH"));
@@ -138,4 +141,4 @@ bool batchRun(
 }
 
 
-}
+}   

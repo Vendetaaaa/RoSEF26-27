@@ -21,4 +21,5 @@ struct BatchSample {
 bool batchRun(
     const BatchConfig &config);
 
+
 }
