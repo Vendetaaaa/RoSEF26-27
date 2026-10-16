@@ -90,10 +90,6 @@ python informatica/ECDSA/main.py --require-fpylll
 
 și trebuie verificat rezultatul produs în `informatica/artifacts/hnp_result.json`.
 
-## Hardware
-
-Etapa hardware rămâne în afara pipeline-ului executat.
-
 ## Reproducerea experimentelor temporale suplimentare
 
 Experimentele temporale folosesc 160 de exemple ECDSA,
