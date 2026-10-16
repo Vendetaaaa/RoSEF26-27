@@ -199,5 +199,3 @@ pentru recuperarea cheii în configurația temporală evaluată.
 Aceste rezultate sunt distincte de experimentul cu
 ensemble CNN și HNP robust pe modelul cumulativ,
 unde recuperarea cheii a reușit în 90/100 cazuri.
-
-> **Stare metodologică (revizia curentă):** tabelele numerice de mai jos sunt artefacte istorice generate cu modelul sintetic anterior. Modelul implicit din cod a fost schimbat la un model temporal sintetic; aceste cifre nu au fost încă regenerate cu noua configurație și nu trebuie citate drept performanța curentă. Ele sunt păstrate pentru trasabilitate. Niciunul dintre aceste rezultate nu reprezintă recuperare validată din urme fizice ESP32.
