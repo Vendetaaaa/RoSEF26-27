@@ -71,18 +71,16 @@ flowchart LR
 
 # Transpunerea din software în hardware
 
-Rularea curentă folosește traces sintetice generate în Python. Etapa următoare este capturarea unor traces fizice pe ESP32 și evaluarea lor cu același CNN.
-
 ```text
 În software noi vom:
     1. genera cheia și nonce-ul
     2. executare ECDSA
     3. calcularea modelului HW/HD
     4. adăugarea zgomotului artificial
-Pentru etapa hardware planificată:
-    1. cheia & nonce-ul este procesat de microcontroler
+În hardware noi vom:
+    1. procesarea prin ajutorul ESP32U Dev Module să preluăm cheia
     2. implementare ECDSA
-    3. măsurarea consumului electric sau semnal EM ( sau ambele )
+    3. măsurarea consumului electric
     4. obținere de trace real
     5. trace-ul devine input pentru CNN
 ```
