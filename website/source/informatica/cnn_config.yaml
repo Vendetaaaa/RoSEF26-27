@@ -6,15 +6,16 @@ dataset:
 
 model:
   in_channels: 2
-  out_channels: 8
-  kernel_size: 3
+  out_channels: 32
+  kernel_size: 5
   num_classes: 2
 
 training:
-  batch_size: 32
+  batch_size: 256
   epochs: 100
-  learning_rate: 0.005
+  learning_rate: 0.001
   weight_decay: 0.0001
+  synthetic_augmentations: 24
   random_seed: 20260919
   model_save_path: "model_weights.pth"
   predictions_path: "../artifacts/cnn_predictions.json"
