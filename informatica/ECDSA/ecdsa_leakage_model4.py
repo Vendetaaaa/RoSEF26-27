@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import random
 import statistics
 from dataclasses import dataclass
@@ -16,7 +17,7 @@ PROFILE_DATASET_PATH = ARTIFACTS_DIR / "profile_dataset.json"
 LEAKAGE_MODE = "TEMPORAL"
 LEAKAGE_ALPHA = 1.0
 NOISE_SIGMA = 0.50
-PROFILE_NOISE_SIGMA = 0.15
+PROFILE_NOISE_SIGMA = float(os.environ.get("ROSEF_PROFILE_NOISE_SIGMA", "0.15"))
 RANDOM_SEED = 20260919
 
 
@@ -153,6 +154,31 @@ def build_profile_dataset(sigma: float = PROFILE_NOISE_SIGMA, mode: str = LEAKAG
 
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     PROFILE_DATASET_PATH.write_text(json.dumps(profile_records), encoding="utf-8")
+    profile_metadata = {
+        "format_version": 1,
+        "synthetic": True,
+        "leakage_model": mode.upper(),
+        "leakage_alpha": LEAKAGE_ALPHA,
+        "profile_noise_sigma": sigma,
+        "trace_length": width,
+        "bit_order": "MSB_FIRST",
+        "seed": seed,
+        "sample_count": len(profile_records),
+    }
+    (ARTIFACTS_DIR / "profile_metadata.json").write_text(
+        json.dumps(profile_metadata, indent=2), encoding="utf-8"
+    )
+    metadata_paths = [ARTIFACTS_DIR / "dataset_metadata.json", Path(__file__).resolve().parents[2] / "website" / "source" / "dataset_metadata.json"]
+    for metadata_path in metadata_paths:
+        if metadata_path.is_file():
+            dataset_metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+            dataset_metadata.update({
+                "leakage_model": mode.upper(),
+                "noise_sigma": sigma,
+                "trace_length": width,
+                "synthetic": True,
+            })
+            metadata_path.write_text(json.dumps(dataset_metadata, indent=2), encoding="utf-8")
     return profile_records
 
 
@@ -183,6 +209,7 @@ def noise_experiment() -> None:
 
 def main() -> bool:
     profile_records = build_profile_dataset()
+    print(f"[INFO] Leakage model={LEAKAGE_MODE}; profile noise sigma={PROFILE_NOISE_SIGMA:g}.")
     print(f"[PASS] Generated {len(profile_records)} traces from the shared ECDSA dataset.")
     print(f"[PASS] Trace width: {CURVE.n.bit_length()} bits.")
     print(f"[PASS] Profile dataset written to {PROFILE_DATASET_PATH}.")
