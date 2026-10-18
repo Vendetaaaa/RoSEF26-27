@@ -68,3 +68,7 @@
 
    4. **Dicționarul de închidere**
       Testează o rezonanță cu pante raționale pentru cazul `k = 3`. Compară încercările efectuate prin intermediul unei scanări la nivelul intersecțiilor de linii și verifică dacă ambele metode găsesc același număr de triplete. În varianta corectată a experimentului, rezultatul este de **321 de soluții**, cu o diferență simetrică nulă.
+
+# Partea hardware
+
+După repetate încercări de a optimiza sau repara ( dacă era cazul ) nu a fost posibilă o recuperare a cheii. Analiza exploratorie a măsurătorilor INA219 a obținut aproximativ 49,9% acuratețe pe biți și niciun prefix complet de 12 biți prezis corect în evaluarea respectivă. Aceasta nu demonstrează că orice scurgere este imposibilă, dar nici nu oferă dovezi că datele actuale conțin suficientă informație pentru HNP. CNN acum are o acuratețe de 80% și se va încerca, pe viitor, să se scadă rata / achiziționarea unui osciloscop sau ADK.
