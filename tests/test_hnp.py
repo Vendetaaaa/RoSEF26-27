@@ -16,7 +16,7 @@ import main as pipeline_main
 def test_cnn_config_tracks_leaked_bits():
     config = yaml.safe_load((ROOT / "informatica" / "cnn" / "config.yaml").read_text(encoding="utf-8"))
     assert config["dataset"]["leaked_bits"] == 12
-    assert config["dataset"]["sequence_length"] == config["dataset"]["leaked_bits"]
+    assert config["dataset"]["sequence_length"] >= config["dataset"]["leaked_bits"] + 2
 
 
 def test_dataset_generation_is_seeded():
