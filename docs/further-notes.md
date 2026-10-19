@@ -18,7 +18,7 @@ Așa este și cu acest AI, numai că această tehnologie are capabilități de i
 
 Amuzant cum OpenAI a lăsat peste 700 de pagini de cercetare matematică, iar acum se cere implementarea „matematicii 2”, unde concluzia trebuie explicată uman, nu artificial.
 
-(P.S. Documentația, de asemenea, nu este realizată cu AI, chiar dacă pattern-ul ar da cumva peste 60–70%, acest lucru se datorează faptului că se păstrează aceeași tonalitate sau altor astfel de factori care sunt luați în considerare. Noi am încercat să părem cât mai „curați” în exprimare, conciși și corecți gramatical; presupun că cele două câștigări de la etapa internațională la literatură au fost bine meritate, dacă la asta v-ați gândit :))))
+(P.S. Documentația, de asemenea, nu este realizată cu AI, chiar dacă pattern-ul ar da cumva peste 60–70%, acest lucru se datorează faptului că se păstrează aceeași tonalitate sau altor astfel de factori care sunt luați în considerare. Noi am încercat să părem cât mai „curați” în exprimare, conciși și corecți gramatical; presupun că premiul II de la etapa internațională la literatură au fost bine meritate, dacă la asta v-ați gândit :)))) )
 
 
 **c.** Hardware-ul, sincer, a fost o durere. Trebuia să o iau de la absolut zero, fără nicio cunoștință despre breadboard, conectări, șine, microcontrolere și multe, multe altele. Până la urmă, funcționează; după pagini rupte, mâzgălite până în gât și când eram pe punctul de a renunța, am continuat și nu m-am dat bătut (tristă e partea în care majoritatea răspunsurilor la problemele mele „complicate” se rezolvau în maximum 5–10 minute, ceea ce a adăugat două straturi de frustrare: cum am reușit să fac eroarea asta și cum am reușit să trec peste eroarea asta la debugging).
