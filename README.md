@@ -101,7 +101,8 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 1. "Star" sau "Watch" acest proiect!
 2. Follow [Vendeta](https://github.com/Vendetaaaa) și [RaresInsine](https://github.com/RaresInsine)
 3. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
-4. Partajează codurile QR!
+4. Partajează acest proiect prin website-ul: https://leakon.tech/
+5. Partajează codurile QR!
 
 <p align="center">
     <img src="misc/QR-github.svg" width="25%" alt="CodeQR1" />
