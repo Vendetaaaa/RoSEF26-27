@@ -30,9 +30,10 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/informatica/ECDSA:${{ github.workspace }}/informatica/cnn
         run: |
           python informatica/experiments/benchmark_cnn_hnp_surface.py \
+            --leakage-mode HW \
             --leaked-bits 8 10 12 14 \
             --sigmas 0.10 0.15 0.20 0.25 \
-            --sample-counts 20 40 60 80 \
+            --sample-counts 20 40 \
             --seeds 20260919 20260920 20260921 20260922 20260923 20260924 20260925 20260926 20260927 20260928 20260929 20260930 \
             --epochs 160
 
@@ -41,5 +42,5 @@ jobs:
         with:
           name: cnn-hnp-quick-sweep-12-seeds
           path: |
-            results/tables/cnn-hnp-parameter-sweep.csv
-            results/tables/cnn-hnp-parameter-sweep-summary.csv
+            results/synthetic/HW/tables/cnn-hnp-parameter-sweep.csv
+            results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv
