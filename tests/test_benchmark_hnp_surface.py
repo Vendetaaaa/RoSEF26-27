@@ -41,3 +41,36 @@ def test_hnp_solver_runs_before_ground_truth_diagnostic(monkeypatch) -> None:
     assert result["key_recovered"] is False
     assert result["backend"] == "fpylll"
     assert result["runtime_seconds"] is not None
+
+
+def test_model_mode_routes_results_to_its_own_directory(monkeypatch) -> None:
+    captured = {}
+
+    def fake_run_multi_seed_surface(*args, **kwargs):
+        captured.update(kwargs)
+        return [], []
+
+    monkeypatch.setattr(benchmark, "run_multi_seed_surface", fake_run_multi_seed_surface)
+    monkeypatch.setattr(sys, "argv", ["benchmark", "--leakage-mode", "HD"])
+
+    assert benchmark.main() == 0
+    assert captured["leakage_mode"] == "HD"
+    assert captured["output_path"].as_posix().endswith(
+        "results/synthetic/HD/tables/cnn-hnp-parameter-sweep.csv"
+    )
+
+
+def test_profile_is_tagged_with_the_selected_leakage_model() -> None:
+    from dataset_generator3 import CURVE, generate_dataset
+
+    public, truth = generate_dataset(CURVE, sample_count=2, leaked_bits=8, seed=1234)
+    hw = benchmark.make_profile(public, truth, sigma=0.0, seed=7, leaked_bits=8, leakage_mode="HW")
+    hd = benchmark.make_profile(public, truth, sigma=0.0, seed=7, leaked_bits=8, leakage_mode="HD")
+    temporal = benchmark.make_profile(
+        public, truth, sigma=0.0, seed=7, leaked_bits=8, leakage_mode="TEMPORAL"
+    )
+
+    assert {row["leakage_model"] for row in hw} == {"HW"}
+    assert {row["leakage_model"] for row in hd} == {"HD"}
+    assert {row["leakage_model"] for row in temporal} == {"TEMPORAL"}
+    assert all(row["trace_source"] == "synthetic" for row in hw + hd + temporal)

@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "informatica" / "artifacts"
-TABLES = ROOT / "results" / "tables"
+TABLES = ROOT / "results" / "synthetic" / "HW" / "tables"
+ORACLE_TABLES = ROOT / "results" / "synthetic" / "shared" / "tables"
 
 
 def test_reference_pipeline_artifacts_are_fully_passed_and_redacted() -> None:
@@ -36,7 +37,7 @@ def test_reference_pipeline_artifacts_are_fully_passed_and_redacted() -> None:
 def test_sweep_tables_exist_and_have_expected_size() -> None:
     raw_path = TABLES / "cnn-hnp-parameter-sweep.csv"
     summary_path = TABLES / "cnn-hnp-parameter-sweep-summary.csv"
-    oracle_path = TABLES / "hnp-oracle-thresholds.csv"
+    oracle_path = ORACLE_TABLES / "hnp-oracle-thresholds.csv"
 
     assert raw_path.is_file()
     assert summary_path.is_file()
@@ -59,7 +60,7 @@ def test_sweep_uses_fpylll_where_reduction_runs_and_redacts_key_values() -> None
         raw = list(csv.DictReader(f))
     assert all(row["hnp_backend"] in {"", "fpylll"} for row in raw)
 
-    with (TABLES / "hnp-oracle-thresholds.csv").open(newline="", encoding="utf-8-sig") as f:
+    with (ORACLE_TABLES / "hnp-oracle-thresholds.csv").open(newline="", encoding="utf-8-sig") as f:
         oracle = list(csv.DictReader(f))
     assert "recovered_private_key" in oracle[0]
     assert all(not row["recovered_private_key"] or row["recovered_private_key"] == "<REDACTED_PRIVATE_KEY>" for row in oracle)
@@ -104,7 +105,7 @@ def test_website_source_mirrors_match_canonical_files() -> None:
         "informatica/artifacts/dataset_metadata.json": "website/source/dataset_metadata.json",
         "informatica/artifacts/pipeline_results.json": "website/source/pipeline_results.json",
         "informatica/artifacts/hnp_result.json": "website/source/hnp_result.json",
-        "results/tables/final-results.csv": "website/source/final-results.csv",
+        "results/synthetic/HW/tables/final-results.csv": "website/source/final-results.csv",
         "docs/experimental-protocol.md": "website/source/docs_experimental-protocol.md",
         "docs/methodology.md": "website/source/docs_methodology.md",
         "docs/project-overview.md": "website/source/docs_project-overview.md",
