@@ -486,7 +486,7 @@ $\ell$ & $\sigma$ & CNN bit acc. & CNN prefix acc. & Oracle HNP & CNN$\rightarro
 \end{tabular}
 \end{table}
 
-The table uses the recorded values in \path{results/tables/cnn-hnp-parameter-sweep-summary.csv}. The fixed reference pipeline run and the aggregated parameter sweep answer different questions. A key recovered in the fixed reference instance does not imply successful recovery for every seed or noise configuration. Oracle HNP uses the known prefixes and succeeds in all 100 runs for $\ell\geq10$. CNN-to-HNP recovery depends on the predicted prefix and decreases as the noise increases.
+The table uses the recorded values in \path{results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv}. The fixed reference pipeline run and the aggregated parameter sweep answer different questions. A key recovered in the fixed reference instance does not imply successful recovery for every seed or noise configuration. Oracle HNP uses the known prefixes and succeeds in all 100 runs for $\ell\geq10$. CNN-to-HNP recovery depends on the predicted prefix and decreases as the noise increases.
 
 \paragraph{Protocol note on the archived sweep.}
 The archived parameter-sweep CSVs were produced by an earlier version of the orchestration code that checked whether the known synthetic private key satisfied the HNP bounds before calling LLL. The current benchmark code has been corrected to execute the solver first and use ground truth only for post-hoc scoring. The historical recovery counts remain failure counts when the true key violates the same bounds enforced by candidate validation; however, runtime fields for cases skipped by the earlier code are conditional and must not be interpreted as end-to-end attack runtimes. Re-run the full sweep with the current script before using runtime aggregates as a performance claim.
@@ -522,7 +522,7 @@ The method used a mean of 12.11 LLL attempts per experiment, with a maximum of 4
 
 \subsection{Scope and Limitations}
 
-These figures describe only the specified synthetic leakage model, noise level, sample count, and seed range. They are not a 90\% recovery claim for physical power traces or arbitrary ECDSA implementations. The robust procedure tests the full set and then subsets that omit at most one signature; it is not designed to correct arbitrary numbers of wrong prefixes. The raw and aggregated results are provided in \path{results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds.csv} and \path{results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds-summary.csv}.
+These figures describe only the specified synthetic leakage model, noise level, sample count, and seed range. They are not a 90\% recovery claim for physical power traces or arbitrary ECDSA implementations. The robust procedure tests the full set and then subsets that omit at most one signature; it is not designed to correct arbitrary numbers of wrong prefixes. The raw and aggregated results are provided in \path{results/synthetic/HW/tables/comparison-100-seeds.csv} and \path{results/synthetic/HW/tables/comparison-100-seeds-summary.csv}.
 
 \section{Additional Experimental Validation}
 \label{sec:additional-validation}

@@ -16,13 +16,13 @@ Proiectul leagă două direcții care se întâlnesc în aceeași problemă: par
 
 Validarea matematică existentă este împărțită în două grupuri de artefacte. `bridge_results.json` conține patru verificări numerice, iar `diophantine_results.json` conține încă cinci. Aceste rezultate documentează separat verificările matematice și nu sunt confundate cu recuperarea cheii prin atacul HNP.
 
-Artefactele rulării de referință înregistrează `PASS` pentru lanțul CNN → HNP pe instanța sintetică de bază, cu backend `fpylll` și cheia verificată față de ground truth. Acest statut descrie acea instanță. Sweep-ul separat agregă 100 de seed-uri pentru fiecare dintre cele 20 de configurații; rata de recuperare CNN → HNP variază cu numărul de biți și nivelul zgomotului. Valorile sunt păstrate în `results/tables/cnn-hnp-parameter-sweep-summary.csv` și rezumate în `docs/project-summary.md`.
+Artefactele rulării de referință înregistrează `PASS` pentru lanțul CNN → HNP pe instanța sintetică de bază, cu backend `fpylll` și cheia verificată față de ground truth. Acest statut descrie acea instanță. Sweep-ul separat agregă 100 de seed-uri pentru fiecare dintre cele 20 de configurații; rata de recuperare CNN → HNP variază cu numărul de biți și nivelul zgomotului. Valorile sunt păstrate în `results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv` și rezumate în `docs/project-summary.md`.
 
 ## Experimente cantitative
 
 `informatica/experiments/benchmark_cnn_hnp_surface.py` evaluează acuratețea CNN și recuperarea HNP pentru 20 de configurații. Sweep-ul disponibil folosește 100 de seed-uri, de la `1000` la `1099`, 100 de epoci, `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`.
 
-Tabelul detaliat este `results/tables/cnn-hnp-parameter-sweep.csv`, rezumatul agregat este `results/tables/cnn-hnp-parameter-sweep-summary.csv`, iar pragurile oracle sunt în `results/tables/hnp-oracle-thresholds.csv`.
+Tabelul detaliat este `results/synthetic/HW/tables/cnn-hnp-parameter-sweep.csv`, rezumatul agregat este `results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv`, iar pragurile oracle sunt în `results/synthetic/shared/tables/hnp-oracle-thresholds.csv`.
 
 ## Limita matematică
 

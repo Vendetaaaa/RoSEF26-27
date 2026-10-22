@@ -54,17 +54,18 @@ Pentru a reproduce configurațiile salvate, rulează din rădăcina repository-u
 
 ```bash
 python informatica/experiments/benchmark_cnn_hnp_surface.py \
+  --leakage-mode HW \
   --leaked-bits 8 10 12 14 \
   --sigmas 0 0.05 0.10 0.15 0.20 \
   --sample-counts 40 \
   --seeds $(seq 1000 1099) \
   --epochs 100 \
-  --output results/tables/cnn-hnp-parameter-sweep.csv
+  --output results/synthetic/HW/tables/cnn-hnp-parameter-sweep.csv
 ```
 
-Execuția de referință cere `fpylll`. Comanda scrie `results/tables/cnn-hnp-parameter-sweep.csv` și rezumatul agregat `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+Execuția de referință cere `fpylll`. Comanda scrie `results/synthetic/HW/tables/cnn-hnp-parameter-sweep.csv` și rezumatul agregat `results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
-`results/tables/hnp-oracle-thresholds.csv` păstrează verificarea oracle pentru 400 de combinații. Valorile cheilor private recuperate sunt redactate.
+`results/synthetic/shared/tables/hnp-oracle-thresholds.csv` păstrează verificarea oracle pentru 400 de combinații. Valorile cheilor private recuperate sunt redactate.
 
 ## CI
 
@@ -90,84 +91,13 @@ python informatica/ECDSA/main.py --require-fpylll
 
 și trebuie verificat rezultatul produs în `informatica/artifacts/hnp_result.json`.
 
-## Reproducerea experimentelor temporale suplimentare
+## Rezultate temporale și modele alternative
 
-Experimentele temporale folosesc 160 de exemple ECDSA,
-cu un split fix: 96 train, 24 validation și 40 test.
+Modelul temporal și modelul HD au acum directoare distincte în `results/synthetic/TEMPORAL/` și `results/synthetic/HD/`. Arhiva curentă nu include CSV-uri de benchmark complete pentru aceste două modele, deci nu le raportăm ca rezultate obținute. Benchmark-urile pot fi regenerate separat:
 
-Cele 100 de seed-uri (1400–1499) controlează zgomotul
-și inițializările CNN. Datasetul și cheia privată
-rămân aceleași. Aceste repetări nu reprezintă
-100 de chei private independente.
+```bash
+python informatica/experiments/benchmark_cnn_hnp_surface.py --leakage-mode HD
+python informatica/experiments/benchmark_cnn_hnp_surface.py --leakage-mode TEMPORAL
+```
 
-### Scripturi experimentale
-
-- `informatica/experiments/temporal_leakage_model.py`
-- `informatica/experiments/temporal_viterbi.py`
-- `informatica/experiments/benchmark_temporal_100.py`
-- `informatica/experiments/benchmark_cnn_confidence_100.py`
-- `informatica/experiments/benchmark_hnp_error_sensitivity.py`
-
-### Fișiere cu rezultate
-
-- `results/validation/temporal-leakage/temporal-multiseed-100.csv`
-- `results/validation/cnn-confidence-hnp/confidence-selection-100.csv`
-- `results/validation/hnp-error-sensitivity/hnp-error-sensitivity.csv`
-
-### Precizări metodologice
-
-Decodorul Viterbi cunoaște coeficienții modelului
-temporal și reprezintă un baseline informat.
-
-Selecția după încrederea CNN îmbunătățește
-acuratețea prefixelor, dar nu garantează
-recuperarea cheii private.
-
-Experimentul de sensibilitate HNP folosește
-prefixe oracle cu erori introduse controlat.
-Rezultatele descriu configurațiile testate,
-nu o limită teoretică universală.
-
-Reproducerea integrală necesită verificarea
-dependențelor, a datasetului de intrare și
-a disponibilității datelor oracle necesare
-experimentelor. Nu publicați valori private
-sau nonce-uri secrete fără verificare.
-
-### Verificarea testelor
-
-Comandă: PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider
-
-Verificarea modificărilor: git diff --check
-
-## Regenerarea deterministă a datasetului oracle
-
-Datasetul ECDSA utilizat în experimente poate fi regenerat
-determinist folosind `informatica/ECDSA/dataset_generator3.py`.
-
-Parametrii datasetului de referință sunt:
-
-- Curba: secp256k1.
-- Număr de semnături: 160.
-- Biți MSB cunoscuți: 12.
-- Seed generator: `20260919`.
-
-Verificarea efectuată a confirmat că datasetul public regenerat
-este identic cu cel existent și că toate cele 160 de nonce-uri
-regenerate coincid cu oracle-ul experimental original.
-
-Datasetul oracle public are nonce-urile redactate. Pentru
-rularea benchmarkurilor care necesită ground truth, se poate
-genera local un oracle numeric și se poate indica fișierul
-prin variabila de mediu `ROSEF_ORACLE_DATASET`.
-
-Nu se recomandă rularea directă a pipeline-ului principal
-pentru această operație, deoarece acesta poate suprascrie
-artefactele existente în `informatica/artifacts/`.
-
-Generatorul utilizează un seed determinist, nu un generator
-criptografic de numere aleatoare. Cheia privată și nonce-urile
-sunt date sintetice reproductibile, nu secrete criptografice
-reale. Reproducerea exactă a datasetului a fost verificată;
-reluarea integrală a tuturor benchmarkurilor după modificările
-de cod nu a fost încă verificată.
+Rezultatele se salvează în directorul modelului selectat și includ coloana `leakage_model`. O comparație validă între modele cere aceleași seed-uri, split-uri, zgomot și configurație CNN/HNP; rezultatele istorice HW nu trebuie tratate drept metrici ale modelului temporal.

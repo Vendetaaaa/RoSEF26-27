@@ -38,6 +38,6 @@ Când aceeași verificare este realizată cu SymPy în mediul de dezvoltare, rez
 
 Fișierul `informatica/experiments/benchmark_cnn_hnp_surface.py` a produs sweep-ul cu `ell` în `{8, 10, 12, 14}`, `sigma` în `{0, 0.05, 0.10, 0.15, 0.20}`, `m = 40` și 100 de seed-uri, de la `1000` la `1099`. Fiecare configurație rulează 100 de epoci.
 
-Rezultatele detaliate sunt în `results/tables/cnn-hnp-parameter-sweep.csv`, iar agregările pe cele 20 de configurații sunt în `results/tables/cnn-hnp-parameter-sweep-summary.csv`. Rezultatele oracle sunt în `results/tables/hnp-oracle-thresholds.csv`, fără valori de chei private publicate.
+Rezultatele detaliate sunt în `results/synthetic/HW/tables/cnn-hnp-parameter-sweep.csv`, iar agregările pe cele 20 de configurații sunt în `results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv`. Rezultatele oracle sunt în `results/synthetic/shared/tables/hnp-oracle-thresholds.csv`, fără valori de chei private publicate.
 
 Ratele de recuperare diferă între configurații. Un rezultat de recuperare fals înseamnă că acea configurație nu a recuperat cheia, nu că testul software al pipeline-ului a eșuat.
