@@ -16,29 +16,30 @@
 
 ## Structura proiectului:
 
-### Pentru a vedea structura completă accesează: [ARCHITECTURE.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/ARCHITECTURE.md)
-
 ```text
-📁 RoSEF26-27/
-├── 📁 .github/
-├── 📁 docs/
-├── 📁 informatica/
-├── 📁 matematica/
-├── 📁 misc/
-├── 📁 notebooks/
-├── 📁 papers/
-├── 📁 results/
-├── 📁 tests/
-├── 📁 website/
-├── 📄 .gitignore
-├── 📄 ARCHITECTURE.md
-├── 📄 CITATION.cff
-├── 📄 LICENSE (MIT)
-├── 📄 README.md - YOU ARE HERE 🙌
-├── 📄 Q&A.txt
-└── 📄 requirements.txt
-
-Pentru mai multe informații accesați README.md din fiecare folder
+RoSEF26-27/
+├── .github/
+│   └── workflows/
+├── docs/
+├── informatica/
+├── matematica/
+├── misc/
+├── notebooks/
+├── papers/
+├── results/
+├── tests/
+├── tools/
+│   └── rosef/
+├── website/
+├── .gitignore
+├── ARCHITECTURE.md
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── LICENSE
+├── Q&A.txt
+├── README.md
+├── SECURITY.md
+└── requirements.txt
 ```
 
 ### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
