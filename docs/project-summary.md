@@ -59,7 +59,7 @@ Pentru configurația de bază (`sigma = 0.15`), rularea de referință cu
 100 de epoci a obținut 99,65% acuratețe pe bit și 95,83% acuratețe pe
 prefix pe validation, respectiv 100,00% și 100,00% pe test (40/40).
 
-Pentru evaluarea cantitativă, proiectul a rulat 20 de configurații: `ell ∈ {8, 10, 12, 14}`, `sigma ∈ {0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`. Fiecare configurație agregă 100 de seed-uri, de la `1000` la `1099`, cu 100 de epoci de antrenare. Rezultatele sunt în `results/tables/cnn-hnp-parameter-sweep-summary.csv`.
+Pentru evaluarea cantitativă, proiectul a rulat 20 de configurații: `ell ∈ {8, 10, 12, 14}`, `sigma ∈ {0, 0.05, 0.10, 0.15, 0.20}` și `m = 40`. Fiecare configurație agregă 100 de seed-uri, de la `1000` la `1099`, cu 100 de epoci de antrenare. Rezultatele sunt în `results/synthetic/HW/tables/cnn-hnp-parameter-sweep-summary.csv`.
 
 ## 4. HNP și LLL
 
@@ -142,10 +142,13 @@ corecte, recuperarea cheii și încercările HNP robuste.
 
 Fișierele experimentale sunt disponibile în:
 
-- `results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds.csv`
-- `results/validation/ensemble-robust-100-seeds/rosef-comparison-100-seeds-summary.csv`
+- `results/synthetic/HW/tables/comparison-100-seeds.csv`
+- `results/synthetic/HW/tables/comparison-100-seeds-summary.csv`
 
 ## Validare suplimentară: model temporal și sensibilitatea HNP
+
+Valorile de mai jos sunt păstrate separat în [`results/synthetic/TEMPORAL/summary.md`](../results/synthetic/TEMPORAL/summary.md). Arhiva nu include CSV-urile brute sau scripturile originale pentru reproducerea acestor valori; ele trebuie tratate ca rezumat documentat, nu ca benchmark reproductibil complet.
+
 
 Modelul temporal sintetic folosește relația:
 L_i = 0.2*b_i + 0.6*b_(i-1) + 0.2*b_(i-2) + epsilon_i,
