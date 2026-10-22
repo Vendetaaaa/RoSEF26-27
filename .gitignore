@@ -174,15 +174,15 @@ experiments/runs/
 
 
 
-results/tmp/
-results/cache/
-results/raw/
+results/**/tmp/
+results/**/cache/
 
-# Temporary plots
-results/figures/tmp/
+# Keep the checked-in raw HW validation data despite the global *.npz ignore.
+!results/synthetic/HW/raw/trace-validation-100.npz
 
-# Temporary CSV exports
-results/tables/tmp/
+# Temporary result exports
+results/**/figures/tmp/
+results/**/tables/tmp/
 
 
 
