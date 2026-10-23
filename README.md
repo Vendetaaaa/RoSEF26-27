@@ -94,6 +94,8 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 
 ### #HappyCoding
 
+> Notă importantă, de acum, anumite informații legate de succesul acestui pipeline va fi ținut drept "secret" pentru a preveni anumite probleme / erori; citiți docs/some-results.md pentru mai multe detalii.
+
 </div>
 
 ---
