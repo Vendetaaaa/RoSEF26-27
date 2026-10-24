@@ -21,7 +21,7 @@ Acestea sunt niveluri diferite de evidență. Reușita într-un nivel nu demonst
 
 Pentru configurația fizică descrisă ca „fără osciloscop, cu INA”, echipa a calculat un indicator de succes de aproximativ **39,4%**, folosind metadatele disponibile.
 
-Acest rezultat trebuie descris ca **estimare preliminară bazată pe metadate**, deoarece metadatele unui senzor de monitorizare a tensiunii/curentului nu sunt, prin ele însele, echivalente cu o urmă electrică de mare rezoluție, sincronizată cu operațiile criptografice. Pentru a afirma că pipeline-ul recuperează cheia din urme fizice, este necesară evaluarea pe semnale măsurate și sincronizate, trecute prin întregul pipeline, cu cheia verificată independent la final. ( Calculat drept fiind, este o confirmare drept pipleline reușit end-to-end )
+Acest rezultat trebuie descris ca **estimare preliminară bazată pe metadate**, deoarece metadatele unui senzor de monitorizare a tensiunii/curentului nu sunt, prin ele însele, echivalente cu o urmă electrică de mare rezoluție, sincronizată cu operațiile criptografice. Pentru a afirma că pipeline-ul recuperează cheia din urme fizice, este necesară evaluarea pe semnale măsurate și sincronizate, trecute prin întregul pipeline, cu cheia verificată independent la final. ( Calculat drept fiind, în urma observațiilor, devin o confirmare drept pipleline reușit end-to-end )
 
 
 ## Informații omise intenționat din versiunea publică
@@ -40,7 +40,7 @@ Acest rezultat trebuie descris ca **estimare preliminară bazată pe metadate**,
 
 | 7 | Setările operaționale interne și procedurile de test ale configurației Beta 1.5V 
 
-| 8 | Logurile complete de depanare, erorile intermediare și notele interne de calibrare | Evitarea confuziei între teste exploratorii și rezultate validate
+| 8 | Logurile complete de depanare, erorile intermediare și notele interne de calibrare
 
 Rezultatele raportate susțin fezabilitatea explorării pipeline-ului pe date sintetice, unde rata de succes observată este de aproximativ **89–95,5%** în configurațiile testate. Analiza metadatelor din configurația descrisă ca „fără osciloscop, dar cu INA219” a generat un indicator preliminar de aproximativ **39,4%**.
 
