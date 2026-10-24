@@ -103,8 +103,8 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 **Vrei să ne susții? Ai mai multe opțiuni!**
 1. "Star" sau "Watch" acest proiect!
 2. Follow [Vendeta](https://github.com/Vendetaaaa) și [RaresInsine](https://github.com/RaresInsine)
-3. Partajează acest proiect prin link-ul: https://github.com/Vendetaaaa/RoSEF26-27
-4. Partajează acest proiect prin website-ul: https://leakon.tech/
+3. Partajează acest proiect prin link-ul: [Github](https://github.com/Vendetaaaa/RoSEF26-27)
+4. Partajează acest proiect prin website-ul: [Leakon](https://leakon.tech/)
 5. Partajează codurile QR!
 
 <p align="center">
