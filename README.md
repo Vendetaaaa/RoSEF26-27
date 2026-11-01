@@ -115,6 +115,10 @@ Scopul acestei etape este de a verifica dacă teoria poate fi realitate.
 
 <p align="center">
     <img src="misc/QR-github.svg" width="25%" alt="CodeQR1" />
-    <img src="misc/Team2.jpg" width="38%" alt="TEAM" />
+    <img src="misc/Team2.jpg" width="37%" alt="TEAM" />
     <img src="misc/QR-leakon.svg" width="25%" alt="CodeQR2" />
+</p>
+
+<p align="center">
+    <img src="misc/Team3.jpg" width=180px alt="TEAMM" />
 </p>
