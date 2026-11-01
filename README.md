@@ -6,7 +6,8 @@
     <img src="misc/LEAKON.png" height="250" alt="LEAKON" />
 </p>
 
-### [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
+### Contribuitori:
+RoSEF 2026: [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
 
 ### [Showroom LEAKON](https://leakon.tech/)
 
