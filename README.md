@@ -7,7 +7,7 @@
 </p>
 
 ### Contribuitori:
-RoSEF 2026: [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine)
+RoSEF 2026: [Henea Rareș](https://github.com/Vendetaaaa) & [Stadler Rareș](https://github.com/RaresInsine) - premiul I, medalie de aur
 
 ### [Showroom LEAKON](https://leakon.tech/)
 
@@ -44,12 +44,6 @@ RoSEF26-27/
 ```
 
 ### Etica proiectului se poate găsii în [docs/ethics.md](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/docs/ethics.md)
-
----
-
-### Rezultate:
-
-RoSEF 2026 - Locul I, medalie de aur
 
 ---
 
