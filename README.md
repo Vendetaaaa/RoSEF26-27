@@ -46,6 +46,12 @@ RoSEF26-27/
 
 ---
 
+## Rezultate:
+
+RoSEF 2026 - Locul I, medalie de aur
+
+---
+
 # Ideea centrală
 
 Proiectul de cercetare "arithmetic_concurrence" din [papers/arithmetic_concurrence.pdf](https://github.com/Vendetaaaa/RoSEF26-27/blob/main/papers/arithmetic_concurrence.pdf) demonstrează două teoreme exacte despre concurența a k
