@@ -1,6 +1,6 @@
 <div align="center">
 
-# Proiect de Cercetare și Inovație pentru RoSEF 2026–2027
+# Proiect de Cercetare și Inovație
 
 <p align="center">
     <img src="misc/LEAKON.png" height="250" alt="LEAKON" />
