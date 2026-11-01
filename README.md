@@ -46,7 +46,7 @@ RoSEF26-27/
 
 ---
 
-## Rezultate:
+### Rezultate:
 
 RoSEF 2026 - Locul I, medalie de aur
 
